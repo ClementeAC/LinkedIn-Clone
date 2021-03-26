@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
+import Ionicons from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -9,11 +11,10 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import Icon from "@expo/vector-icons/AntDesign";
 import styles from "./register.css";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default class Register extends React.Component {
+
+export default class register extends React.Component {
   constructor(props) {
     super(props);
 
@@ -34,8 +35,6 @@ export default class Register extends React.Component {
 
     this.props.navigation.replace("Home");
     try {
-      console.log("estas dentroo");
-      console.log(res.data[0]);
       await AsyncStorage.setItem("user", JSON.stringify(res.data[0]));
       this.props.navigation.replace("Home");
     } catch (e) {
@@ -66,7 +65,7 @@ export default class Register extends React.Component {
           </Text>
 
           <View style={styles.input}>
-            <Icon name="user" color="#d8412e" size={24} />
+            <Ionicons name="user" color="#d8412e" size={24} />
             <TextInput
               placeholder="Username"
               placeholderTextColor="#d8412e"
@@ -75,7 +74,7 @@ export default class Register extends React.Component {
             />
           </View>
           <View style={styles.input}>
-            <Icon name="mail" color="#d8412e" size={24} />
+            <Ionicons name="mail" color="#d8412e" size={24} />
             <TextInput
               placeholder="E-mail"
               placeholderTextColor="#d8412e"
@@ -84,7 +83,7 @@ export default class Register extends React.Component {
             />
           </View>
           <View style={styles.input}>
-            <Icon name="exclamationcircleo" color="#d8412e" size={24} />
+            <Ionicons name="exclamationcircleo" color="#d8412e" size={24} />
             <TextInput
               secureTextEntry
               placeholder="Password"
@@ -94,7 +93,7 @@ export default class Register extends React.Component {
             />
           </View>
           <View style={styles.input}>
-            <Icon name="exclamationcircleo" color="#d8412e" size={24} />
+            <Ionicons name="exclamationcircleo" color="#d8412e" size={24} />
             <TextInput
               secureTextEntry
               placeholder="Confirm Password"

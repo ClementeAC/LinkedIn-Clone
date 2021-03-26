@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Ionicons from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -8,9 +10,8 @@ import {
   Alert,
   Button,
 } from "react-native";
-import Icon from "@expo/vector-icons/AntDesign";
 import styles from "./profile.css";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default class profile extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +27,12 @@ export default class profile extends React.Component {
   }
 
   componentDidMount() {
-    this.getUser();
+    //this.getUser();
+    this.setState({
+      username: "Clemente",
+      email: "clecli@gmail.com",
+      id: 0,
+    });
   }
 
   getUser = async () => {
@@ -163,7 +169,7 @@ export default class profile extends React.Component {
             <Text style={{ color: "gray", marginBottom: 30 }}>
               {this.state.email}
             </Text>
-            <Icon
+            <Ionicons
               name="user"
               color="#d8412e"
               size={24}

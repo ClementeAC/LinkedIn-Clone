@@ -8,9 +8,6 @@ import main from "./app/main";
 import profile from "./app/profile/profile";
 import login from "./app/login/login";
 import register from "./app/register/register";
-import inbox from "./app/inbox/inbox";
-import tags from "./app/tags/tags";
-import task from "./app/task/task";
 import Img from "./app/utils/img";
 import notifications from "./app/utils/notifications";
 
@@ -20,8 +17,12 @@ export default function App({ navigation }) {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="notifications" component={notifications} />
+        <Stack.Screen name="Home" component={main} />
+        <Stack.Screen name="Profile" component={profile} />
+        <Stack.Screen name="Login" component={login} />
+        <Stack.Screen name="Register" component={register} />
         <Stack.Screen name="Img" component={Img} />
+        <Stack.Screen name="Notifications" component={notifications} />
       </Stack.Navigator>
     </NavigationContainer>
   );

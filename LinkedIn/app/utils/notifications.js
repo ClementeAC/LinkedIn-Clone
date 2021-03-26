@@ -47,12 +47,6 @@ export default function notifications({ navigation }) {
           await schedulePushNotification();
         }}
       />
-      <Button
-        title="images"
-        onPress={() => {
-        navigation.navigate("Img");
-      }}
-      />
     </View>
   );
 }
@@ -64,7 +58,7 @@ async function schedulePushNotification() {
       body: 'Exitosa',
       data: { data: 'data' },
     },
-    trigger: { seconds: 1, repeats: true },
+    trigger: { seconds: 1 },
   });
 }
 

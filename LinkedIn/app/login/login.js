@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
+import Ionicons from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -12,7 +13,6 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
 } from "react-native";
-import Icon from "@expo/vector-icons/AntDesign";
 import styles from "./login.css";
 
 export default class login extends React.Component {
@@ -103,7 +103,7 @@ export default class login extends React.Component {
           </Text>
 
           <View style={styles.input}>
-            <Icon name="user" color="#d8412e" size={24} />
+            <Ionicons name="user" color="#d8412e" size={24} />
             <TextInput
               placeholder="Username"
               placeholderTextColor="#d8412e"
@@ -112,7 +112,7 @@ export default class login extends React.Component {
             />
           </View>
           <View style={styles.input}>
-            <Icon name="exclamationcircleo" color="#d8412e" size={24} />
+            <Ionicons name="exclamationcircleo" color="#d8412e" size={24} />
             <TextInput
               secureTextEntry
               placeholder="Password"
