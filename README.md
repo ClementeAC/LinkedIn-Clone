@@ -1,4 +1,4 @@
-# Node.js Express y MongoDB. 🛠️
+# Node.js Express y PostgreSQL. 🛠️
 * **CRUD Rest API to connect React Native mobile app.**
 
 ## Install using npm 🔧:
@@ -12,5 +12,5 @@ Yarn add
 
 ### 🚀 Run with: 
 ```
-node server.js
+node src/index.js
 ```
