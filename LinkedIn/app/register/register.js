@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
-import Ionicons from "@expo/vector-icons";
+import {Ionicons, AntDesign} from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -57,47 +57,46 @@ export default class register extends React.Component {
             source={require("../../assets/fondo.png")}
             style={styles.image}
           />
-          <Text style={styles.text1}>Get things done!</Text>
+          <Text style={styles.text1}>Get connected!</Text>
 
           <Text style={styles.text2}>
-            Listical is an app for people who want to get things done. In an
-            elegant way and with no delays.
+          x-app is an app to help you build and find connections with people that you work in the same field as you!
           </Text>
 
           <View style={styles.input}>
-            <Ionicons name="user" color="#d8412e" size={24} />
+            <AntDesign name="user" color="#75FF95" size={24} />
             <TextInput
               placeholder="Username"
-              placeholderTextColor="#d8412e"
+              placeholderTextColor="#75FF95"
               style={{ paddingHorizontal: 70 }}
               onChangeText={(username) => this.setState({ username: username })}
             />
           </View>
           <View style={styles.input}>
-            <Ionicons name="mail" color="#d8412e" size={24} />
+            <AntDesign name="mail" color="#75FF95" size={24} />
             <TextInput
               placeholder="E-mail"
-              placeholderTextColor="#d8412e"
+              placeholderTextColor="#75FF95"
               style={{ paddingHorizontal: 82 }}
               onChangeText={(email) => this.setState({ email: email })}
             />
           </View>
           <View style={styles.input}>
-            <Ionicons name="exclamationcircleo" color="#d8412e" size={24} />
+            <AntDesign name="exclamationcircleo" color="#75FF95" size={24} />
             <TextInput
               secureTextEntry
               placeholder="Password"
-              placeholderTextColor="#d8412e"
+              placeholderTextColor="#75FF95"
               style={{ paddingHorizontal: 70 }}
               onChangeText={(password) => this.setState({ password: password })}
             />
           </View>
           <View style={styles.input}>
-            <Ionicons name="exclamationcircleo" color="#d8412e" size={24} />
+            <AntDesign name="exclamationcircleo" color="#75FF95" size={24} />
             <TextInput
               secureTextEntry
               placeholder="Confirm Password"
-              placeholderTextColor="#d8412e"
+              placeholderTextColor="#75FF95"
               style={{ paddingHorizontal: 48 }}
               onChangeText={(confirmPassword) =>
                 this.setState({ confirmPassword: confirmPassword })
