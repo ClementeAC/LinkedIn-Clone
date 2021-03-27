@@ -44,6 +44,7 @@ export default class register extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+
     return (
       <KeyboardAvoidingView
         keyboardVerticalOffset={70}
