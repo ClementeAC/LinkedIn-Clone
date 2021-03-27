@@ -2,23 +2,27 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFF",
+    backgroundColor: "#000",
     height: "100%",
   },
   image: {
-    width: "100%",
+    marginTop: 10,
     height: "20%",
+    width: "78%",
+    alignSelf: "center"
   },
   text1: {
     marginTop: 40,
     fontSize: 30,
     alignSelf: "center",
+    color: "#fff"
   },
   text2: {
     marginHorizontal: 55,
     textAlign: "center",
     marginVertical: 5,
     opacity: 0.4,
+    color: "#DCDCD3"
   },
   input: {
     flexDirection: "row",
@@ -27,7 +31,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginTop: 15,
     paddingHorizontal: 10,
-    borderColor: "#d8412e",
+    borderColor: "#75FF95",
     borderRadius: 23,
     paddingVertical: 2,
   },
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    backgroundColor: "#d8412e",
+    backgroundColor: "#75FF95",
     paddingVertical: 13,
     borderRadius: 23,
     height: 40,
@@ -49,7 +53,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    backgroundColor: "#ad3425",
+    backgroundColor: "#397D44",
     paddingVertical: 13,
     borderRadius: 23,
     height: 40,
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
   },
   buttonNavigation: {
     alignSelf: "center",
-    color: "#d8412e",
+    color: "#75FF95",
   },
 });
 
