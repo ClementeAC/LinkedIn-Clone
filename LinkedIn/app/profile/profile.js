@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Ionicons from "@expo/vector-icons";
+import {Ionicons, AntDesign} from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -169,7 +169,7 @@ export default class profile extends React.Component {
             <Text style={{ color: "gray", marginBottom: 30 }}>
               {this.state.email}
             </Text>
-            <Ionicons
+            <AntDesign
               name="user"
               color="#d8412e"
               size={24}
