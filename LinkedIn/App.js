@@ -17,9 +17,9 @@ export default function App({ navigation }) {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Login" component={login} />
         <Stack.Screen name="Home" component={main} />
         <Stack.Screen name="Profile" component={profile} />
-        <Stack.Screen name="Login" component={login} />
         <Stack.Screen name="Register" component={register} />
         <Stack.Screen name="Img" component={Img} />
         <Stack.Screen name="Notifications" component={notifications} />
