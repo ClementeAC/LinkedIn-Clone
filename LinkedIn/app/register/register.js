@@ -23,7 +23,7 @@ export default class register extends React.Component {
 
     this.state = {
       loading: false,
-      verify: true,
+      verify: false,
       code: "",
       username: "",
       password: "",
