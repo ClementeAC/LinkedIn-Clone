@@ -118,7 +118,7 @@ const deleteCode = async (req, res) => {
   const client = await pool.connect();
   try{
     const id = parseInt(req.params.id);
-    await client.query(query.deleteUser, [ id ]);
+    await client.query(query.deleteCode, [ id ]);
     res.status(200).json(id);
   }catch{
     res.status(505);
