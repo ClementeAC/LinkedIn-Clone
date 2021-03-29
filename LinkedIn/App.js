@@ -88,7 +88,6 @@ function MenuRoute({ navigation }) {
 
   const optionsNavigatorOut = ({ navigation }, Title) => ({
     headerTitle: Title,
-    headerLeft: () => LogoMenu({ navigation }),
     headerStyle: {
       backgroundColor: 'blue',
     },
