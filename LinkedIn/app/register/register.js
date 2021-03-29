@@ -184,13 +184,14 @@ export default class register extends React.Component {
           </View>
           <TouchableOpacity
             onPress={() => this.verifyPhone()}
-            disabled={(this.state.username == "") && (this.state.password == "")}
+            disabled={(this.state.username == "") | (this.state.password == "") | (this.state.password == "") | (this.state.email == "") | (this.state.phone == "") | (this.state.confirmPassword == "") | (this.state.password != this.state.confirmPassword) }
             style={
-              this.state.username == "" &&
-              this.state.password == "" &&
-              this.state.email == "" &&
-              this.state.phone == "" &&
-              this.state.confirmPassword == ""
+              this.state.username == "" |
+              this.state.password == "" |
+              this.state.email == "" |
+              this.state.phone == "" |
+              this.state.confirmPassword == "" |
+              this.state.password != this.state.confirmPassword
                 ? styles.buttonRegisterDisabled
                 : styles.buttonRegister
             }
