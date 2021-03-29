@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
-  Alert
+  Alert,
+  ActivityIndicator
 } from "react-native";
 import styles from "./register.css";
 
@@ -22,7 +23,7 @@ export default class register extends React.Component {
 
     this.state = {
       loading: false,
-      verify: false,
+      verify: true,
       code: "",
       username: "",
       password: "",
@@ -39,10 +40,8 @@ export default class register extends React.Component {
       email: this.state.email,
       password: this.state.password,
       phone: this.state.phone,
-    }).then( () => {
-      this.props.navigation.replace("Home");
     });
-
+    this.props.navigation.replace("Home");
     try {
       await AsyncStorage.setItem("user", JSON.stringify(res.data[0]));
       this.props.navigation.replace("Home");
@@ -57,17 +56,13 @@ export default class register extends React.Component {
     const res = await axios.post("https://linckedin.herokuapp.com/api/users/code/", {
       phone: "+58" + this.state.phone.toString()
     });
-    Alert.alert(res.data);
   }
 
   verifyCode = async () => {
-    await axios.delete("https://linckedin.herokuapp.com/api/users/code/")
-    .then( (res) => {
-      Alert.alert(res.data);
-      if(res.data != 0){
-        this.register();
-      }
-    });
+    const res = await axios.delete("https://linckedin.herokuapp.com/api/users/code/"+ this.state.code);
+    if(res.data != 0){
+      this.register();
+    }
   }
 
   render() {
