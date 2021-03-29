@@ -10,7 +10,7 @@ const sms = async (phone, code) => {
     client.messages.create({
         to: phone,
         from: process.env.MY_PHONE,
-        body: 'Tu codigo de verificacion es: ' + code
+        body: 'Mensaje: Tu codigo de verificacion es: ' + code
     }).then(message=>{
         console.log(message.sid);
     }).catch(error=>{

@@ -44,11 +44,12 @@ const getLogin = async (req, res) => {
 const createUser = async (req, res) => {
   const client = await pool.connect();
   try{
-    const { username, email, password, number_phone } = req.body;
+    const { username, email, password, phone } = req.body;
     const response = await client.query(query.createUser, [
       username, 
       email,
-      password
+      password,
+      phone
     ]);
     res.status(200).json(response.rows);
 
@@ -98,13 +99,14 @@ const deleteUser = async (req, res) => {
 const createCode = async (req, res) => {
   const client = await pool.connect();
   try{
+    const { phone } = req.body;
     //generate and send code de verification
     var code = parseInt(Math.random() * (999999 - 100000) + 100000);
     const response = await client.query(query.createCode, [
       code
     ]);
     res.status(200).json(response.rows);
-    sms( number_phone, 'Verification code is: ' + response.rows[0].verification_code );
+    sms( phone, response.rows[0].verification_code );
   }catch{
     res.status(505);
   }finally{
