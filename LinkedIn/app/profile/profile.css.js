@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
       marginHorizontal: 10
     },
 
+    profilePic:{
+      borderRadius: 50,
+
+    },
+
     //boton del medio
     buttonCenter: {
       marginVertical: 7,

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {Ionicons, AntDesign} from "@expo/vector-icons";
+import {Ionicons, AntDesign, MaterialIcons, MaterialCommunityIcons, FontAwesome5, Entypo} from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -9,6 +9,7 @@ import {
   TextInput,
   Alert,
   Button,
+  Image
 } from "react-native";
 import styles from "./profile.css";
 
@@ -18,9 +19,16 @@ export default class profile extends React.Component {
 
     this.state = {
       //loading : false,
-      username: "",
+      name: "",
+      lastName: "",
       password: "",
       email: "",
+      title: "",
+      currentJobTitle: "",
+      country: "",
+      phoneNumber: "",
+      education:[], 
+      skills: [],
       editData: false,
       id: 0,
     };
@@ -29,10 +37,18 @@ export default class profile extends React.Component {
   componentDidMount() {
     //this.getUser();
     this.setState({
-      username: "Clemente",
-      email: "clecli@gmail.com",
+      name: "Clemente",
+      lastName: "Castejón",
+      email: "clementecastejon3@gmail.com",
+      title: "Student at Universidad Rafael Urdaneta",
+      currentJobTitle: "English Teacher at CEVAZ",
+      education: ["Colegio Alemán de Maracaibo", "Universidad Rafael Urdaneta"],
+      skills: ["English", "Spanish", "Web development", "Networking experience"],
+      country: "Venezuela",
+      phoneNumber:"+58 4146551870",
       id: 0,
     });
+    Alert.alert("Perfil de ejemplo")
   }
 
   getUser = async () => {
@@ -159,29 +175,45 @@ export default class profile extends React.Component {
             style={{
               backgroundColor: "white",
               alignItems: "center",
-              paddingBottom: 20,
             }}
           >
-            <Text style={{ color: "gray", marginTop: 5 }}>Signed in as:</Text>
+            <Image source={require("../../assets/63917082.jpg")} style={{width: 125, height: 125, borderRadius:60, resizeMode:"contain", marginTop: 20}}/>
             <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
-              {this.state.username}
+              {this.state.name} {this.state.lastName}
             </Text>
-            <Text style={{ color: "gray", marginBottom: 30 }}>
+            <Text style={{ color: "gray", marginBottom: 2 }}>
               {this.state.email}
             </Text>
-            <AntDesign
-              name="user"
-              color="#d8412e"
-              size={24}
-              style={{ marginBottom: 20 }}
-            />
+            <Text style={{ color: "gray", marginBottom: 10 }}>
+              {this.state.phoneNumber}
+            </Text>
+            <Text style={{ marginBottom: 20, fontWeight:"bold", fontSize: 17}}>
+              {this.state.title}
+            </Text>
+            <MaterialIcons name="work" color="blue" size={24}/>
+            <Text style={{fontWeight:"bold", fontSize:18}}>Current Job Title</Text>
+            <Text style={{marginTop:5, fontSize: 17}}>{this.state.currentJobTitle}</Text>
+            <MaterialIcons name="place" color="blue" size={24} style={{marginTop: 20}}/>
+            <Text style={{fontWeight:"bold", fontSize:18}}>Country of residence</Text>
+            <Text style={{marginTop:5, fontSize: 17}}>{this.state.country}</Text>
+            <FontAwesome5 name="user-graduate" color="blue" size={23} style={{marginTop: 20}}/>
+            <Text style={{fontWeight:"bold", fontSize:18}}>Education</Text>
+            <Text style={{marginTop:5, fontSize: 17}}>{this.state.education[0]}</Text>
+            <Entypo name="dot-single" color="blue" size={15}/>
+            <Text style={{fontSize: 17}}>{this.state.education[1]}</Text>
+            <MaterialIcons name="lightbulb" color="blue" size={24} style={{marginTop: 20}}/>
+            <Text style={{fontWeight:"bold", fontSize:18}}>Skills and Proficiencies</Text>
+            <Text style={{marginTop:5, fontSize: 17}}>{this.state.skills[3]}</Text>
+
+            <View style={{marginTop: 5, marginBottom: 5}}>
             <Button
               title="Edit user data"
               onPress={() => this.setState({ editData: true })}
             ></Button>
+            </View>
           </View>
           <TouchableOpacity
-            style={{ marginVertical: 30 }}
+            style={{ paddingVertical: 15 }}
             onPress={() => this.logout(replace)}
           >
             <Text style={{ color: "#d8412e", alignSelf: "center" }}>
