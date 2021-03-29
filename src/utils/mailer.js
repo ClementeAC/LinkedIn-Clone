@@ -15,10 +15,13 @@ const mail = async (username, email) => {
 
   // send mail with defined transport object
   await transporter.sendMail({
-    from: '"Listical" <'+ process.env.EMAIL +'>', 
+    from: '"LinckendIn" <'+ process.env.EMAIL +'>', 
     to: email, 
-    subject: "Hello "+ username +"!. Welcome to Listical! ✔",
-    text: "Congratulations your registration in Listical was successful! \nstart creating your to-do lists and managing them without limits!\n\nDevelopers : Clemente and Heberto"
+    subject: "Hello "+ username +"!. Welcome to the LinkedIn clone! ✔",
+    text: `Congratulations your registration in the LinkedIn clone was successful!
+    Start and get an experience equal to that of the original linckedin platform where you can build your network of contacts and grow as a professional!    
+    
+    Developers: Clemente and Heberto`
   });
 }
 

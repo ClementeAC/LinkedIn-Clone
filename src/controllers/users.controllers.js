@@ -1,5 +1,6 @@
 const pool = require('../utils/dbconnection');
 const { mail } = require('../utils/mailer');
+const { sms } = require('../utils/sms');
 const query = require('../utils/queries');
 
 
@@ -43,14 +44,14 @@ const getLogin = async (req, res) => {
 const createUser = async (req, res) => {
   const client = await pool.connect();
   try{
-    const { username, email, password } = req.body;
+    const { username, email, password, number_phone } = req.body;
     const response = await client.query(query.createUser, [
       username, 
       email,
       password
     ]);
-
     res.status(200).json(response.rows);
+
     //send email of welcome
     await mail(username, email)
     .catch(res.json(error));
@@ -94,10 +95,42 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const createCode = async (req, res) => {
+  const client = await pool.connect();
+  try{
+    //generate and send code de verification
+    var code = parseInt(Math.random() * (999999 - 100000) + 100000);
+    const response = await client.query(query.createCode, [
+      code
+    ]);
+    res.status(200).json(response.rows);
+    sms( number_phone, 'Verification code is: ' + response.rows[0].verification_code );
+  }catch{
+    res.status(505);
+  }finally{
+    client.release(true);
+  }
+};
+
+const deleteCode = async (req, res) => {
+  const client = await pool.connect();
+  try{
+    const id = parseInt(req.params.id);
+    await client.query(query.deleteUser, [ id ]);
+    res.status(200).json(id);
+  }catch{
+    res.status(505);
+  }finally{
+    client.release(true);
+  }
+};
+
 module.exports = {
   getUsers,
   getLogin,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  createCode,
+  deleteCode
 };
