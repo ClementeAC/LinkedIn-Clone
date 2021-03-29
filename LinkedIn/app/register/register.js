@@ -105,7 +105,7 @@ export default class register extends React.Component {
           </View>
           <View style={styles.input}>
             <AntDesign name="phone" color="#75FF95" size={24} />
-            <Button title="+58"></Button>
+            <Button title="+58" color="black"></Button>
             <TextInput
               placeholder="Phone"
               placeholderTextColor="#75FF95"
@@ -142,6 +142,7 @@ export default class register extends React.Component {
               this.state.username == "" ||
               this.state.password == "" ||
               this.state.email == "" ||
+              this.state.phone == "" ||
               this.state.confirmPassword == ""
                 ? styles.buttonRegisterDisabled
                 : styles.buttonRegister
