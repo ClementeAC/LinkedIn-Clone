@@ -29,7 +29,7 @@ export default class login extends React.Component {
   }
 
   async componentDidMount() {
-    const value = null;
+    var value = null;
     try {
       value = await AsyncStorage.getItem("user");
       console.log(value);
@@ -107,7 +107,7 @@ export default class login extends React.Component {
             <AntDesign name="user" color="blue" size={24} />
             <TextInput
               placeholder="Username"
-              placeholderTextColor="black"
+              placeholderTextColor="#444"
               style={styles.textInput}
               onChangeText={(username) => this.setState({ username: username })}
             />
@@ -117,7 +117,7 @@ export default class login extends React.Component {
             <TextInput
               secureTextEntry
               placeholder="Password"
-              placeholderTextColor="black"
+              placeholderTextColor="#444"
               style={styles.textInput}
               onChangeText={(password) => this.setState({ password: password })}
             />

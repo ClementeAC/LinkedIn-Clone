@@ -86,22 +86,31 @@ function MenuRoute({ navigation }) {
     headerTintColor: '#fff',
   });
 
+  const optionsNavigatorOut = ({ navigation }, Title) => ({
+    headerTitle: Title,
+    headerLeft: () => LogoMenu({ navigation }),
+    headerStyle: {
+      backgroundColor: 'blue',
+    },
+    headerTintColor: '#fff',
+  });
+
   return (
     <Stack.Navigator>
+        <Stack.Screen name="Login" component={login} 
+          options={({ navigation }) => optionsNavigatorOut({ navigation }, "Login")}
+        />
         <Stack.Screen name="Home" component={main} 
         options={({ navigation }) => optionsNavigator({ navigation }, "Home")}
         />
         <Stack.Screen name="Notifications" component={notifications}
         options={({ navigation }) => optionsNavigator({ navigation }, "Notifications")} 
         />
-        <Stack.Screen name="Login" component={login} 
-        options={({ navigation }) => optionsNavigator({ navigation }, "Login")}
-        />
         <Stack.Screen name="Profile" component={profile} 
         options={({ navigation }) => optionsNavigator({ navigation }, "Profile")}
         />
         <Stack.Screen name="Register" component={register} 
-        options={({ navigation }) => optionsNavigator({ navigation }, "Register")}
+        options={({ navigation }) => optionsNavigatorOut({ navigation }, "Register")}
         />
         <Stack.Screen name="Img" component={Img} 
         options={({ navigation }) => optionsNavigator({ navigation }, "Image")}

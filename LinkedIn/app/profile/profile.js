@@ -9,7 +9,8 @@ import {
   TextInput,
   Alert,
   Button,
-  Image
+  Image,
+  ScrollView
 } from "react-native";
 import styles from "./profile.css";
 
@@ -171,6 +172,7 @@ export default class profile extends React.Component {
     } else {
       return (
         <View>
+          <ScrollView>
           <View
             style={{
               backgroundColor: "white",
@@ -220,6 +222,7 @@ export default class profile extends React.Component {
               Logout
             </Text>
           </TouchableOpacity>
+          </ScrollView>
         </View>
       );
     }
