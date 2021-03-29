@@ -39,7 +39,7 @@ export default class register extends React.Component {
       username: this.state.username,
       email: this.state.email,
       password: this.state.password,
-      phone: this.state.phone,
+      phone: "+58" + this.state.phone,
     });
     this.props.navigation.replace("Home");
     try {
