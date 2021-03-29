@@ -104,20 +104,20 @@ export default class login extends React.Component {
           </Text>
 
           <View style={styles.input}>
-            <AntDesign name="user" color="#75FF95" size={24} />
+            <AntDesign name="user" color="blue" size={24} />
             <TextInput
               placeholder="Username"
-              placeholderTextColor="#75FF95"
+              placeholderTextColor="black"
               style={styles.textInput}
               onChangeText={(username) => this.setState({ username: username })}
             />
           </View>
           <View style={styles.input}>
-            <AntDesign name="exclamationcircleo" color="#75FF95" size={24} />
+            <AntDesign name="exclamationcircleo" color="blue" size={24} />
             <TextInput
               secureTextEntry
               placeholder="Password"
-              placeholderTextColor="#75FF95"
+              placeholderTextColor="black"
               style={styles.textInput}
               onChangeText={(password) => this.setState({ password: password })}
             />

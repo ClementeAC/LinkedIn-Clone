@@ -10,8 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
-  ScrollView,
-  Button
+  ScrollView
 } from "react-native";
 import styles from "./register.css";
 
@@ -86,49 +85,50 @@ export default class register extends React.Component {
           </Text>
 
           <View style={styles.input}>
-            <AntDesign name="user" color="#75FF95" size={24} />
+            <AntDesign name="user" color="blue" size={24} />
             <TextInput
               placeholder="Username"
-              placeholderTextColor="#75FF95"
+              placeholderTextColor="black"
               style={{ paddingHorizontal: 70 }}
               onChangeText={(username) => this.setState({ username: username })}
             />
           </View>
           <View style={styles.input}>
-            <AntDesign name="mail" color="#75FF95" size={24} />
+            <AntDesign name="mail" color="blue" size={24} />
             <TextInput
               placeholder="E-mail"
-              placeholderTextColor="#75FF95"
+              placeholderTextColor="black"
               style={{ paddingHorizontal: 82 }}
               onChangeText={(email) => this.setState({ email: email })}
             />
           </View>
           <View style={styles.input}>
-            <AntDesign name="phone" color="#75FF95" size={24} />
-            <Button title="+58" color="black"></Button>
+            <AntDesign name="phone" color="blue" size={24} />
+            <Text>+58</Text>
             <TextInput
               placeholder="Phone"
-              placeholderTextColor="#75FF95"
+              maxLength={10}
+              placeholderTextColor="black"
               style={{ paddingHorizontal: 82 }}
               onChangeText={(phone) => this.setState({ phone: phone })}
             />
           </View>
           <View style={styles.input}>
-            <AntDesign name="exclamationcircleo" color="#75FF95" size={24} />
+            <AntDesign name="exclamationcircleo" color="blue" size={24} />
             <TextInput
               secureTextEntry
               placeholder="Password"
-              placeholderTextColor="#75FF95"
+              placeholderTextColor="black"
               style={{ paddingHorizontal: 70 }}
               onChangeText={(password) => this.setState({ password: password })}
             />
           </View>
           <View style={styles.input}>
-            <AntDesign name="exclamationcircleo" color="#75FF95" size={24} />
+            <AntDesign name="exclamationcircleo" color="blue" size={24} />
             <TextInput
               secureTextEntry
               placeholder="Confirm Password"
-              placeholderTextColor="#75FF95"
+              placeholderTextColor="black"
               style={{ paddingHorizontal: 48 }}
               onChangeText={(confirmPassword) =>
                 this.setState({ confirmPassword: confirmPassword })

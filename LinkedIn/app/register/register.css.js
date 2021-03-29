@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#000",
+    backgroundColor: "#fff",
     height: "100%",
     paddingBottom: 100
   },
@@ -16,14 +16,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 30,
     alignSelf: "center",
-    color: "#fff"
+    color: "#000"
   },
   text2: {
     marginHorizontal: 55,
     textAlign: "center",
     marginVertical: 5,
     opacity: 0.4,
-    color: "#DCDCD3"
+    color: "#333"
   },
   input: {
     flexDirection: "row",
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginTop: 15,
     paddingHorizontal: 10,
-    borderColor: "#75FF95",
+    borderColor: "blue",
     borderRadius: 23,
     paddingVertical: 2,
   },
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    backgroundColor: "#75FF95",
+    backgroundColor: "blue",
     marginVertical: 10,
     borderRadius: 23,
     height: 40,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    backgroundColor: "#397D44",
+    backgroundColor: "dodgerblue",
     marginVertical: 10,
     borderRadius: 23,
     height: 40,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   buttonNavigation: {
     alignSelf: "center",
-    color: "#75FF95",
+    color: "blue",
   },
 });
 
