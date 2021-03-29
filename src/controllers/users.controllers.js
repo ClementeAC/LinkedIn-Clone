@@ -118,8 +118,8 @@ const deleteCode = async (req, res) => {
   const client = await pool.connect();
   try{
     const id = parseInt(req.params.id);
-    await client.query(query.deleteCode, [ id ]);
-    res.status(200).json(id);
+    const response = await client.query(query.deleteCode, [ id ]);
+    res.status(200).json(response.rowCount);
   }catch{
     res.status(505);
   }finally{
