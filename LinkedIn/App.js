@@ -2,12 +2,13 @@ import "react-native-gesture-handler";
 import * as React from "react"; 
 import {
   TouchableOpacity,
+  Alert
 } from "react-native";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
-  DrawerItem,
+  DrawerItem  
 } from '@react-navigation/drawer';
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -26,7 +27,7 @@ const Drawer = createDrawerNavigator();
 
 function LogoPerfil({ navigation }) {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
       <AntDesign 
       style={{ padding: 6, marginRight: 10 }} name="user" color="#fff" size={24}/>
     </TouchableOpacity>
@@ -47,16 +48,16 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
       <DrawerItem
-        label="Notifications"
-        onPress={() => props.navigation.navigate("Notifications")}
-      />
-      <DrawerItem
-        label="Login"
-        onPress={() => props.navigation.navigate("Login")}
+        label="Home"
+        onPress={() => props.navigation.navigate("Home")}
       />
       <DrawerItem
         label="Profile"
         onPress={() => props.navigation.navigate("Profile")}
+      />
+      <DrawerItem
+        label="Login"
+        onPress={() => props.navigation.navigate("Login")}
       />
       <DrawerItem
         label="Register"
@@ -64,11 +65,11 @@ function CustomDrawerContent(props) {
       />
       <DrawerItem
         label="Image"
-        onPress={() => props.navigation.navigate("Img")}
+        onPress={() => Alert.alert('En construccion') /*props.navigation.navigate("Img")*/}
       />
       <DrawerItem
-        label="Cerrar menu"
-        onPress={() => props.navigation.toggleDrawer()}
+        label="Notifications"
+        onPress={() => Alert.alert('En construccion') /*props.navigation.navigate("Notifications")*/}
       />
     </DrawerContentScrollView>
   );
@@ -77,7 +78,7 @@ function CustomDrawerContent(props) {
 function MenuRoute({ navigation }) {
   const optionsNavigator = ({ navigation }, Title) => ({
     headerTitle: Title,
-    headerLeft: props => LogoMenu({ navigation }),
+    headerLeft: () => LogoMenu({ navigation }),
     headerRight: () => LogoPerfil({ navigation }),
     headerStyle: {
       backgroundColor: 'blue',
@@ -87,8 +88,7 @@ function MenuRoute({ navigation }) {
 
   return (
     <Stack.Navigator>
-        <Stack.Screen 
-        name="Home" component={main} 
+        <Stack.Screen name="Home" component={main} 
         options={({ navigation }) => optionsNavigator({ navigation }, "Home")}
         />
         <Stack.Screen name="Notifications" component={notifications}
@@ -114,38 +114,8 @@ export default function App({ navigation }) {
 return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen name="Home" component={MenuRoute} />
+        <Drawer.Screen name="LinkedIn" component={MenuRoute} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 }
-
-/*import "react-native-gesture-handler";
-import * as React from "react"; 
-
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-
-import main from "./app/main";
-import profile from "./app/profile/profile";
-import login from "./app/login/login";
-import register from "./app/register/register";
-import Img from "./app/utils/img";
-import notifications from "./app/utils/notifications";
-
-const Stack = createStackNavigator();
-
-export default function App({ navigation }) {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={login} />
-        <Stack.Screen name="Home" component={main} />
-        <Stack.Screen name="Profile" component={profile} />
-        <Stack.Screen name="Register" component={register} />
-        <Stack.Screen name="Img" component={Img} />
-        <Stack.Screen name="Notifications" component={notifications} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}*/

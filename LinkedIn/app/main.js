@@ -53,20 +53,6 @@ export default class main extends React.Component {
             navigate("Register");
           }}
         />
-
-        <Button
-          title="Notifications"
-          onPress={() => {
-            navigate("Notifications");
-          }}
-        />
-
-        <Button
-          title="Images"
-          onPress={() => {
-            navigate("Img");
-          }}
-        />
       </View>
     );
   }

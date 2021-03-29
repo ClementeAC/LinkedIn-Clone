@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
-import {Ionicons, AntDesign} from "@expo/vector-icons";
+import {AntDesign} from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -10,6 +10,8 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+  ScrollView,
+  Button
 } from "react-native";
 import styles from "./register.css";
 
@@ -22,18 +24,21 @@ export default class register extends React.Component {
       username: "",
       password: "",
       email: "",
+      phone: "",
       confirmPassword: "",
     };
   }
 
   register = async () => {
-    const res = await axios.post("https://listical.herokuapp.com/api/users/", {
+    const res = await axios.post("https://linckedin.herokuapp.com/api/users/", {
       username: this.state.username,
       email: this.state.email,
       password: this.state.password,
+      phone: this.state.phone,
+    }).then( () => {
+      this.props.navigation.replace("Home");
     });
 
-    this.props.navigation.replace("Home");
     try {
       await AsyncStorage.setItem("user", JSON.stringify(res.data[0]));
       this.props.navigation.replace("Home");
@@ -41,6 +46,21 @@ export default class register extends React.Component {
       return;
     }
   };
+
+  veryfiPhone = async () => {
+    const res = await axios.post("https://linckedin.herokuapp.com/api/users/code/", {
+      phone: this.state.phone
+    });
+  }
+
+  veryfiCode = async () => {
+    await axios.delete("https://linckedin.herokuapp.com/api/users/code/")
+    .then( (res) => {
+      if(res.data != 0){
+        this.register();
+      }
+    });
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -52,6 +72,7 @@ export default class register extends React.Component {
         style={{ flex: 1 }}
         enabled={Platform.OS === "ios"}
       >
+      <ScrollView>
         <View style={styles.container}>
           <StatusBar style="auto" />
           <Image
@@ -83,6 +104,16 @@ export default class register extends React.Component {
             />
           </View>
           <View style={styles.input}>
+            <AntDesign name="phone" color="#75FF95" size={24} />
+            <Button title="+58"></Button>
+            <TextInput
+              placeholder="Phone"
+              placeholderTextColor="#75FF95"
+              style={{ paddingHorizontal: 82 }}
+              onChangeText={(phone) => this.setState({ phone: phone })}
+            />
+          </View>
+          <View style={styles.input}>
             <AntDesign name="exclamationcircleo" color="#75FF95" size={24} />
             <TextInput
               secureTextEntry
@@ -104,7 +135,6 @@ export default class register extends React.Component {
               }
             />
           </View>
-
           <TouchableOpacity
             onPress={() => this.register()}
             disabled={(this.state.username == "") | (this.state.password == "")}
@@ -126,6 +156,7 @@ export default class register extends React.Component {
             <Text style={styles.buttonNavigation}>Already a user</Text>
           </TouchableOpacity>
         </View>
+      </ScrollView>
       </KeyboardAvoidingView>
     );
   }

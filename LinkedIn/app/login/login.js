@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -12,6 +12,7 @@ import {
   Alert,
   ActivityIndicator,
   KeyboardAvoidingView,
+  ScrollView
 } from "react-native";
 import styles from "./login.css";
 
@@ -30,7 +31,6 @@ export default class login extends React.Component {
   async componentDidMount() {
     const value = null;
     try {
-      console.log("hola adios");
       value = await AsyncStorage.getItem("user");
       console.log(value);
     } catch (error) {
@@ -45,7 +45,7 @@ export default class login extends React.Component {
   login = async () => {
     this.setState({ loading: true });
     const res = await axios.post(
-      "https://listical.herokuapp.com/api/users/login",
+      "https://linckedin.herokuapp.com/api/users/login",
       {
         username: this.state.username,
         password: this.state.password,
@@ -83,12 +83,14 @@ export default class login extends React.Component {
 
     const { navigate, replace } = this.props.navigation;
     return (
+      
       <KeyboardAvoidingView
         keyboardVerticalOffset={70}
         behavior="padding"
         style={{ flex: 1 }}
         enabled={Platform.OS === "ios"}
       >
+        <ScrollView>
         <View style={styles.container}>
           <StatusBar style="dark" />
           <Image
@@ -138,7 +140,8 @@ export default class login extends React.Component {
           >
             <Text style={styles.buttonNavigation}>New User</Text>
           </TouchableOpacity>
-        </View>
+        </View> 
+        </ScrollView>
       </KeyboardAvoidingView>
     );
   }
