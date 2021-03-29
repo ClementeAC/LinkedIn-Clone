@@ -48,8 +48,8 @@ const createUser = async (req, res) => {
     const response = await client.query(query.createUser, [
       username, 
       email,
-      password,
-      phone
+      phone,
+      password
     ]);
     res.status(200).json(response.rows);
 
