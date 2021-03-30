@@ -19,15 +19,15 @@ export default class profile extends React.Component {
     super(props);
 
     this.state = {
-      //loading : false,
-      name: "",
+      loading : false,
+      username: "",
       lastName: "",
       password: "",
       email: "",
       title: "",
       currentJobTitle: "",
       country: "",
-      phoneNumber: "",
+      phone: "",
       education:[], 
       skills: [],
       editData: false,
@@ -36,18 +36,14 @@ export default class profile extends React.Component {
   }
 
   componentDidMount() {
-    //this.getUser();
+    this.getUser();
     this.setState({
-      name: "Clemente",
       lastName: "Castejón",
-      email: "clementecastejon3@gmail.com",
       title: "Student at Universidad Rafael Urdaneta",
       currentJobTitle: "English Teacher at CEVAZ",
       education: ["Colegio Alemán de Maracaibo", "Universidad Rafael Urdaneta"],
       skills: ["English", "Spanish", "Web development", "Networking experience"],
       country: "Venezuela",
-      phoneNumber:"+58 4146551870",
-      id: 0,
     });
     Alert.alert("Perfil de ejemplo")
   }
@@ -63,6 +59,7 @@ export default class profile extends React.Component {
       username: JSON.parse(res).username,
       email: JSON.parse(res).email,
       id: JSON.parse(res).user_id,
+      phone: JSON.parse(res).phone,
     });
   };
 
@@ -187,7 +184,7 @@ export default class profile extends React.Component {
               {this.state.email}
             </Text>
             <Text style={{ color: "gray", marginBottom: 10 }}>
-              {this.state.phoneNumber}
+              {this.state.phone}
             </Text>
             <Text style={{ marginBottom: 20, fontWeight:"bold", fontSize: 17}}>
               {this.state.title}

@@ -65,11 +65,11 @@ function CustomDrawerContent(props) {
       />
       <DrawerItem
         label="Image"
-        onPress={() => Alert.alert('En construccion') /*props.navigation.navigate("Img")*/}
+        onPress={() => props.navigation.navigate("Img")}
       />
       <DrawerItem
         label="Notifications"
-        onPress={() => Alert.alert('En construccion') /*props.navigation.navigate("Notifications")*/}
+        onPress={() => props.navigation.navigate("Notifications")}
       />
     </DrawerContentScrollView>
   );
