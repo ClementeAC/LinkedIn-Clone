@@ -23,23 +23,8 @@ export default class login extends React.Component {
     this.state = {
       loading: false,
       username: "",
-      password: "",
-      log: false,
+      password: ""
     };
-  }
-
-  async componentDidMount() {
-    var value = null;
-    try {
-      value = await AsyncStorage.getItem("user");
-      console.log(value);
-    } catch (error) {
-      // Error retrieving data
-    }
-
-    if (value !== null) {
-      this.props.navigation.replace("Home");
-    }
   }
 
   login = async () => {
@@ -57,7 +42,7 @@ export default class login extends React.Component {
     } else {
       try {
         await AsyncStorage.setItem("user", JSON.stringify(res.data[0]));
-        this.props.navigation.replace("Home");
+        this.props.navigation.replace("LinckedIn");
       } catch (e) {
         //error
       }
@@ -83,7 +68,6 @@ export default class login extends React.Component {
 
     const { navigate, replace } = this.props.navigation;
     return (
-      
       <KeyboardAvoidingView
         keyboardVerticalOffset={70}
         behavior="padding"

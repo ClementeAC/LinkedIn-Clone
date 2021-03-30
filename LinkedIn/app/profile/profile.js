@@ -35,6 +35,10 @@ export default class profile extends React.Component {
     };
   }
 
+  /*  this.props.navigation.setParams({
+        hideHeader: true,
+      }); */
+
   componentDidMount() {
     this.getUser();
     this.setState({
@@ -102,7 +106,7 @@ export default class profile extends React.Component {
           onPress: async () => {
             try {
               await AsyncStorage.removeItem("user");
-              replace("Login");
+              replace("Root");
             } catch (error) {
               // Error retrieving data
             }
@@ -117,6 +121,7 @@ export default class profile extends React.Component {
 
   render() {
     const { navigate, route, replace } = this.props.navigation;
+
     if (this.state.editData == true) {
       return (
         <View
@@ -169,7 +174,11 @@ export default class profile extends React.Component {
     } else {
       return (
         <View>
-          <ScrollView>
+          <ScrollView 
+            /*onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: 
+              scrollX } } }], {listener: (event) => console.log(event.nativeEvent.contentOffset.y)})}
+              scrollEventThrottle={16}*/
+          >
           <View
             style={{
               backgroundColor: "white",

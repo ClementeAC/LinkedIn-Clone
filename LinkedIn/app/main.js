@@ -39,20 +39,6 @@ export default class main extends React.Component {
             navigate("Profile");
           }}
         />
-
-        <Button
-          title="Login"
-          onPress={() => {
-            navigate("Login");
-          }}
-        />
-
-        <Button
-          title="Register"
-          onPress={() => {
-            navigate("Register");
-          }}
-        />
       </View>
     );
   }
