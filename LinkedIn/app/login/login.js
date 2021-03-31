@@ -42,7 +42,7 @@ export default class login extends React.Component {
     } else {
       try {
         await AsyncStorage.setItem("user", JSON.stringify(res.data[0]));
-        this.props.navigation.replace("LinckedIn");
+        this.props.navigation.replace("LinkedIn");
       } catch (e) {
         //error
       }
@@ -66,7 +66,7 @@ export default class login extends React.Component {
       );
     }
 
-    const { navigate, replace } = this.props.navigation;
+    const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView
         keyboardVerticalOffset={70}

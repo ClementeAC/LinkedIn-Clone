@@ -1,6 +1,5 @@
 import "react-native-gesture-handler";
 import * as React from "react"; 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   TouchableOpacity,
   Image
@@ -8,12 +7,12 @@ import {
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerItemList,
   DrawerItem  
 } from '@react-navigation/drawer';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign, Entypo } from "@expo/vector-icons";
 
 import landingPage from "./app/landingPage/landingPage";
@@ -50,7 +49,7 @@ function LandingPage() {
       <Image
         source={require("./assets/statusbar.png")}
         style={{
-          alignSelf: "center"
+            alignSelf: "center",
         }}
       />
   );
@@ -59,22 +58,13 @@ function LandingPage() {
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="Home"
-        onPress={() => props.navigation.navigate("Home")}
-      />
       <DrawerItem
         label="Profile"
         onPress={() => props.navigation.navigate("Profile")}
       />
       <DrawerItem
-        label="Login"
-        onPress={() => props.navigation.navigate("Login")}
-      />
-      <DrawerItem
-        label="Register"
-        onPress={() => props.navigation.navigate("Register")}
+        label="Home"
+        onPress={() => props.navigation.navigate("Home")}
       />
       <DrawerItem
         label="Image"
@@ -96,22 +86,23 @@ function MenuRouteSession({ navigation }) {
     headerStyle: {
       backgroundColor: 'blue',
     },
+    headerShown: true,
     headerTintColor: '#fff',
   });
 
   return (
     <Stack.Navigator>
         <Stack.Screen name="Home" component={main} 
-        options={({ navigation }) => optionsNavigator({ navigation }, "Home")}
+          options={({ navigation }) => optionsNavigator({ navigation }, "Home")}
         />
         <Stack.Screen name="Notifications" component={notifications}
-        options={({ navigation }) => optionsNavigator({ navigation }, "Notifications")} 
+          options={({ navigation }) => optionsNavigator({ navigation }, "Notifications")} 
         />
         <Stack.Screen name="Profile" component={profile} 
-        options={({ navigation }) => optionsNavigator({ navigation }, "Profile")}
+          options={({ navigation }) => optionsNavigator({ navigation }, "Profile")}
         />
         <Stack.Screen name="Img" component={Img} 
-        options={({ navigation }) => optionsNavigator({ navigation }, "Image")}
+          options={({ navigation }) => optionsNavigator({ navigation }, "Image")}
         />
       </Stack.Navigator>
   );
@@ -150,7 +141,7 @@ function MenuRoute({ navigation }) {
 function LinkedIn({ navigation }) {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="LinkedIn" component={MenuRouteSession} />
+      <Drawer.Screen name="LinckedIn" component={MenuRouteSession} />
     </Drawer.Navigator>
   );
 }
@@ -160,7 +151,7 @@ export default function App({ navigation }) {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen options={{headerShown: false}} name="Root" component={MenuRoute} />
-      <Stack.Screen options={{headerShown: false}} name="LinckedIn" component={LinkedIn} />
+      <Stack.Screen options={{headerShown: false}} name="LinkedIn" component={LinkedIn} />
     </Stack.Navigator>
     </NavigationContainer>
   );

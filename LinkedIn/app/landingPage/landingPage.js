@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
   Text,
@@ -36,9 +37,8 @@ export default function landingPage({ navigation }) {
         } catch (error) {
           // Error retrieving data
         }
-
         if (value !== null) {
-          this.props.navigation.replace("LinckedIn");
+          navigation.replace("LinkedIn");
         }
     }
     verifySession();
@@ -77,7 +77,11 @@ export default function landingPage({ navigation }) {
             <Image
               key={index}
               source={image}
-              style={{width, height, resizeMode: 'cover'}}
+              style={{width, 
+              height, 
+              resizeMode: 'cover', 
+              flex: 1,
+              resizeMode: 'contain'}}
             />
           ))}
         </ScrollView>

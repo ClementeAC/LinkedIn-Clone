@@ -19,8 +19,10 @@ export default class profile extends React.Component {
     super(props);
 
     this.state = {
+      y : 0,
       loading : false,
       username: "",
+      name: "",
       lastName: "",
       password: "",
       email: "",
@@ -35,13 +37,10 @@ export default class profile extends React.Component {
     };
   }
 
-  /*  this.props.navigation.setParams({
-        hideHeader: true,
-      }); */
-
   componentDidMount() {
     this.getUser();
     this.setState({
+      name: "Clemente",
       lastName: "Castejón",
       title: "Student at Universidad Rafael Urdaneta",
       currentJobTitle: "English Teacher at CEVAZ",
@@ -119,8 +118,24 @@ export default class profile extends React.Component {
     );
   };
 
+  onScrollTop = (event, setOptions) => {
+    var y = event.nativeEvent.contentOffset.y;
+    this.setState({ y });
+    if(this.state.y >= y){
+      setOptions({
+        headerShown: true,
+      });
+      console.log('true');
+    }else{
+      setOptions({
+        headerShown: false,
+      });
+      console.log('false');
+    }
+  }
+  
   render() {
-    const { navigate, route, replace } = this.props.navigation;
+    const { navigate, route, replace, setOptions } = this.props.navigation;
 
     if (this.state.editData == true) {
       return (
@@ -175,9 +190,7 @@ export default class profile extends React.Component {
       return (
         <View>
           <ScrollView 
-            /*onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: 
-              scrollX } } }], {listener: (event) => console.log(event.nativeEvent.contentOffset.y)})}
-              scrollEventThrottle={16}*/
+            onScrollEndDrag={(event) => this.onScrollTop(event, setOptions)}
           >
           <View
             style={{
@@ -185,8 +198,11 @@ export default class profile extends React.Component {
               alignItems: "center",
             }}
           >
-            <Image source={require("../../assets/63917082.jpg")} style={{width: 125, height: 125, borderRadius:60, resizeMode:"contain", marginTop: 20}}/>
+            <Image source={require("../../assets/profile.png")} style={{width: 125, height: 125, borderRadius:60, resizeMode:"contain", marginTop: 20}}/>
             <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
+              {this.state.username}
+            </Text>
+            <Text style={{ color: "gray", marginTop: 5 }}>
               {this.state.name} {this.state.lastName}
             </Text>
             <Text style={{ color: "gray", marginBottom: 2 }}>
