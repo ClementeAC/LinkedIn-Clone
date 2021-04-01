@@ -9,6 +9,7 @@ import {
   DrawerContentScrollView,
   DrawerItem  
 } from '@react-navigation/drawer';
+import {Ionicons} from "@expo/vector-icons";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -25,6 +26,7 @@ import notifications from "./app/utils/notifications";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 function LogoPerfil({ navigation }) {
   return (
@@ -60,10 +62,16 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <DrawerItem
         label="Profile"
+        icon={({ color, size }) =>  { 
+          return <Ionicons color={color} size={size} name={'person-sharp'} />
+        }}
         onPress={() => props.navigation.navigate("Profile")}
       />
       <DrawerItem
         label="Home"
+        icon={({ color, size }) =>  { 
+          return <Ionicons color={color} size={size} name={'home-sharp'} />
+        }}
         onPress={() => props.navigation.navigate("Home")}
       />
       <DrawerItem
@@ -95,16 +103,58 @@ function MenuRouteSession({ navigation }) {
         <Stack.Screen name="Home" component={main} 
           options={({ navigation }) => optionsNavigator({ navigation }, "Home")}
         />
-        <Stack.Screen name="Notifications" component={notifications}
-          options={({ navigation }) => optionsNavigator({ navigation }, "Notifications")} 
-        />
         <Stack.Screen name="Profile" component={profile} 
           options={({ navigation }) => optionsNavigator({ navigation }, "Profile")}
+        />
+        <Stack.Screen name="Notifications" component={notifications}
+          options={({ navigation }) => optionsNavigator({ navigation }, "Notifications")} 
         />
         <Stack.Screen name="Img" component={Img} 
           options={({ navigation }) => optionsNavigator({ navigation }, "Image")}
         />
       </Stack.Navigator>
+  );
+}
+
+function TabContent({ navigation }) {
+  const optionsTab = ({ navigation }, Title, iconName) => ({
+    tabBarLabel: Title,
+    tabBarVisible: true,
+    tabBarIcon: ({focused, color, size}) => {
+      return <Ionicons name={iconName} size={size} color={color} />;
+    },
+  });
+  return (
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: 'blue',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <Tab.Screen name="HomeTab" component={MenuRouteSession} 
+        options={({ navigation }) => optionsTab({ navigation }, "Home", "home-sharp")}
+      />
+      <Tab.Screen name="Home2" component={MenuRouteSession} 
+        options={({ navigation }) => optionsTab({ navigation }, "My Network", "md-people-sharp")}
+      />
+      <Tab.Screen name="Home3" component={MenuRouteSession} 
+        options={({ navigation }) => optionsTab({ navigation }, "To Post", "add-circle")}
+      />
+      <Tab.Screen name="Home4" component={MenuRouteSession} 
+        options={({ navigation }) => optionsTab({ navigation }, "Notifications", "notifications")}
+      />
+      <Tab.Screen name="Home5" component={MenuRouteSession} 
+        options={({ navigation }) => optionsTab({ navigation }, "Empleos", "briefcase-sharp")}
+      />
+    </Tab.Navigator>
+  );
+}
+
+function LinkedIn({ navigation }) {
+  return (
+    <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen name="LinckedIn" component={TabContent} />
+    </Drawer.Navigator>
   );
 }
 
@@ -135,14 +185,6 @@ function MenuRoute({ navigation }) {
       options={({ navigation }) => optionsNavigatorOut({ navigation }, "Register")}
       />
     </Stack.Navigator>
-  );
-}
-
-function LinkedIn({ navigation }) {
-  return (
-    <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="LinckedIn" component={MenuRouteSession} />
-    </Drawer.Navigator>
   );
 }
 
