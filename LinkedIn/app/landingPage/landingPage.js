@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
   },
 });
+
 export default function landingPage({ navigation }) {
 
   const [session, setSession] = useState(false);

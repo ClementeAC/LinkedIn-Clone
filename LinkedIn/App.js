@@ -75,12 +75,29 @@ function CustomDrawerContent(props) {
         onPress={() => props.navigation.navigate("Home")}
       />
       <DrawerItem
-        label="Image"
-        onPress={() => props.navigation.navigate("Img")}
+        label="Create a company"
+        icon={({ color, size }) =>  { 
+          return <Ionicons color={color} size={size} name={'business'} />
+        }}
+        onPress={() => console.log("create una empresa")}
       />
       <DrawerItem
-        label="Notifications"
+        label="Invite a friend"
+        icon={({ color, size }) =>  { 
+          return <Ionicons color={color} size={size} name={'person-add-outline'} />
+        }}
+        onPress={() => console.log("invite un amigo por gmail")}
+      />
+      <DrawerItem
+        label="De aqui pa abajo pruebas:"
+      />
+      <DrawerItem
+        label="Notificaciones"
         onPress={() => props.navigation.navigate("Notifications")}
+      />
+      <DrawerItem
+        label="Imagenes"
+        onPress={() => props.navigation.navigate("Img")}
       />
     </DrawerContentScrollView>
   );
@@ -134,17 +151,17 @@ function TabContent({ navigation }) {
       <Tab.Screen name="HomeTab" component={MenuRouteSession} 
         options={({ navigation }) => optionsTab({ navigation }, "Home", "home-sharp")}
       />
-      <Tab.Screen name="Home2" component={MenuRouteSession} 
+      <Tab.Screen name="Network" component={MenuRouteSession} 
         options={({ navigation }) => optionsTab({ navigation }, "My Network", "md-people-sharp")}
       />
-      <Tab.Screen name="Home3" component={MenuRouteSession} 
+      <Tab.Screen name="Post" component={MenuRouteSession} 
         options={({ navigation }) => optionsTab({ navigation }, "To Post", "add-circle")}
       />
-      <Tab.Screen name="Home4" component={MenuRouteSession} 
+      <Tab.Screen name="NotificationsScreen" component={MenuRouteSession} 
         options={({ navigation }) => optionsTab({ navigation }, "Notifications", "notifications")}
       />
-      <Tab.Screen name="Home5" component={MenuRouteSession} 
-        options={({ navigation }) => optionsTab({ navigation }, "Empleos", "briefcase-sharp")}
+      <Tab.Screen name="Jobs" component={MenuRouteSession} 
+        options={({ navigation }) => optionsTab({ navigation }, "Job Offers", "briefcase-sharp")}
       />
     </Tab.Navigator>
   );

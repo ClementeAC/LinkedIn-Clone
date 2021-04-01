@@ -48,7 +48,6 @@ export default class profile extends React.Component {
       skills: ["English", "Spanish", "Web development", "Networking experience"],
       country: "Venezuela",
     });
-    Alert.alert("Perfil de ejemplo")
   }
 
   getUser = async () => {
@@ -124,13 +123,11 @@ export default class profile extends React.Component {
     if(this.state.y >= y){
       setOptions({
         headerShown: true,
-        tabBarVisible: true
       });
       console.log('true');
     }else{
       setOptions({
         headerShown: false,
-        tabBarVisible: false
       });
       console.log('false');
     }

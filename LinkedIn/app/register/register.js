@@ -23,7 +23,7 @@ export default class register extends React.Component {
 
     this.state = {
       loading: false,
-      verify: false,
+      verify: true,
       code: "",
       username: "",
       password: "",
@@ -105,6 +105,12 @@ export default class register extends React.Component {
             }
           >
             <Text style={styles.textButton}>Verify</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ marginTop: 200 }}
+            onPress={() => this.setState({ verify: false })}
+          >
+            <Text style={styles.buttonNavigation}>go back to registration</Text>
           </TouchableOpacity>
         </View>
       );
