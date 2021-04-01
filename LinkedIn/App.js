@@ -46,24 +46,27 @@ function LogoMenu({ navigation }) {
   );
 }
 
-function LandingPage() {
-  return (
-      <Image
-        source={require("./assets/statusbar.png")}
-        style={{
-            alignSelf: "center",
-        }}
-      />
-  );
-}
-
 function CustomDrawerContent(props) {
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView {...props} >
+      <Image
+        source={require("./assets/background.png")}
+        style={{
+            alignSelf: "center",
+            top:-30,
+            height: 170,
+            resizeMode: 'contain'
+        }}
+      />
       <DrawerItem
         label="Profile"
         icon={({ color, size }) =>  { 
           return <Ionicons color={color} size={size} name={'person-sharp'} />
+        }}
+        style={{
+          backgroundColor: '#CCE1FF',
+          height: 55,
+          justifyContent: 'center',
         }}
         onPress={() => props.navigation.navigate("Profile")}
       />
@@ -172,6 +175,17 @@ function LinkedIn({ navigation }) {
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="LinckedIn" component={TabContent} />
     </Drawer.Navigator>
+  );
+}
+
+function LandingPage() {
+  return (
+      <Image
+        source={require("./assets/statusbar.png")}
+        style={{
+            alignSelf: "center",
+        }}
+      />
   );
 }
 
