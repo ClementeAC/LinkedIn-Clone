@@ -110,7 +110,7 @@ export default function landingPage({ navigation }) {
           >
             <Text style={{
               color: "white",
-            }}>Unirse ahora</Text>
+            }}>Join now</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -120,7 +120,7 @@ export default function landingPage({ navigation }) {
             <Text style={{
               alignSelf: "center",
               color: "blue",
-            }}>Iniciar sesion</Text>
+            }}>log in</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

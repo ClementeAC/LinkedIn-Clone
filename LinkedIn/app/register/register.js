@@ -23,7 +23,7 @@ export default class register extends React.Component {
 
     this.state = {
       loading: false,
-      verify: true,
+      verify: false,
       code: "",
       username: "",
       password: "",
@@ -142,7 +142,7 @@ export default class register extends React.Component {
             <TextInput
               placeholder="Username"
               placeholderTextColor="#444"
-              style={{ paddingHorizontal: 70 }}
+              style={{ paddingLeft: 30 }}
               onChangeText={(username) => this.setState({ username: username })}
             />
           </View>
@@ -151,7 +151,7 @@ export default class register extends React.Component {
             <TextInput
               placeholder="E-mail"
               placeholderTextColor="#444"
-              style={{ paddingHorizontal: 82 }}
+              style={{ paddingLeft: 30 }}
               onChangeText={(email) => this.setState({ email: email })}
             />
           </View>
@@ -162,7 +162,7 @@ export default class register extends React.Component {
               placeholder="Phone"
               maxLength={10}
               placeholderTextColor="#444"
-              style={{ paddingHorizontal: 82 }}
+              style={{ paddingLeft: 5 }}
               onChangeText={(phone) => this.setState({ phone: phone })}
             />
           </View>
@@ -172,7 +172,7 @@ export default class register extends React.Component {
               secureTextEntry
               placeholder="Password"
               placeholderTextColor="#444"
-              style={{ paddingHorizontal: 70 }}
+              style={{ paddingLeft: 30 }}
               onChangeText={(password) => this.setState({ password: password })}
             />
           </View>
@@ -182,7 +182,7 @@ export default class register extends React.Component {
               secureTextEntry
               placeholder="Confirm Password"
               placeholderTextColor="#444"
-              style={{ paddingHorizontal: 48 }}
+              style={{ paddingLeft: 30 }}
               onChangeText={(confirmPassword) =>
                 this.setState({ confirmPassword: confirmPassword })
               }

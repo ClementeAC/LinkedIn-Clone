@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   textInput: {
-    paddingHorizontal: 70,
+    paddingHorizontal: 30,
   },
   buttonLogin: {
     marginHorizontal: 90,
