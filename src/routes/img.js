@@ -28,9 +28,8 @@ router.post('/images', (req, res) => {
     });
 });
 
-router.get('/images', (req, res) => {
-    console.log("llego");
-    res.send('<h1>hola</h1>');
+router.post('/images/imagenes', (req, res) => {
+    res.send(req.body);
 });
 
 router.get('/images/:id', (req, res) => {
