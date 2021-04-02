@@ -6,25 +6,9 @@ import {
   Image,
   ScrollView,
   useWindowDimensions,
-  StyleSheet,
   TouchableOpacity
 } from 'react-native';
-
-
-const styles = StyleSheet.create({
-  pagination: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-  },
-  dot: {
-    color: '#ddd',
-    fontSize: 50,
-  },
-  activeDot: {
-    color: '#888',
-    fontSize: 50,
-  },
-});
+import styles from "./landingPage.css";
 
 export default function landingPage({ navigation }) {
 
@@ -78,11 +62,12 @@ export default function landingPage({ navigation }) {
             <Image
               key={index}
               source={image}
-              style={{width, 
-              height, 
-              resizeMode: 'cover', 
-              flex: 1,
-              resizeMode: 'contain'}}
+              style={{
+                width, 
+                height, 
+                flex: 1,
+                resizeMode: 'contain'
+              }}
             />
           ))}
         </ScrollView>
@@ -97,16 +82,7 @@ export default function landingPage({ navigation }) {
       <TouchableOpacity
             id="loginBtn"
             onPress={() => navigation.navigate("Register")}
-            style={{
-              marginHorizontal: 90,
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 15,
-              backgroundColor: "blue",
-              paddingVertical: 13,
-              borderRadius: 23,
-              height: 40,
-            }}
+            style={styles.loginBtn}
           >
             <Text style={{
               color: "white",

@@ -10,8 +10,8 @@ import {
 import * as ImagePicker from "expo-image-picker";
 
 export default function Img() {
-  const [image, setImage] = useState(null);
   const [images, setImages] = useState([null]);
+  const [typeFile, setTypeFile] = useState([null]);
 
   useEffect(() => {
     (async () => {
@@ -34,10 +34,11 @@ export default function Img() {
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
       setImages([...images, result.uri]);
+      setTypeFile([...typeFile, result.type + "/" + result.uri.slice((result.uri.lastIndexOf(".") - 1 >>> 0) + 2)]);
     }
     console.log(images.length);
+    console.log(images, typeFile);
   };
 
   const putoff = (item) => {
@@ -53,10 +54,10 @@ export default function Img() {
       formData.append(images[i]);
     }
     console.log(formData);
-    axios.post('http://192.168.0.103:4000/api/upload/images', {
+    const res = axios.post('http://192.168.0.103:4000/api/upload/images/imagenes', {
       formData
     });
-    console.log("llegoo");
+    console.log(res);
   };
 
   return (

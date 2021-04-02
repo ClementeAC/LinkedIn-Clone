@@ -21,6 +21,7 @@ import main from "./app/main";
 import profile from "./app/profile/profile";
 import login from "./app/login/login";
 import register from "./app/register/register";
+import myNetwork from "./app/myNetwork/myNetwork";
 import Img from "./app/utils/img";
 import notifications from "./app/utils/notifications";
 
@@ -126,11 +127,32 @@ function MenuRouteSession({ navigation }) {
         <Stack.Screen name="Profile" component={profile} 
           options={({ navigation }) => optionsNavigator({ navigation }, "Profile")}
         />
-        <Stack.Screen name="Notifications" component={notifications}
-          options={({ navigation }) => optionsNavigator({ navigation }, "Notifications")} 
+        <Stack.Screen name="myNetwork" component={myNetwork} 
+          options={({ navigation }) => optionsNavigator({ navigation }, "My Network")}
         />
         <Stack.Screen name="Img" component={Img} 
           options={({ navigation }) => optionsNavigator({ navigation }, "Image")}
+        />
+      </Stack.Navigator>
+  );
+}
+
+function MyNetworkScreen({ navigation }) {
+  const optionsNavigator = ({ navigation }, Title) => ({
+    headerTitle: Title,
+    headerLeft: () => LogoMenu({ navigation }),
+    headerRight: () => LogoPerfil({ navigation }),
+    headerStyle: {
+      backgroundColor: 'blue',
+    },
+    headerShown: true,
+    headerTintColor: '#fff',
+  });
+
+  return (
+    <Stack.Navigator>
+        <Stack.Screen name="myNetwork" component={myNetwork} 
+          options={({ navigation }) => optionsNavigator({ navigation }, "My Network")}
         />
       </Stack.Navigator>
   );
@@ -140,7 +162,7 @@ function TabContent({ navigation }) {
   const optionsTab = ({ navigation }, Title, iconName) => ({
     tabBarLabel: Title,
     tabBarVisible: true,
-    tabBarIcon: ({focused, color, size}) => {
+    tabBarIcon: ({ color, size}) => {
       return <Ionicons name={iconName} size={size} color={color} />;
     },
   });
@@ -154,7 +176,7 @@ function TabContent({ navigation }) {
       <Tab.Screen name="HomeTab" component={MenuRouteSession} 
         options={({ navigation }) => optionsTab({ navigation }, "Home", "home-sharp")}
       />
-      <Tab.Screen name="Network" component={MenuRouteSession} 
+      <Tab.Screen name="Network" component={MyNetworkScreen} 
         options={({ navigation }) => optionsTab({ navigation }, "My Network", "md-people-sharp")}
       />
       <Tab.Screen name="Post" component={MenuRouteSession} 
