@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -124,8 +124,12 @@ export default class main extends React.Component {
                 flexDirection: "row",
                 justifyContent: "space-between",
               }}>
-                <AntDesign name="like1" size={24} color="gray" />
-                <Text style={{marginLeft: 10}}>{ item.Reactions }</Text>
+                <Text>{ item.Reactions }</Text>
+                <View style={{marginLeft: 10}}></View>
+                <AntDesign style={ true != null ? {display: 'flex'} : {display: 'none'}} name="like1" size={13} color="gray" />
+                <AntDesign style={ true != null ? {display: 'flex'} : {display: 'none'}} name="heart" size={13} color="gray" />
+                <AntDesign style={ true != null ? {display: 'flex'} : {display: 'none'}} name="smile-circle" size={13} color="gray" />
+                <MaterialCommunityIcons style={ true != null ? {display: 'flex'} : {display: 'none'}} name="lightbulb-on" size={13} color="gray" />
               </View>
               <View style={{
                 flexDirection: "row",

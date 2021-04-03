@@ -34,11 +34,11 @@ export default function Img() {
     });
 
     if (!result.cancelled) {
+      //const uploadImage = Platform.OS === 'ios' ? result.uri.replace('file://', ''): result.uri;
       setImages([...images, result.uri]);
       setTypeFile([...typeFile, result.type + "/" + result.uri.slice((result.uri.lastIndexOf(".") - 1 >>> 0) + 2)]);
     }
     console.log(images.length);
-    console.log(images, typeFile);
   };
 
   const putoff = (item) => {
@@ -51,13 +51,22 @@ export default function Img() {
 
     const formData = new FormData();
     for (let i = 1; i < images.length; i++) {
-      formData.append(images[i]);
+      formData.append('file', {
+        uri: images[i],
+        name: images[i].split('/').pop(),
+        type: typeFile[i]
+      });
     }
     console.log(formData);
-    const res = axios.post('http://192.168.0.103:4000/api/upload/images/imagenes', {
-      formData
-    });
-    console.log(res);
+    //delete axios.defaults.headers.common["Accept"];
+    axios.post('https://linckedin.herokuapp.com/api/upload/images/imagenes', {
+      formData,
+    })
+    .then(data => {
+        console.log(data.data);
+    })
+    .catch(err => console.error(err));
+
   };
 
   return (
