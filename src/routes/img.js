@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 
 const uploadImage = multer({
     storage,
-}).array('note-image', 6);
+}).any();
 
 router.post('/images', (req, res) => {
     console.log("llego");
