@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign, FontAwesome, Ionicons, MaterialIcons, Foundation } from "@expo/vector-icons";
@@ -93,7 +93,7 @@ export default class main extends React.Component {
               </TouchableOpacity>
               <Text style={{ marginLeft: 10 }}>{item.name}</Text>
             </View>
-            <Text style={{  //maximo 50 caracteres
+            <Text style={{
               width: "100%",
               paddingHorizontal: 5
             }}>
@@ -144,7 +144,7 @@ export default class main extends React.Component {
                 justifyContent: "space-between",
               }}>
                 <Text style={{marginLeft: 10}}>{ item.comment.length }</Text>
-                <Text> Comments</Text>
+                <Text> Comments </Text>
               </View>
             </View>
             <View name="Divider" 
@@ -168,12 +168,12 @@ export default class main extends React.Component {
                 <FontAwesome name="commenting" size={24} color="gray" />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => Alert.alert("Enviar")}>
-                <Ionicons name="md-send" size={24} color="gray" />
+                <FontAwesome name="send" size={24} color="gray" />
               </TouchableOpacity>
               { false  // Abilitar cuando sea una oferta de trabajo
                 ? <TouchableOpacity onPress={() => Alert.alert("Aplicar a trabajo")}>
-                  <Foundation name="torso-business" size={24} color="gray" />
-                </TouchableOpacity> 
+                    <Foundation name="torso-business" size={24} color="gray" />
+                  </TouchableOpacity> 
                 : null
               }
               <TouchableOpacity onPress={() => Alert.alert("Guardar")}>

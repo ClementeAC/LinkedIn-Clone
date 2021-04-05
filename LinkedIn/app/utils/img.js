@@ -1,16 +1,16 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Button,
   Image,
   View,
-  Platform
+  Platform,
+  Alert
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-export default function Img({ navigation: { goBack } }) {
+export default function Img(props) {
   const [image, setImage] = useState(null);
-  const [typeFile, setTypeFile] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -35,7 +35,6 @@ export default function Img({ navigation: { goBack } }) {
 
     if (!result.cancelled) {
       setImage(result.uri);
-      setTypeFile(typeFile, result.type + "/" + result.uri.slice((result.uri.lastIndexOf(".") - 1 >>> 0) + 2));
     }
   };
 
@@ -44,7 +43,7 @@ export default function Img({ navigation: { goBack } }) {
     formData.append('file', {
       uri: image,
       name: image.split('/').pop(),
-      type: typeFile
+      type: "image" + "/" + image.split('/').pop().split(".").pop()
     });
     formData.append('upload_preset','0trebeh');
     formData.append('cloud_name','otrebeh');
@@ -54,18 +53,36 @@ export default function Img({ navigation: { goBack } }) {
       body:formData
     }).then(res=>res.json())
     .then(data=>{
-      console.log(data)
+      console.log(data.secure_url)
+      if(props.publicationTrue){ // Si un props que le pase de toPost es true se sube una publicacion
+        sendPublication(data.secure_url);
+      }
     }).catch(err=>{
-      Alert.alert("Error")
+      Alert.alert("Error al subir la imagen")
     })
   };
+
+  const sendPublication = async (url) => {
+    this.setState({ loading: true });
+    let name = await AsyncStorage.getItem("user");
+    let publication = {
+      url,
+      publicationText: this.props.publication,
+      user: JSON.parse(name).username
+    }
+    const res = await axios.post(
+      "https://linckedin.herokuapp.com/api/",
+      publication
+    );
+    this.setState({ loading: false });
+  }
 
   const cancel = async () => {
     setImage(null);
   }
-  
-  return (
-    <View style={{ flex: 1, justifyContent: "flex-end", marginTop: 75 }}>
+
+  return (  
+    <View style={{ flex: 1, justifyContent: "flex-end", marginTop: 10 }}>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
         <Image
           source={{ uri: image }}
@@ -85,15 +102,11 @@ export default function Img({ navigation: { goBack } }) {
           marginHorizontal: 25,
         }}
       >
-        <Button title="Volver" onPress={() => goBack()}/>
-        { image
-          ? <Button title="Cancelar" onPress={() => cancel()}/>
-          : null
-        }
+        <Button title="Cancelar" onPress={() => cancel()}/>
         <View>
           { image
             ? <Button title="Enviar" onPress={() => sendImage()} />
-            : <Button title="Buscar" onPress={pickImage} />
+            : <Button title="Add an image" onPress={pickImage} />
           }
         </View>
       </View>

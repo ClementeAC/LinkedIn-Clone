@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import {
   Text,
   View,
-  Image,
-  Button,
   Alert,
   TouchableOpacity,
   ActivityIndicator,
@@ -14,6 +11,7 @@ import {
   TextInput
 } from "react-native";
 import styles from "./toPost.css";
+import Img from "../utils/img";
 
 export default class toPost extends React.Component {
   constructor(props) {
@@ -21,27 +19,25 @@ export default class toPost extends React.Component {
 
     this.state = {
       loading: false,
-      publications: []
+      username: null,
+      publicationText: "",
     };
   }
 
-  componentDidMount() {
-  }
-
-  search = (string) => {
-   /* if(string !== ""){
-      let tasksSearch = tasks.filter(function(res) { 
-        return res.value.toLowerCase().indexOf(string.toLowerCase()) > -1;
-      });
-      //setTask( tasksSearch );
-    }
-    else {
-      //setTask( tasks );
-    }    */
+  async componentDidMount() {
+    let res = await AsyncStorage.getItem("user");
+    this.setState({
+      username: JSON.parse(res).username
+    });
   }
 
   render() {
     const { navigate } = this.props.navigation;
+    if(this.state.prueba){
+      return (
+        <Img prueba={true}/* Subir imagen *//>
+      );
+    }
     if (this.state.loading) {
       return (
         <View
@@ -59,42 +55,34 @@ export default class toPost extends React.Component {
       <View style={{
         height: "100%",
       }}>
+        <ScrollView>
         <View style={{
-            paddingLeft: 5,
-            justifyContent: "center",
-            backgroundColor: "#eee",
-            alignSelf: "stretch",
-            flexDirection: "row",
-            borderTopWidth: 1,
-            borderColor: "#eee",
+          flexDirection: "row",
+          marginLeft: 5,
+          marginTop: 3
         }}>
-            <TextInput
-                style={{
-                    flex: 1,
-                    height: 40,
-                    backgroundColor: "#eee",
-                    borderRadius: 4,
-                    paddingVertical: 5,
-                    paddingHorizontal: 10,
-                    borderWidth: 1,
-                    borderColor: "#eee",
-                  }}
-                placeholderTextColor="#999"
-                placeholder="Search"
-                onChangeText={(text) => search(text)}
-            />
-            <Ionicons 
-                name="search-outline" 
-                style={{
-                    marginVertical: "auto",
-                    paddingRight: 5,
-                    marginTop: 5,
-                }} 
-                size={25} 
-                color="#000"
-            />
+          <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
+            <Ionicons name="person-circle-outline" size={24} color="black" />
+          </TouchableOpacity>
+          <Text style={{ marginLeft: 10 }}>{this.state.username}</Text>
         </View>
-
+        <TextInput
+          multiline={true}
+          style={{
+            minHeight: 40,
+            backgroundColor: "#eee",
+            borderRadius: 4,
+            paddingVertical: 5,
+            paddingHorizontal: 10,
+            borderWidth: 1,
+            borderColor: "#eee",
+          }}
+          placeholderTextColor="#999"
+          placeholder="What do you want to talk about?"
+          onChangeText={(text) => this.setState({ publicationText: text })}
+        />
+        <Img publication={this.state.publicationText}/* Subir imagen *//>
+        </ScrollView>
       </View>
     );
   }
