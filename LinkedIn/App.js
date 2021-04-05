@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import * as React from "react"; 
-import { TouchableOpacity, Image } from "react-native";
+import { TouchableOpacity, Image, Alert } from "react-native";
 import {Ionicons, AntDesign, Entypo} from "@expo/vector-icons";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -79,18 +79,18 @@ function CustomDrawerContent(props) {
         onPress={() => props.navigation.navigate("Home")}
       />
       <DrawerItem
-        label="Create a company"
+        label="Create company"
         icon={({ color, size }) =>  { 
           return <Ionicons color={color} size={size} name={'business'} />
         }}
-        onPress={() => console.log("create una empresa")}
+        onPress={() => Alert.alert("create una empresa")}
       />
       <DrawerItem
         label="Invite a friend"
         icon={({ color, size }) =>  { 
           return <Ionicons color={color} size={size} name={'person-add-outline'} />
         }}
-        onPress={() => console.log("invite un amigo por gmail")}
+        onPress={() => Alert.alert("invite un amigo por gmail")}
       />
       <DrawerItem
         label="De aqui pa abajo pruebas:"
