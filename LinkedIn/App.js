@@ -1,20 +1,16 @@
 import "react-native-gesture-handler";
 import * as React from "react"; 
-import {
-  TouchableOpacity,
-  Image
-} from "react-native";
+import { TouchableOpacity, Image } from "react-native";
+import {Ionicons, AntDesign, Entypo} from "@expo/vector-icons";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItem  
 } from '@react-navigation/drawer';
-import {Ionicons} from "@expo/vector-icons";
-
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AntDesign, Entypo } from "@expo/vector-icons";
 
 import landingPage from "./app/landingPage/landingPage";
 import main from "./app/main";
@@ -22,8 +18,12 @@ import profile from "./app/profile/profile";
 import login from "./app/login/login";
 import register from "./app/register/register";
 import myNetwork from "./app/myNetwork/myNetwork";
+import toPost from "./app/toPost/toPost";
+import notifications from "./app/notifications/notifications";
+import jobOffers from "./app/jobOffers/jobOffers";
+
 import Img from "./app/utils/img";
-import notifications from "./app/utils/notifications";
+import not from "./app/utils/notifications";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -97,7 +97,7 @@ function CustomDrawerContent(props) {
       />
       <DrawerItem
         label="Notificaciones"
-        onPress={() => props.navigation.navigate("Notifications")}
+        onPress={() => props.navigation.navigate("Not")}
       />
       <DrawerItem
         label="Imagenes"
@@ -107,18 +107,17 @@ function CustomDrawerContent(props) {
   );
 }
 
+const optionsNavigator = ({ navigation }, Title) => ({
+  headerTitle: Title,
+  headerLeft: () => LogoMenu({ navigation }),
+  headerRight: () => LogoPerfil({ navigation }),
+  headerStyle: {
+    backgroundColor: 'blue',
+  },
+  headerShown: true,
+  headerTintColor: '#fff',
+});
 function MenuRouteSession({ navigation }) {
-  const optionsNavigator = ({ navigation }, Title) => ({
-    headerTitle: Title,
-    headerLeft: () => LogoMenu({ navigation }),
-    headerRight: () => LogoPerfil({ navigation }),
-    headerStyle: {
-      backgroundColor: 'blue',
-    },
-    headerShown: true,
-    headerTintColor: '#fff',
-  });
-
   return (
     <Stack.Navigator>
         <Stack.Screen name="Home" component={main} 
@@ -127,34 +126,49 @@ function MenuRouteSession({ navigation }) {
         <Stack.Screen name="Profile" component={profile} 
           options={({ navigation }) => optionsNavigator({ navigation }, "Profile")}
         />
-        <Stack.Screen name="myNetwork" component={myNetwork} 
-          options={({ navigation }) => optionsNavigator({ navigation }, "My Network")}
-        />
-        <Stack.Screen name="Img" component={Img} 
+        <Stack.Screen name="Img" component={Img} // Pruebas
           options={({ navigation }) => optionsNavigator({ navigation }, "Image")}
+        />
+        <Stack.Screen name="Not" component={not} // Pruebas
+          options={({ navigation }) => optionsNavigator({ navigation }, "Notification")}
         />
       </Stack.Navigator>
   );
 }
-
 function MyNetworkScreen({ navigation }) {
-  const optionsNavigator = ({ navigation }, Title) => ({
-    headerTitle: Title,
-    headerLeft: () => LogoMenu({ navigation }),
-    headerRight: () => LogoPerfil({ navigation }),
-    headerStyle: {
-      backgroundColor: 'blue',
-    },
-    headerShown: true,
-    headerTintColor: '#fff',
-  });
-
   return (
     <Stack.Navigator>
-        <Stack.Screen name="myNetwork" component={myNetwork} 
-          options={({ navigation }) => optionsNavigator({ navigation }, "My Network")}
-        />
-      </Stack.Navigator>
+      <Stack.Screen name="myNetwork" component={myNetwork} 
+        options={({ navigation }) => optionsNavigator({ navigation }, "My Network")}
+      />
+    </Stack.Navigator>
+  );
+}
+function ToPostScreen({ navigation }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="toPost" component={toPost} 
+        options={({ navigation }) => optionsNavigator({ navigation }, "To Post")}
+      />
+    </Stack.Navigator>
+  );
+}
+function NotificationsScreen({ navigation }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="notifications" component={notifications} 
+        options={({ navigation }) => optionsNavigator({ navigation }, "Notifications")}
+      />
+    </Stack.Navigator>
+  );
+}
+function JobOffersScreen({ navigation }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="jobOffers" component={jobOffers} 
+        options={({ navigation }) => optionsNavigator({ navigation }, "Job Offers")}
+      />
+    </Stack.Navigator>
   );
 }
 
@@ -179,13 +193,13 @@ function TabContent({ navigation }) {
       <Tab.Screen name="Network" component={MyNetworkScreen} 
         options={({ navigation }) => optionsTab({ navigation }, "My Network", "md-people-sharp")}
       />
-      <Tab.Screen name="Post" component={MenuRouteSession} 
+      <Tab.Screen name="Post" component={ToPostScreen} 
         options={({ navigation }) => optionsTab({ navigation }, "To Post", "add-circle")}
       />
-      <Tab.Screen name="NotificationsScreen" component={MenuRouteSession} 
+      <Tab.Screen name="NotificationsScreen" component={NotificationsScreen} 
         options={({ navigation }) => optionsTab({ navigation }, "Notifications", "notifications")}
       />
-      <Tab.Screen name="Jobs" component={MenuRouteSession} 
+      <Tab.Screen name="Jobs" component={JobOffersScreen} 
         options={({ navigation }) => optionsTab({ navigation }, "Job Offers", "briefcase-sharp")}
       />
     </Tab.Navigator>
@@ -202,12 +216,12 @@ function LinkedIn({ navigation }) {
 
 function LandingPage() {
   return (
-      <Image
-        source={require("./assets/statusbar.png")}
-        style={{
-            alignSelf: "center",
-        }}
-      />
+    <Image
+      source={require("./assets/statusbar.png")}
+      style={{
+        alignSelf: "center",
+      }}
+    />
   );
 }
 

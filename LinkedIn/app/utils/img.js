@@ -4,14 +4,13 @@ import {
   Button,
   Image,
   View,
-  Platform,
-  FlatList
+  Platform
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-export default function Img() {
-  const [images, setImages] = useState([null]);
-  const [typeFile, setTypeFile] = useState([null]);
+export default function Img({ navigation: { goBack } }) {
+  const [image, setImage] = useState(null);
+  const [typeFile, setTypeFile] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -30,69 +29,53 @@ export default function Img() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+      aspect:[4,3],
       quality: 1,
     });
 
     if (!result.cancelled) {
-      //const uploadImage = Platform.OS === 'ios' ? result.uri.replace('file://', ''): result.uri;
-      setImages([...images, result.uri]);
-      setTypeFile([...typeFile, result.type + "/" + result.uri.slice((result.uri.lastIndexOf(".") - 1 >>> 0) + 2)]);
+      setImage(result.uri);
+      setTypeFile(typeFile, result.type + "/" + result.uri.slice((result.uri.lastIndexOf(".") - 1 >>> 0) + 2));
     }
-    console.log(images.length);
   };
 
-  const putoff = (item) => {
-    let imgs = images.filter((img) => img !== item);
-    setImages(imgs);
-    console.log(images.length);
-  };
-
-  const sendImages = async () => {
-
+  const sendImage = async () => {
     const formData = new FormData();
-    for (let i = 1; i < images.length; i++) {
-      formData.append('file', {
-        uri: images[i],
-        name: images[i].split('/').pop(),
-        type: typeFile[i]
-      });
-    }
+    formData.append('file', {
+      uri: image,
+      name: image.split('/').pop(),
+      type: typeFile
+    });
+    formData.append('upload_preset','0trebeh');
+    formData.append('cloud_name','otrebeh');
     console.log(formData);
-    //delete axios.defaults.headers.common["Accept"];
-    axios.post('https://linckedin.herokuapp.com/api/upload/images/imagenes', {
-      formData,
+    fetch("https://api.cloudinary.com/v1_1/otrebeh/image/upload", {
+      method:"post",
+      body:formData
+    }).then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+    }).catch(err=>{
+      Alert.alert("Error")
     })
-    .then(data => {
-        console.log(data.data);
-    })
-    .catch(err => console.error(err));
-
   };
 
+  const cancel = async () => {
+    setImage(null);
+  }
+  
   return (
     <View style={{ flex: 1, justifyContent: "flex-end", marginTop: 75 }}>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <FlatList
-            data={images}
-            renderItem={({ item }) => (
-              <View
-                style={
-                  item != null ? { marginBottom: 5 } : { width: 0, height: 0 }
-                }
-              >
-                <Image
-                  source={{ uri: item }}
-                  style={{ width: 200, height: 250 }}
-                />
-                <Button
-                  title="Quitar imagen"
-                  color="#cd5c5c"
-                  onPress={() => putoff(item)}
-                />
-              </View>
-            )}
-            keyExtractor={(item) => item}
-          ></FlatList>
+        <Image
+          source={{ uri: image }}
+          style={{ 
+            height: 240,
+            width: "100%",
+            resizeMode: 'contain',
+            marginBottom: 20
+          }}
+        />
       </View>
       <View
         style={{
@@ -102,24 +85,16 @@ export default function Img() {
           marginHorizontal: 25,
         }}
       >
-        <Button title="Enviar" onPress={() => sendImages()} />
-        <View
-          style={
-            images.length == 5
-              ? { margin: 0, padding: 0 }
-              : { width: 0, height: 0 }
+        <Button title="Volver" onPress={() => goBack()}/>
+        { image
+          ? <Button title="Cancelar" onPress={() => cancel()}/>
+          : null
+        }
+        <View>
+          { image
+            ? <Button title="Enviar" onPress={() => sendImage()} />
+            : <Button title="Buscar" onPress={pickImage} />
           }
-        >
-          <Button color="red" title="Limite alcanzado" />
-        </View>
-        <View
-          style={
-            images.length != 5
-              ? { margin: 0, padding: 0 }
-              : { width: 0, height: 0 }
-          }
-        >
-          <Button title="Añadir imagen" onPress={pickImage} />
         </View>
       </View>
     </View>

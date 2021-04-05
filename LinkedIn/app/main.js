@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AntDesign, FontAwesome, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Ionicons, MaterialIcons, Foundation } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -20,6 +20,7 @@ export default class main extends React.Component {
 
     this.state = {
       loading: false,
+      loadingImage: [],
       publications: []
     };
   }
@@ -30,14 +31,14 @@ export default class main extends React.Component {
       {
         name: "Heberto Urribarri",
         description: "Descontrol",
-        image: require("../assets/imagendeprueba2.jpg"),
+        image: {uri: "https://res.cloudinary.com/otrebeh/image/private/s--aAyHPm2D--/v1617561878/b2017b8f-73ca-4677-b122-c064d27d5767_nikapt.jpg"},
         Reactions: 72,
         comment: ["hola", "felicidades", "Eres mi crush", "Todo un pro"]
       },
       {
         name: "Clemente Castejon",
         description: "Estudiante de Ingeniería de Computación, ubicado en Maracaibo, Venezuela. 21 años de Edad.",
-        image: require("../assets/imagendeprueba.png"),
+        image: {uri: null},
         Reactions: 27,
         comment: ["hola"]
       }
@@ -75,7 +76,6 @@ export default class main extends React.Component {
         name="Publicacion"
         style={{
           marginVertical: 10,
-          height: 320,
           width: "100%",
           alignSelf: "center",
           justifyContent: "center",
@@ -101,18 +101,26 @@ export default class main extends React.Component {
             </Text>
           </View>
           <View style={{
-            height: 175,
-            width: "100%"
+            width: "100%",
+            marginVertical: 2,
+            marginBottom: 4
           }}>
-            <Image 
+            { item.image.uri ?
+              <Image 
               style={{
                 alignSelf: "center",
-                height: "100%",
+                height: 240,
                 width: "100%",
                 resizeMode: 'contain',
               }}
+              // posible uso si la imagen no carga. eliminar si no es requerido
+              onLoadStart={() => console.log("cargando imagen en: "+index)}
+              onLoadEnd={() => console.log("imagen cargada en: "+index)}
+              ////////////////////////////////////////////////////////////////
               source={item.image} 
-            />
+              /> :
+              <Image style={{ height: 0 }}/>
+            }
           </View>
           <View>
             <View style={{
@@ -126,10 +134,10 @@ export default class main extends React.Component {
               }}>
                 <Text>{ item.Reactions }</Text>
                 <View style={{marginLeft: 10}}></View>
-                <AntDesign style={ true != null ? {display: 'flex'} : {display: 'none'}} name="like1" size={13} color="gray" />
-                <AntDesign style={ true != null ? {display: 'flex'} : {display: 'none'}} name="heart" size={13} color="gray" />
-                <AntDesign style={ true != null ? {display: 'flex'} : {display: 'none'}} name="smile-circle" size={13} color="gray" />
-                <MaterialCommunityIcons style={ true != null ? {display: 'flex'} : {display: 'none'}} name="lightbulb-on" size={13} color="gray" />
+                <AntDesign style={ true != null ? {display: 'flex'} : {display: 'none'}} name="like1" size={13} color="blue" />
+                <AntDesign style={ true != null ? {display: 'flex', marginHorizontal: 2} : {display: 'none', marginHorizontal: 2}} name="heart" size={13} color="red" />
+                <AntDesign style={ true != null ? {display: 'flex'} : {display: 'none'}} name="smile-circle" size={13} color="green" />
+                <MaterialIcons style={ true != null ? {display: 'flex'} : {display: 'none'}} name="lightbulb" size={13} color="#FFD700" />
               </View>
               <View style={{
                 flexDirection: "row",
@@ -141,7 +149,7 @@ export default class main extends React.Component {
             </View>
             <View name="Divider" 
               style={{ 
-                backgroundColor: "#ccc", 
+                backgroundColor: "#B0C4DE", 
                 height: 2, 
                 width: "94%", 
                 marginVertical: 5, 
@@ -159,11 +167,17 @@ export default class main extends React.Component {
               <TouchableOpacity onPress={() => Alert.alert("Comentar")}>
                 <FontAwesome name="commenting" size={24} color="gray" />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => Alert.alert("compartir")}>
-                <FontAwesome name="share" size={24} color="gray" />
-              </TouchableOpacity>
               <TouchableOpacity onPress={() => Alert.alert("Enviar")}>
                 <Ionicons name="md-send" size={24} color="gray" />
+              </TouchableOpacity>
+              { false  // Abilitar cuando sea una oferta de trabajo
+                ? <TouchableOpacity onPress={() => Alert.alert("Aplicar a trabajo")}>
+                  <Foundation name="torso-business" size={24} color="gray" />
+                </TouchableOpacity> 
+                : null
+              }
+              <TouchableOpacity onPress={() => Alert.alert("Guardar")}>
+                <FontAwesome name="bookmark" size={24} color="gray" />
               </TouchableOpacity>
             </View>
           </View>

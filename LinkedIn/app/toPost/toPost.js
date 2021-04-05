@@ -13,9 +13,9 @@ import {
   ScrollView,
   TextInput
 } from "react-native";
-import styles from "./myNetwork.css";
+import styles from "./toPost.css";
 
-export default class myNetwork extends React.Component {
+export default class toPost extends React.Component {
   constructor(props) {
     super(props);
 
