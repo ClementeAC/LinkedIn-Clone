@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AntDesign, FontAwesome, Ionicons, MaterialIcons, Foundation } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Ionicons, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -123,6 +123,26 @@ export default class main extends React.Component {
             }
           </View>
           <View>
+            { false // Abilitar cuando sea una oferta de trabajo
+              ? <View style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  backgroundColor: "#F8F8F8",
+                  paddingBottom: 2,
+                  marginBottom: 2,
+                  paddingHorizontal: 15
+                }}>
+                  <View>
+                    <Text>Apply for a job offer.</Text>
+                    <Text>Send my profile</Text>
+                  </View>
+                  <TouchableOpacity 
+                  style={{flexDirection: "row", alignSelf: "center"}} onPress={() => Alert.alert("Aplicar a trabajo")}>
+                    <MaterialCommunityIcons name="account-arrow-right" size={24} color="#444" />
+                  </TouchableOpacity> 
+                </View>
+              : null
+            }
             <View style={{
               flexDirection: "row",
               justifyContent: "space-between",
@@ -170,12 +190,6 @@ export default class main extends React.Component {
               <TouchableOpacity onPress={() => Alert.alert("Enviar")}>
                 <FontAwesome name="send" size={24} color="gray" />
               </TouchableOpacity>
-              { false  // Abilitar cuando sea una oferta de trabajo
-                ? <TouchableOpacity onPress={() => Alert.alert("Aplicar a trabajo")}>
-                    <Foundation name="torso-business" size={24} color="gray" />
-                  </TouchableOpacity> 
-                : null
-              }
               <TouchableOpacity onPress={() => Alert.alert("Guardar")}>
                 <FontAwesome name="bookmark" size={24} color="gray" />
               </TouchableOpacity>

@@ -33,6 +33,7 @@ export default class toPost extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+
     if(this.state.prueba){
       return (
         <Img prueba={true}/* Subir imagen *//>
@@ -54,6 +55,7 @@ export default class toPost extends React.Component {
     return (
       <View style={{
         height: "100%",
+        backgroundColor: "white"
       }}>
         <ScrollView>
         <View style={{
@@ -81,7 +83,7 @@ export default class toPost extends React.Component {
           placeholder="What do you want to talk about?"
           onChangeText={(text) => this.setState({ publicationText: text })}
         />
-        <Img publication={this.state.publicationText}/* Subir imagen *//>
+        <Img navigate={navigate} publication={this.state.publicationText}/* Subir imagen *//>
         </ScrollView>
       </View>
     );
