@@ -41,7 +41,6 @@ export default class register extends React.Component {
       password: this.state.password,
       phone: "+58" + this.state.phone,
     });
-    this.props.navigation.replace("LinkedIn");
     try {
       await AsyncStorage.setItem("user", JSON.stringify(res.data[0]));
       this.props.navigation.replace("LinkedIn");

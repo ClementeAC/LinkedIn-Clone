@@ -1,7 +1,14 @@
 import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {Ionicons, AntDesign, MaterialIcons, MaterialCommunityIcons, FontAwesome5, Entypo} from "@expo/vector-icons";
+import {
+  Ionicons,
+  AntDesign,
+  MaterialIcons,
+  MaterialCommunityIcons,
+  FontAwesome5,
+  Entypo,
+} from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -10,7 +17,7 @@ import {
   Alert,
   Button,
   Image,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import styles from "./profile.css";
 
@@ -19,8 +26,8 @@ export default class profile extends React.Component {
     super(props);
 
     this.state = {
-      y : 0,
-      loading : false,
+      y: 0,
+      loading: false,
       username: "",
       name: "",
       lastName: "",
@@ -30,7 +37,7 @@ export default class profile extends React.Component {
       currentJobTitle: "",
       country: "",
       phone: "",
-      education:[], 
+      education: [],
       skills: [],
       editData: false,
       id: 0,
@@ -45,8 +52,13 @@ export default class profile extends React.Component {
       title: "Student at Universidad Rafael Urdaneta",
       currentJobTitle: "English Teacher at CEVAZ",
       education: ["Colegio Alemán de Maracaibo", "Universidad Rafael Urdaneta"],
-      skills: ["English", "Spanish", "Web development", "Networking experience"],
-      country: "Venezuela",
+      skills: [
+        "English",
+        "Spanish",
+        "Web development",
+        "Networking experience",
+      ],
+      country: null,
     });
   }
 
@@ -120,19 +132,19 @@ export default class profile extends React.Component {
   onScrollTop = (event, setOptions) => {
     var y = event.nativeEvent.contentOffset.y;
     this.setState({ y });
-    if(this.state.y >= y){
+    if (this.state.y >= y) {
       setOptions({
         headerShown: true,
       });
-      console.log('true');
-    }else{
+      console.log("true");
+    } else {
       setOptions({
         headerShown: false,
       });
-      console.log('false');
+      console.log("false");
     }
-  }
-  
+  };
+
   render() {
     const { navigate, route, replace, setOptions } = this.props.navigation;
 
@@ -188,61 +200,190 @@ export default class profile extends React.Component {
     } else {
       return (
         <View>
-          <ScrollView 
+          <ScrollView
             onScrollEndDrag={(event) => this.onScrollTop(event, setOptions)}
           >
-          <View
-            style={{
-              backgroundColor: "white",
-              alignItems: "center",
-            }}
-          >
-            <Image source={require("../../assets/profile.png")} style={{width: 125, height: 125, borderRadius:60, resizeMode:"contain", marginTop: 20}}/>
-            <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
-              {this.state.username}
-            </Text>
-            <Text style={{ color: "gray", marginTop: 5 }}>
-              {this.state.name} {this.state.lastName}
-            </Text>
-            <Text style={{ color: "gray", marginBottom: 2 }}>
-              {this.state.email}
-            </Text>
-            <Text style={{ color: "gray", marginBottom: 10 }}>
-              {this.state.phone}
-            </Text>
-            <Text style={{ marginBottom: 20, fontWeight:"bold", fontSize: 17}}>
-              {this.state.title}
-            </Text>
-            <MaterialIcons name="work" color="blue" size={24}/>
-            <Text style={{fontWeight:"bold", fontSize:18}}>Current Job Title</Text>
-            <Text style={{marginTop:5, fontSize: 17}}>{this.state.currentJobTitle}</Text>
-            <MaterialIcons name="place" color="blue" size={24} style={{marginTop: 20}}/>
-            <Text style={{fontWeight:"bold", fontSize:18}}>Country of residence</Text>
-            <Text style={{marginTop:5, fontSize: 17}}>{this.state.country}</Text>
-            <FontAwesome5 name="user-graduate" color="blue" size={23} style={{marginTop: 20}}/>
-            <Text style={{fontWeight:"bold", fontSize:18}}>Education</Text>
-            <Text style={{marginTop:5, fontSize: 17}}>{this.state.education[0]}</Text>
-            <Entypo name="dot-single" color="blue" size={15}/>
-            <Text style={{fontSize: 17}}>{this.state.education[1]}</Text>
-            <MaterialIcons name="lightbulb" color="blue" size={24} style={{marginTop: 20}}/>
-            <Text style={{fontWeight:"bold", fontSize:18}}>Skills and Proficiencies</Text>
-            <Text style={{marginTop:5, fontSize: 17}}>{this.state.skills[3]}</Text>
-
-            <View style={{marginTop: 5, marginBottom: 5}}>
-            <Button
-              title="Edit user data"
-              onPress={() => this.setState({ editData: true })}
-            ></Button>
+            <View
+              style={{
+                backgroundColor: "white",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                source={require("../../assets/profile.png")}
+                style={{
+                  width: 125,
+                  height: 125,
+                  borderRadius: 60,
+                  resizeMode: "contain",
+                  marginTop: 20,
+                }}
+              />
+              <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
+                {this.state.username}
+              </Text>
+              <Text style={{ color: "gray", marginTop: 5 }}>
+                {this.state.name} {this.state.lastName}
+              </Text>
+              <Text style={{ color: "gray", marginBottom: 2 }}>
+                {this.state.email}
+              </Text>
+              <Text style={{ color: "gray", marginBottom: 10 }}>
+                {this.state.phone}
+              </Text>
+              <Text
+                style={{ marginBottom: 20, fontWeight: "bold", fontSize: 17 }}
+              >
+                {this.state.title}
+              </Text>
+              <View>
+                {(this.state.name == null) |
+                (this.state.lastName == null) |
+                (this.state.title == null) |
+                (this.state.currentJobTitle == null) |
+                (this.state.education == null) |
+                (this.state.skills == null) |
+                (this.state.country == null) ? (
+                  <View
+                    style={{
+                      borderColor: "blue",
+                      borderWidth: 2,
+                      padding: 15,
+                      borderRadius: 30,
+                      marginBottom: 20,
+                    }}
+                  >
+                    <Text style={{ fontWeight: "bold", fontSize: 14 }}>
+                      Add some more information to complete your profile
+                    </Text>
+                    <TouchableOpacity
+                      style={{
+                        marginHorizontal: 70,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: 10,
+                        backgroundColor: "blue",
+                        borderRadius: 23,
+                        height: 40,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "white",
+                          fontWeight: "bold",
+                          marginHorizontal: 10,
+                        }}
+                      >
+                        Complete your profile
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+              </View>
+              <View>
+                {this.state.currentJobTitle != null ? (
+                  <View style={{ alignItems: "center" }}>
+                    <MaterialIcons name="work" color="blue" size={24} />
+                    <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                      Current Job Title
+                    </Text>
+                    <Text style={{ marginTop: 5, fontSize: 17 }}>
+                      {this.state.currentJobTitle}
+                    </Text>
+                  </View>
+                ) : null}
+              </View>
+              <View>
+                {this.state.country != null ? (
+                  <View style={{ alignItems: "center" }}>
+                    <MaterialIcons
+                      name="place"
+                      color="blue"
+                      size={24}
+                      style={{ marginTop: 20 }}
+                    />
+                    <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                      Country of residence
+                    </Text>
+                    <Text style={{ marginTop: 5, fontSize: 17 }}>
+                      {this.state.country}
+                    </Text>
+                  </View>
+                ) : null}
+              </View>
+              <View>
+                {this.state.country != null ? (
+                  <View style={{ alignItems: "center" }}>
+                    <MaterialIcons
+                      name="place"
+                      color="blue"
+                      size={24}
+                      style={{ marginTop: 20 }}
+                    />
+                    <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                      Country of residence
+                    </Text>
+                    <Text style={{ marginTop: 5, fontSize: 17 }}>
+                      {this.state.country}
+                    </Text>
+                  </View>
+                ) : null}
+              </View>
+              <View>
+                {this.state.education != null ? (
+                  <View style={{ alignItems: "center" }}>
+                    <FontAwesome5
+                      name="user-graduate"
+                      color="blue"
+                      size={23}
+                      style={{ marginTop: 20 }}
+                    />
+                    <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                      Education
+                    </Text>
+                    <Text style={{ marginTop: 5, fontSize: 17 }}>
+                      {this.state.education[0]}
+                    </Text>
+                  </View>
+                ) : null}
+              </View>
+              <View>
+                {this.state.skills != null ? (
+                  <View style={{ alignItems: "center" }}>
+                    <Entypo name="dot-single" color="blue" size={15} />
+                    <Text style={{ fontSize: 17 }}>
+                      {this.state.education[1]}
+                    </Text>
+                    <MaterialIcons
+                      name="lightbulb"
+                      color="blue"
+                      size={24}
+                      style={{ marginTop: 20 }}
+                    />
+                    <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                      Skills and Proficiencies
+                    </Text>
+                    <Text style={{ marginTop: 5, fontSize: 17 }}>
+                      {this.state.skills[3]}
+                    </Text>
+                  </View>
+                ) : null}
+              </View>
+              <View style={{ marginTop: 5, marginBottom: 5 }}>
+                <Button
+                  title="Edit user data"
+                  onPress={() => this.setState({ editData: true })}
+                ></Button>
+              </View>
             </View>
-          </View>
-          <TouchableOpacity
-            style={{ paddingVertical: 15 }}
-            onPress={() => this.logout(replace)}
-          >
-            <Text style={{ color: "#d8412e", alignSelf: "center" }}>
-              Logout
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={{ paddingVertical: 15 }}
+              onPress={() => this.logout(replace)}
+            >
+              <Text style={{ color: "#d8412e", alignSelf: "center" }}>
+                Logout
+              </Text>
+            </TouchableOpacity>
           </ScrollView>
         </View>
       );
