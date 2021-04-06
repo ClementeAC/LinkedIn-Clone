@@ -18,6 +18,7 @@ const uploadImage = multer({
 
 router.post('/images', (req, res) => {
     console.log("llego");
+    console.log(req.body);
     uploadImage(req, res, (err) => {
         if (err) {
             err.message = 'The file is so heavy for my service';

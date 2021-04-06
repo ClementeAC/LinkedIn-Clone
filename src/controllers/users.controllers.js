@@ -21,8 +21,7 @@ const getLogin = async (req, res) => {
   try{
     const { username, password } = req.body;
     const response = await client.query(query.getLogin, [
-      username, 
-      password
+      username
     ]);
 
     if(typeof response.rows[0] === 'undefined'){
