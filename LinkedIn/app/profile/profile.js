@@ -18,6 +18,7 @@ import {
   Button,
   Image,
   ScrollView,
+  Modal,
 } from "react-native";
 import styles from "./profile.css";
 
@@ -26,6 +27,7 @@ export default class profile extends React.Component {
     super(props);
 
     this.state = {
+      modalVisible: false,
       loading: false,
       username: "",
       name: "",
@@ -238,6 +240,9 @@ export default class profile extends React.Component {
                       Add some more information to complete your profile
                     </Text>
                     <TouchableOpacity
+                      onPress={() => {
+                        this.setState({ modalVisible: true });
+                      }}
                       style={{
                         marginHorizontal: 70,
                         alignItems: "center",
@@ -366,6 +371,69 @@ export default class profile extends React.Component {
               </Text>
             </TouchableOpacity>
           </ScrollView>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 22,
+              }}
+            >
+              <View
+                style={{
+                  margin: 20,
+                  backgroundColor: "white",
+                  borderRadius: 20,
+                  padding: 15,
+                  alignItems: "center",
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                }}
+              >
+                <Text style={{ marginBottom: 15, textAlign: "center" }}>
+                  Hello World!
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({ modalVisible: false });
+                  }}
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: 10,
+                    backgroundColor: "blue",
+                    borderRadius: 23,
+                    height: 40,
+                    width: 100,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      fontWeight: "bold",
+                      marginHorizontal: 10,
+                    }}
+                  >
+                    Save
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
         </View>
       );
     }
