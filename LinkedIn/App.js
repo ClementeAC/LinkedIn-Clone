@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import * as React from "react"; 
 import { TouchableOpacity, Image, Alert } from "react-native";
-import {Ionicons, AntDesign, Entypo} from "@expo/vector-icons";
+import {Ionicons, AntDesign, Entypo, FontAwesome5} from "@expo/vector-icons";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -15,6 +15,7 @@ import {
 import landingPage from "./app/landingPage/landingPage";
 import main from "./app/main";
 import profile from "./app/profile/profile";
+import edit from "./app/profile/edit";
 import login from "./app/login/login";
 import register from "./app/register/register";
 import myNetwork from "./app/myNetwork/myNetwork";
@@ -29,7 +30,15 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
-function LogoPerfil({ navigation }) {
+function LogoPerfil({ navigation }, Title) {
+  if(Title == "Profile"){
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('editProfile')}>
+        <FontAwesome5 
+        style={{ padding: 6, marginRight: 10 }} name="user-edit" size={24} color="#fff" />
+      </TouchableOpacity>
+    );
+  }
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
       <AntDesign 
@@ -110,7 +119,7 @@ function CustomDrawerContent(props) {
 const optionsNavigator = ({ navigation }, Title) => ({
   headerTitle: Title,
   headerLeft: () => LogoMenu({ navigation }),
-  headerRight: () => LogoPerfil({ navigation }),
+  headerRight: () => LogoPerfil({ navigation }, Title),
   headerStyle: {
     backgroundColor: 'blue',
   },
@@ -125,6 +134,9 @@ function MenuRouteSession({ navigation }) {
         />
         <Stack.Screen name="Profile" component={profile} 
           options={({ navigation }) => optionsNavigator({ navigation }, "Profile")}
+        />
+        <Stack.Screen name="editProfile" component={edit} 
+          options={({ navigation }) => optionsNavigator({ navigation }, "Edit")}
         />
         <Stack.Screen name="Img" component={Img} // Pruebas
           options={({ navigation }) => optionsNavigator({ navigation }, "Image")}

@@ -2,10 +2,7 @@ import React from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  Ionicons,
-  AntDesign,
   MaterialIcons,
-  MaterialCommunityIcons,
   FontAwesome5,
   Entypo,
 } from "@expo/vector-icons";
@@ -13,9 +10,7 @@ import {
   Text,
   View,
   TouchableOpacity,
-  TextInput,
   Alert,
-  Button,
   Image,
   ScrollView,
   Modal,
@@ -40,7 +35,6 @@ export default class profile extends React.Component {
       phone: "",
       education: [],
       skills: [],
-      editData: false,
       id: 0,
     };
   }
@@ -133,56 +127,6 @@ export default class profile extends React.Component {
   render() {
     const { navigate, route, replace } = this.props.navigation;
 
-    if (this.state.editData == true) {
-      return (
-        <View
-          style={{
-            backgroundColor: "white",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-            Edit your data
-          </Text>
-          <Text style={{ fontSize: 20, marginTop: 15 }}>Username:</Text>
-          <TextInput
-            style={{ marginTop: 15, fontSize: 15 }}
-            placeholder="Enter new username"
-            placeholderTextColor="#d8412e"
-            onChangeText={(username) => this.setState({ username: username })}
-          />
-          <Text style={{ fontSize: 20, marginTop: 15 }}>Password:</Text>
-          <TextInput
-            style={{
-              marginTop: 20,
-              fontSize: 15,
-              borderColor: "#d8412e",
-              marginBottom: 15,
-            }}
-            placeholder="Enter new password"
-            placeholderTextColor="#d8412e"
-            onChangeText={(password) => this.setState({ password: password })}
-          />
-          <TouchableOpacity
-            onPress={() => this.saveData()}
-            style={{
-              marginHorizontal: 90,
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 30,
-              backgroundColor: "#d8412e",
-              paddingVertical: 13,
-              paddingHorizontal: 25,
-              borderRadius: 23,
-              height: 40,
-              marginBottom: 10,
-            }}
-          >
-            <Text style={{ color: "white" }}>Save</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    } else {
       return (
         <View>
           <ScrollView>
@@ -190,6 +134,7 @@ export default class profile extends React.Component {
               style={{
                 backgroundColor: "white",
                 alignItems: "center",
+                paddingBottom: 20
               }}
             >
               <Image
@@ -355,12 +300,6 @@ export default class profile extends React.Component {
                   </View>
                 ) : null}
               </View>
-              <View style={{ marginTop: 5, marginBottom: 5 }}>
-                <Button
-                  title="Edit user data"
-                  onPress={() => this.setState({ editData: true })}
-                ></Button>
-              </View>
             </View>
             <TouchableOpacity
               style={{ paddingVertical: 15 }}
@@ -436,6 +375,5 @@ export default class profile extends React.Component {
           </Modal>
         </View>
       );
-    }
   }
 }
