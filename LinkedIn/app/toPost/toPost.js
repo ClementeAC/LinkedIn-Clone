@@ -22,6 +22,7 @@ export default class toPost extends React.Component {
       username: null,
       publicationText: "",
     };
+    //console.log(this.props.navigation);
   }
 
   async componentDidMount() {
@@ -34,11 +35,6 @@ export default class toPost extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
 
-    if(this.state.prueba){
-      return (
-        <Img prueba={true}/* Subir imagen *//>
-      );
-    }
     if (this.state.loading) {
       return (
         <View

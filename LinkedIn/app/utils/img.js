@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-export default function Img(props) {
+export default function Img({publication}) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -62,6 +62,7 @@ export default function Img(props) {
     })
   };
 
+  //aun no probado
   const sendPublication = async (url) => {
     this.setState({ loading: true });
     let name = await AsyncStorage.getItem("user");

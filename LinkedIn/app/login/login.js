@@ -32,22 +32,26 @@ export default class login extends React.Component {
     const res = await axios.post(
       "https://linckedin.herokuapp.com/api/users/login",
       {
-        username: this.state.username,
-        password: this.state.password,
+        username: this.state.username
       }
     );
 
     if (res.data[0].status == 404) {
       Alert.alert("User not found");
     } else {
-      try {
-        await AsyncStorage.setItem("user", JSON.stringify(res.data[0]));
-        this.props.navigation.replace("LinkedIn");
-      } catch (e) {
-        //error
+
+      if(res.data[0].password != this.state.password){
+        Alert.alert("Incorrect password");
+      } else {
+        
+        try {
+          await AsyncStorage.setItem("user", JSON.stringify(res.data[0]));
+          this.props.navigation.replace("LinkedIn");
+        } catch (e) {
+          //error
+        }
       }
     }
-
     this.setState({ loading: false });
   };
 

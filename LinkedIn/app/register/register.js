@@ -51,7 +51,25 @@ export default class register extends React.Component {
   };
 
   verifyPhone = async () => {
-    this.setState({ verify: true })
+    if(this.state.username.length <4) return Alert.alert("Username must be greater than 4 characters");
+    if(this.state.email == "") return Alert.alert("The email is empty ");
+    if(this.state.phone == "") return Alert.alert("Add phone number");
+    if(this.state.password.length <4) return Alert.alert("password must be greater than 4 characters");
+    if(this.state.confirmPassword == "") return Alert.alert("Add password confirmation");
+    if(this.state.password != this.state.confirmPassword) return Alert.alert("The passwords are not the same");
+
+    const resVerify = await axios.post(
+      "https://linckedin.herokuapp.com/api/users/login",
+      {
+        username: this.state.username
+      }
+    );
+    this.setState({ loading: true });
+    if (resVerify.data[0].status != 404) {
+      this.setState({ loading: false });
+      return Alert.alert("User already exists");
+    }
+    this.setState({ loading: false, verify: true })
     const res = await axios.post("https://linckedin.herokuapp.com/api/users/code/", {
       phone: "+58" + this.state.phone.toString()
     });
@@ -61,6 +79,8 @@ export default class register extends React.Component {
     const res = await axios.delete("https://linckedin.herokuapp.com/api/users/code/"+ this.state.code);
     if(res.data != 0){
       this.register();
+    } else {
+      Alert.alert("Invalid code");
     }
   }
 
@@ -142,6 +162,7 @@ export default class register extends React.Component {
               placeholder="Username"
               placeholderTextColor="#444"
               style={{ paddingLeft: 30 }}
+              value={this.state.username}
               onChangeText={(username) => this.setState({ username: username })}
             />
           </View>
@@ -151,6 +172,7 @@ export default class register extends React.Component {
               placeholder="E-mail"
               placeholderTextColor="#444"
               style={{ paddingLeft: 30 }}
+              value={this.state.email}
               onChangeText={(email) => this.setState({ email: email })}
             />
           </View>
@@ -158,10 +180,12 @@ export default class register extends React.Component {
             <AntDesign name="phone" color="blue" size={24} />
             <Text>+58</Text>
             <TextInput
+              keyboardType="numeric"
               placeholder="Phone"
               maxLength={10}
               placeholderTextColor="#444"
               style={{ paddingLeft: 5 }}
+              value={this.state.phone}
               onChangeText={(phone) => this.setState({ phone: phone })}
             />
           </View>
@@ -172,6 +196,7 @@ export default class register extends React.Component {
               placeholder="Password"
               placeholderTextColor="#444"
               style={{ paddingLeft: 30 }}
+              value={this.state.password}
               onChangeText={(password) => this.setState({ password: password })}
             />
           </View>
@@ -182,6 +207,7 @@ export default class register extends React.Component {
               placeholder="Confirm Password"
               placeholderTextColor="#444"
               style={{ paddingLeft: 30 }}
+              value={this.state.confirmPassword}
               onChangeText={(confirmPassword) =>
                 this.setState({ confirmPassword: confirmPassword })
               }
@@ -189,7 +215,6 @@ export default class register extends React.Component {
           </View>
           <TouchableOpacity
             onPress={() => this.verifyPhone()}
-            disabled={(this.state.username == "") | (this.state.password == "") | (this.state.password == "") | (this.state.email == "") | (this.state.phone == "") | (this.state.confirmPassword == "") | (this.state.password != this.state.confirmPassword) }
             style={
               this.state.username == "" |
               this.state.password == "" |

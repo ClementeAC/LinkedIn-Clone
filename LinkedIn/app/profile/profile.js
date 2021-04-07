@@ -29,7 +29,6 @@ export default class profile extends React.Component {
     super(props);
 
     this.state = {
-      y: 0,
       modalVisible: false,
       loading: false,
       username: "",
@@ -133,24 +132,8 @@ export default class profile extends React.Component {
     );
   };
 
-  onScrollTop = (event, setOptions) => {
-    var y = event.nativeEvent.contentOffset.y;
-    this.setState({ y });
-    if (this.state.y >= y) {
-      setOptions({
-        headerShown: true,
-      });
-      console.log("true");
-    } else {
-      setOptions({
-        headerShown: false,
-      });
-      console.log("false");
-    }
-  };
-
   render() {
-    const { navigate, route, replace, setOptions } = this.props.navigation;
+    const { navigate, route, replace } = this.props.navigation;
 
     if (this.state.editData == true) {
       return (
@@ -204,9 +187,7 @@ export default class profile extends React.Component {
     } else {
       return (
         <View>
-          <ScrollView
-            onScrollEndDrag={(event) => this.onScrollTop(event, setOptions)}
-          >
+          <ScrollView>
             <View
               style={{
                 backgroundColor: "white",
