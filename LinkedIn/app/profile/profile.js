@@ -405,6 +405,12 @@ export default class profile extends React.Component {
                   elevation: 5,
                 }}
               >
+                <AntDesign
+                  name="checkcircleo"
+                  size={30}
+                  color="blue"
+                  style={{ marginBottom: 7 }}
+                />
                 <Text
                   style={{
                     marginBottom: 5,
@@ -671,6 +677,14 @@ export default class profile extends React.Component {
                   >
                     Save
                   </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ marginTop: 15 }}
+                  onPress={() => {
+                    this.setState({ modalVisible: false });
+                  }}
+                >
+                  <Text style={{ color: "red" }}>Cancel</Text>
                 </TouchableOpacity>
               </View>
             </View>
