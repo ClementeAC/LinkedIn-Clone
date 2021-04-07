@@ -55,7 +55,7 @@ export default class profile extends React.Component {
         "Web development",
         "Networking experience",
       ],
-      country: null,
+      country: "Venezuela",
     });
   }
 
@@ -153,13 +153,14 @@ export default class profile extends React.Component {
                 {this.state.username}
               </Text>
               <Text style={{ color: "gray", marginTop: 5 }}>
-                {this.state.name} {this.state.lastName}
+                {this.state.name != null ? this.state.name : null}{" "}
+                {this.state.lastName != null ? this.state.lastName : null}
               </Text>
               <Text style={{ color: "gray", marginBottom: 2 }}>
-                {this.state.email}
+                {this.state.email != null ? this.state.email : null}
               </Text>
               <Text style={{ color: "gray", marginBottom: 10 }}>
-                {this.state.phone}
+                {this.state.phone != null ? this.state.phone : null}
               </Text>
               <Text
                 style={{ marginBottom: 20, fontWeight: "bold", fontSize: 17 }}
@@ -222,24 +223,6 @@ export default class profile extends React.Component {
                     </Text>
                     <Text style={{ marginTop: 5, fontSize: 17 }}>
                       {this.state.currentJobTitle}
-                    </Text>
-                  </View>
-                ) : null}
-              </View>
-              <View>
-                {this.state.country != null ? (
-                  <View style={{ alignItems: "center" }}>
-                    <MaterialIcons
-                      name="place"
-                      color="blue"
-                      size={24}
-                      style={{ marginTop: 20 }}
-                    />
-                    <Text style={{ fontWeight: "bold", fontSize: 18 }}>
-                      Country of residence
-                    </Text>
-                    <Text style={{ marginTop: 5, fontSize: 17 }}>
-                      {this.state.country}
                     </Text>
                   </View>
                 ) : null}
@@ -343,6 +326,12 @@ export default class profile extends React.Component {
                   elevation: 5,
                 }}
               >
+                <AntDesign
+                  name="checkcircleo"
+                  size={30}
+                  color="blue"
+                  style={{ marginBottom: 7 }}
+                />
                 <Text
                   style={{
                     marginBottom: 5,
@@ -609,6 +598,14 @@ export default class profile extends React.Component {
                   >
                     Save
                   </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ marginTop: 15 }}
+                  onPress={() => {
+                    this.setState({ modalVisible: false });
+                  }}
+                >
+                  <Text style={{ color: "red" }}>Cancel</Text>
                 </TouchableOpacity>
               </View>
             </View>
