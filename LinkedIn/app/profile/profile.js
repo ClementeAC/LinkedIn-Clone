@@ -15,7 +15,7 @@ import {
   Image,
   ScrollView,
   Modal,
-  ViewPropTypes,
+  TextInput,
 } from "react-native";
 import styles from "./profile.css";
 
