@@ -61,7 +61,7 @@ export default class profile extends React.Component {
         "Web development",
         "Networking experience",
       ],
-      country: null,
+      country: "Venezuela",
     });
   }
 
@@ -278,24 +278,6 @@ export default class profile extends React.Component {
                     </Text>
                     <Text style={{ marginTop: 5, fontSize: 17 }}>
                       {this.state.currentJobTitle}
-                    </Text>
-                  </View>
-                ) : null}
-              </View>
-              <View>
-                {this.state.country != null ? (
-                  <View style={{ alignItems: "center" }}>
-                    <MaterialIcons
-                      name="place"
-                      color="blue"
-                      size={24}
-                      style={{ marginTop: 20 }}
-                    />
-                    <Text style={{ fontWeight: "bold", fontSize: 18 }}>
-                      Country of residence
-                    </Text>
-                    <Text style={{ marginTop: 5, fontSize: 17 }}>
-                      {this.state.country}
                     </Text>
                   </View>
                 ) : null}
