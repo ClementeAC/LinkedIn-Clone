@@ -6,13 +6,13 @@ import {
   Image,
   ScrollView,
   useWindowDimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 import styles from "./landingPage.css";
 
 export default function landingPage({ navigation }) {
-
-  const [session, setSession] = useState(false);
+  const [session, setSession] = useState(true);
   useEffect(() => {
     async function verifySession() {
       var value = null;
@@ -24,6 +24,8 @@ export default function landingPage({ navigation }) {
         }
         if (value !== null) {
           navigation.replace("LinkedIn");
+        } else {
+          setSession(false);
         }
     }
     verifySession();
@@ -33,7 +35,7 @@ export default function landingPage({ navigation }) {
   const height = width * 0.6;
 
   const [active, setActive] = useState(0);
-  
+
   const images = [
     require('../../assets/1.png'),
     require('../../assets/2.png'),
@@ -48,6 +50,20 @@ export default function landingPage({ navigation }) {
       setActive(slide);
     }
   };
+
+  if (session) {
+    return (
+      <View
+        style={{
+          paddingVertical: 20,
+          borderTopWidth: 1,
+          borderColor: "#CED0CE",
+        }}
+      >
+        <ActivityIndicator animating size="small" color="#999999" />
+      </View>
+    );
+  }
   return (
     <View style={{backgroundColor: '#fff', height: "100%"}}>
       <ScrollView showsVerticalScrollIndicator={false}>
