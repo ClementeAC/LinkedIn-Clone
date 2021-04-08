@@ -21,7 +21,7 @@ import register from "./app/register/register";
 import toPost from "./app/toPost/toPost";
 import notifications from "./app/notifications/notifications";
 
-import Img from "./app/utils/img";
+import Img from "./app/components/img";
 import not from "./app/utils/notifications";
 
 const Stack = createStackNavigator();

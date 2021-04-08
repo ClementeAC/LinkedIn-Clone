@@ -11,7 +11,7 @@ import {
   TextInput
 } from "react-native";
 import styles from "./toPost.css";
-import Img from "../utils/img";
+import Img from "../components/img";
 
 export default class toPost extends React.Component {
   constructor(props) {
