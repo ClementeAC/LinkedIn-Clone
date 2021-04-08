@@ -18,10 +18,8 @@ import profile from "./app/profile/profile";
 import edit from "./app/profile/edit";
 import login from "./app/login/login";
 import register from "./app/register/register";
-import myNetwork from "./app/myNetwork/myNetwork";
 import toPost from "./app/toPost/toPost";
 import notifications from "./app/notifications/notifications";
-import jobOffers from "./app/jobOffers/jobOffers";
 
 import Img from "./app/utils/img";
 import not from "./app/utils/notifications";
@@ -147,15 +145,6 @@ function MenuRouteSession({ navigation }) {
       </Stack.Navigator>
   );
 }
-function MyNetworkScreen({ navigation }) {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="myNetwork" component={myNetwork} 
-        options={({ navigation }) => optionsNavigator({ navigation }, "My Network")}
-      />
-    </Stack.Navigator>
-  );
-}
 function ToPostScreen({ navigation }) {
   return (
     <Stack.Navigator>
@@ -170,15 +159,6 @@ function NotificationsScreen({ navigation }) {
     <Stack.Navigator>
       <Stack.Screen name="notifications" component={notifications} 
         options={({ navigation }) => optionsNavigator({ navigation }, "Notifications")}
-      />
-    </Stack.Navigator>
-  );
-}
-function JobOffersScreen({ navigation }) {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="jobOffers" component={jobOffers} 
-        options={({ navigation }) => optionsNavigator({ navigation }, "Job Offers")}
       />
     </Stack.Navigator>
   );
@@ -202,17 +182,11 @@ function TabContent({ navigation }) {
       <Tab.Screen name="HomeTab" component={MenuRouteSession} 
         options={({ navigation }) => optionsTab({ navigation }, "Home", "home-sharp")}
       />
-      <Tab.Screen name="Network" component={MyNetworkScreen} 
-        options={({ navigation }) => optionsTab({ navigation }, "My Network", "md-people-sharp")}
-      />
       <Tab.Screen name="Post" component={ToPostScreen} 
         options={({ navigation }) => optionsTab({ navigation }, "To Post", "add-circle")}
       />
       <Tab.Screen name="NotificationsScreen" component={NotificationsScreen} 
         options={({ navigation }) => optionsTab({ navigation }, "Notifications", "notifications")}
-      />
-      <Tab.Screen name="Jobs" component={JobOffersScreen} 
-        options={({ navigation }) => optionsTab({ navigation }, "Job Offers", "briefcase-sharp")}
       />
     </Tab.Navigator>
   );

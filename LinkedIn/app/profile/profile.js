@@ -25,26 +25,26 @@ export default class profile extends React.Component {
     super(props);
 
     this.state = {
-      modalVisible: false,
+      modalVisible: true,
       loading: false,
-      username: "",
-      name: "",
-      lastName: "",
-      password: "",
-      email: "",
-      title: "",
-      currentJobTitle: "",
-      country: "",
-      phone: "",
-      education: [],
-      skills: [],
-      id: 0,
+      username: null,
+      name: null,
+      lastName: null,
+      password: null,
+      email: null,
+      title: null,
+      currentJobTitle: null,
+      country: null,
+      phone: null,
+      education: null,
+      skills: null,
+      id: null,
     };
   }
 
   componentDidMount() {
     this.getUser();
-    this.setState({
+   /* this.setState({
       name: "Clemente",
       lastName: "Castejón",
       title: "Student at Universidad Rafael Urdaneta",
@@ -57,7 +57,7 @@ export default class profile extends React.Component {
         "Networking experience",
       ],
       country: "Venezuela",
-    });
+    });*/
   }
 
   getUser = async () => {
@@ -296,11 +296,12 @@ export default class profile extends React.Component {
               </Text>
             </TouchableOpacity>
           </ScrollView>
+          
           <Modal
             animationType="slide"
             transparent={true}
             visible={this.state.modalVisible}
-          >
+          ><ScrollView>
             <View
               style={{
                 flex: 1,
@@ -609,8 +610,10 @@ export default class profile extends React.Component {
                   <Text style={{ color: "red" }}>Cancel</Text>
                 </TouchableOpacity>
               </View>
-            </View>
+            </View> 
+            </ScrollView>
           </Modal>
+         
         </View>
       );
   }
