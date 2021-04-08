@@ -23,6 +23,8 @@ import notifications from "./app/notifications/notifications";
 
 import Img from "./app/components/img";
 import not from "./app/utils/notifications";
+import InviteFriend from "./app/utils/inviteFriend";
+
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -97,7 +99,7 @@ function CustomDrawerContent(props) {
         icon={({ color, size }) =>  { 
           return <Ionicons color={color} size={size} name={'person-add-outline'} />
         }}
-        onPress={() => Alert.alert("invite un amigo por gmail")}
+        onPress={() => props.navigation.navigate("InviteFriend")}
       />
       <DrawerItem
         label="De aqui pa abajo pruebas:"
@@ -141,6 +143,9 @@ function MenuRouteSession({ navigation }) {
         />
         <Stack.Screen name="Not" component={not} // Pruebas
           options={({ navigation }) => optionsNavigator({ navigation }, "Notification")}
+        />
+        <Stack.Screen name="InviteFriend" component={InviteFriend}
+          options={({ navigation }) => optionsNavigator({ navigation }, "Invite a friend")}
         />
       </Stack.Navigator>
   );

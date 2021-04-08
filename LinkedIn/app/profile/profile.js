@@ -4,9 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   MaterialIcons,
   FontAwesome5,
-  FontAwesome,
   Entypo,
-  AntDesign
 } from "@expo/vector-icons";
 import {
   Text,
@@ -15,8 +13,6 @@ import {
   Alert,
   Image,
   ScrollView,
-  Modal,
-  TextInput,
 } from "react-native";
 import styles from "./profile.css";
 import ModalProfile from "./modalProfile"
