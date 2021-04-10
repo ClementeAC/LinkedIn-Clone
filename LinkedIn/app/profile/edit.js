@@ -8,6 +8,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
   Entypo,
+  FontAwesome,
 } from "@expo/vector-icons";
 import {
   Text,
@@ -101,53 +102,128 @@ export default class profile extends React.Component {
 
   render() {
     const { navigate, route, replace } = this.props.navigation;
-      return (
+    return (
+      <View
+        style={{
+          backgroundColor: "white",
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 15 }}>
+          Edit your data
+        </Text>
         <View
           style={{
-            backgroundColor: "white",
+            flexDirection: "row",
             alignItems: "center",
+            marginHorizontal: 20,
+            borderWidth: 2,
+            marginTop: 15,
+            borderColor: "blue",
+            borderRadius: 23,
+            paddingVertical: 2,
+            width: "80%",
+            marginBottom: 10,
           }}
         >
-          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-            Edit your data
-          </Text>
-          <Text style={{ fontSize: 20, marginTop: 15 }}>Username:</Text>
-          <TextInput
-            style={{ marginTop: 15, fontSize: 15 }}
-            placeholder="Enter new username"
-            placeholderTextColor="#d8412e"
-            onChangeText={(username) => this.setState({ username: username })}
+          <FontAwesome
+            name="user-circle"
+            color="blue"
+            size={24}
+            style={{ left: 5 }}
           />
-          <Text style={{ fontSize: 20, marginTop: 15 }}>Password:</Text>
           <TextInput
-            style={{
-              marginTop: 20,
-              fontSize: 15,
-              borderColor: "#d8412e",
-              marginBottom: 15,
-            }}
-            placeholder="Enter new password"
-            placeholderTextColor="#d8412e"
-            onChangeText={(password) => this.setState({ password: password })}
+            placeholder="Name"
+            placeholderTextColor="#444"
+            style={{ paddingHorizontal: 25 }}
+            onChangeText={(name) => this.setState({ name: name })}
           />
-          <TouchableOpacity
-            onPress={() => this.saveData()}
-            style={{
-              marginHorizontal: 90,
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 30,
-              backgroundColor: "#d8412e",
-              paddingVertical: 13,
-              paddingHorizontal: 25,
-              borderRadius: 23,
-              height: 40,
-              marginBottom: 10,
-            }}
-          >
-            <Text style={{ color: "white" }}>Save</Text>
-          </TouchableOpacity>
         </View>
-      );
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginHorizontal: 20,
+            borderWidth: 2,
+            marginTop: 15,
+            borderColor: "blue",
+            borderRadius: 23,
+            paddingVertical: 2,
+            width: "80%",
+            marginBottom: 10,
+          }}
+        >
+          <FontAwesome
+            name="user-circle-o"
+            color="blue"
+            size={24}
+            style={{ left: 5 }}
+          />
+          <TextInput
+            placeholder="Last Name"
+            placeholderTextColor="#444"
+            style={{ paddingHorizontal: 25 }}
+            onChangeText={(lastName) => this.setState({ lastName: lastName })}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginHorizontal: 20,
+            borderWidth: 2,
+            marginTop: 15,
+            borderColor: "blue",
+            borderRadius: 23,
+            paddingVertical: 2,
+            width: 250,
+            marginBottom: 10,
+          }}
+        >
+          <MaterialIcons
+            name="work"
+            color="blue"
+            size={24}
+            style={{ left: 5 }}
+          />
+          <TextInput
+            placeholder="Current Job Title"
+            placeholderTextColor="#444"
+            style={{ paddingHorizontal: 25 }}
+            onChangeText={(currentJobTitle) =>
+              this.setState({ currentJobTitle: currentJobTitle })
+            }
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginHorizontal: 5,
+            borderWidth: 2,
+            marginTop: 15,
+            borderColor: "blue",
+            borderRadius: 23,
+            paddingVertical: 2,
+            width: "80%",
+            marginBottom: 10,
+          }}
+        >
+          <MaterialIcons
+            name="place"
+            color="blue"
+            size={24}
+            style={{ left: 5 }}
+          />
+          <TextInput
+            secureTextEntry
+            placeholder="Country of residence"
+            placeholderTextColor="#444"
+            style={{ paddingHorizontal: 25 }}
+            onChangeText={(country) => this.setState({ country: country })}
+          />
+        </View>
+      </View>
+    );
   }
 }
