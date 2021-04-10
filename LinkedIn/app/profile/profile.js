@@ -167,7 +167,7 @@ export default class profile extends React.Component {
             >
               {this.state.title}
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("friendList")}>
+            <TouchableOpacity onPress={() => navigate("friendList")}>
               <View
                 style={{
                   alignItems: "center",
