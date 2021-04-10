@@ -19,7 +19,7 @@ import {
   Entypo,
 } from "@expo/vector-icons";
 
-export default class friendList extends React.Component {
+export default class posts extends React.Component {
   constructor(props) {
     super(props);
 

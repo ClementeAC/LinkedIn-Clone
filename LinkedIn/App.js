@@ -21,6 +21,8 @@ import register from "./app/register/register";
 import myNetwork from "./app/myNetwork/myNetwork";
 import toPost from "./app/toPost/toPost";
 import notifications from "./app/notifications/notifications";
+import friendList from  "./app/profile/friendList";
+import posts from  "./app/profile/posts";
 
 import Img from "./app/components/img";
 import not from "./app/utils/notifications";
@@ -153,6 +155,20 @@ function MenuRouteSession({ navigation }) {
         }
       />
       <Stack.Screen
+        name="posts"
+        component={posts}
+        options={({ navigation }) =>
+          optionsNavigator({ navigation }, "Posts")
+        }
+      />
+      <Stack.Screen
+        name="friendList"
+        component={friendList}
+        options={({ navigation }) =>
+          optionsNavigator({ navigation }, "Friends")
+        }
+      />
+      <Stack.Screen
         name="editProfile"
         component={edit}
         options={({ navigation }) => optionsNavigator({ navigation }, "Edit")}
@@ -235,20 +251,11 @@ function TabContent({ navigation }) {
           optionsTab({ navigation }, "Home", "home-sharp")
         }
       />
-<<<<<<< HEAD
       <Tab.Screen name="Network" component={MyNetwork} 
         options={({ navigation }) => optionsTab({ navigation }, "My Network", "add-circle")}
       />
       <Tab.Screen name="Post" component={ToPostScreen} 
         options={({ navigation }) => optionsTab({ navigation }, "To Post", "add-circle")}
-=======
-      <Tab.Screen
-        name="Post"
-        component={ToPostScreen}
-        options={({ navigation }) =>
-          optionsTab({ navigation }, "New Post", "add-circle")
-        }
->>>>>>> 5505ad4e1ad68f79b041bc2a790a01ef1dcd962c
       />
       <Tab.Screen
         name="NotificationsScreen"
