@@ -167,7 +167,7 @@ export default class profile extends React.Component {
             >
               {this.state.title}
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("friendList")}>
               <View
                 style={{
                   alignItems: "center",
@@ -184,7 +184,6 @@ export default class profile extends React.Component {
                 <Text style={{}}>69</Text>
               </View>
             </TouchableOpacity>
-
             <Entypo name="dot-single" color="blue" size={15} />
             <TouchableOpacity>
               <View
