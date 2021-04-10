@@ -8,6 +8,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
   Entypo,
+  FontAwesome,
 } from "@expo/vector-icons";
 import {
   Text,
@@ -20,6 +21,7 @@ import {
   ScrollView,
   Modal,
 } from "react-native";
+
 import styles from "./profile.css";
 
 export default class profile extends React.Component {
@@ -101,53 +103,255 @@ export default class profile extends React.Component {
 
   render() {
     const { navigate, route, replace } = this.props.navigation;
-      return (
+    return (
+      <ScrollView>
         <View
           style={{
             backgroundColor: "white",
             alignItems: "center",
           }}
         >
-          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+          <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 15 }}>
             Edit your data
           </Text>
-          <Text style={{ fontSize: 20, marginTop: 15 }}>Username:</Text>
-          <TextInput
-            style={{ marginTop: 15, fontSize: 15 }}
-            placeholder="Enter new username"
-            placeholderTextColor="#d8412e"
-            onChangeText={(username) => this.setState({ username: username })}
-          />
-          <Text style={{ fontSize: 20, marginTop: 15 }}>Password:</Text>
-          <TextInput
+          <View
             style={{
-              marginTop: 20,
-              fontSize: 15,
-              borderColor: "#d8412e",
-              marginBottom: 15,
-            }}
-            placeholder="Enter new password"
-            placeholderTextColor="#d8412e"
-            onChangeText={(password) => this.setState({ password: password })}
-          />
-          <TouchableOpacity
-            onPress={() => this.saveData()}
-            style={{
-              marginHorizontal: 90,
+              flexDirection: "row",
               alignItems: "center",
-              justifyContent: "center",
-              marginTop: 30,
-              backgroundColor: "#d8412e",
-              paddingVertical: 13,
-              paddingHorizontal: 25,
+              marginHorizontal: 20,
+              borderWidth: 2,
+              marginTop: 15,
+              borderColor: "blue",
               borderRadius: 23,
-              height: 40,
+              paddingVertical: 2,
+              width: "80%",
               marginBottom: 10,
             }}
           >
-            <Text style={{ color: "white" }}>Save</Text>
+            <FontAwesome
+              name="user-circle"
+              color="blue"
+              size={24}
+              style={{ left: 5 }}
+            />
+            <TextInput
+              placeholder={this.state.name == null ? "Name" : this.state.name}
+              placeholderTextColor="#444"
+              style={{ paddingHorizontal: 25 }}
+              onChangeText={(name) => this.setState({ name: name })}
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 20,
+              borderWidth: 2,
+              marginTop: 15,
+              borderColor: "blue",
+              borderRadius: 23,
+              paddingVertical: 2,
+              width: "80%",
+              marginBottom: 10,
+            }}
+          >
+            <FontAwesome
+              name="user-circle-o"
+              color="blue"
+              size={24}
+              style={{ left: 5 }}
+            />
+            <TextInput
+              placeholder={
+                this.state.lastName == null ? "Last name" : this.state.lastName
+              }
+              placeholderTextColor="#444"
+              style={{ paddingHorizontal: 25 }}
+              onChangeText={(lastName) => this.setState({ lastName: lastName })}
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 20,
+              borderWidth: 2,
+              marginTop: 15,
+              borderColor: "blue",
+              borderRadius: 23,
+              paddingVertical: 2,
+              width: "80%",
+              marginBottom: 10,
+            }}
+          >
+            <MaterialIcons
+              name="title"
+              color="blue"
+              size={24}
+              style={{ left: 5 }}
+            />
+            <TextInput
+              placeholder={
+                this.state.title == null ? "Description" : this.state.title
+              }
+              placeholderTextColor="#444"
+              style={{ paddingHorizontal: 25 }}
+              onChangeText={(title) => this.setState({ title: title })}
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 20,
+              borderWidth: 2,
+              marginTop: 15,
+              borderColor: "blue",
+              borderRadius: 23,
+              paddingVertical: 2,
+              width: "80%",
+              marginBottom: 10,
+            }}
+          >
+            <MaterialIcons
+              name="work"
+              color="blue"
+              size={24}
+              style={{ left: 5 }}
+            />
+            <TextInput
+              placeholder={
+                this.state.currentJobTitle == null
+                  ? "Current Job Title"
+                  : this.state.currentJobTitle
+              }
+              placeholderTextColor="#444"
+              style={{ paddingHorizontal: 25 }}
+              onChangeText={(currentJobTitle) =>
+                this.setState({ currentJobTitle: currentJobTitle })
+              }
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 20,
+              borderWidth: 2,
+              marginTop: 15,
+              borderColor: "red",
+              borderRadius: 23,
+              paddingVertical: 2,
+              width: "80%",
+              marginBottom: 10,
+            }}
+          >
+            <FontAwesome5
+              name="user-graduate"
+              color="blue"
+              size={23}
+              style={{ left: 7 }}
+            />
+            <TextInput
+              placeholder="Education"
+              placeholderTextColor="#444"
+              style={{ paddingHorizontal: 25 }}
+              onChangeText={(education) =>
+                this.setState({ education: education })
+              }
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 20,
+              borderWidth: 2,
+              marginTop: 15,
+              borderColor: "red",
+              borderRadius: 23,
+              paddingVertical: 2,
+              width: "80%",
+              marginBottom: 10,
+            }}
+          >
+            <MaterialIcons
+              name="lightbulb"
+              color="blue"
+              size={24}
+              style={{ left: 5 }}
+            />
+            <TextInput
+              secureTextEntry
+              placeholder="Skills and Proficiencies"
+              placeholderTextColor="#444"
+              style={{ paddingHorizontal: 25 }}
+              onChangeText={(skills) => this.setState({ skills: skills })}
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 5,
+              borderWidth: 2,
+              marginTop: 15,
+              borderColor: "blue",
+              borderRadius: 23,
+              paddingVertical: 2,
+              width: "80%",
+              marginBottom: 10,
+            }}
+          >
+            <MaterialIcons
+              name="place"
+              color="blue"
+              size={24}
+              style={{ left: 5 }}
+            />
+            <TextInput
+              secureTextEntry
+              placeholder={
+                this.state.country == null
+                  ? "Country of residence"
+                  : this.state.country
+              }
+              placeholderTextColor="#444"
+              style={{ paddingHorizontal: 25 }}
+              onChangeText={(country) => this.setState({ country: country })}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={() => {}}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "blue",
+              borderRadius: 23,
+              height: 40,
+              width: 100,
+              marginTop: 5,
+              marginBottom: 20,
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                marginHorizontal: 10,
+              }}
+            >
+              Save
+            </Text>
           </TouchableOpacity>
         </View>
-      );
+      </ScrollView>
+    );
   }
 }

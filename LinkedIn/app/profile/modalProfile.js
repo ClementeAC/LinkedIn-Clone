@@ -5,7 +5,7 @@ import {
   MaterialIcons,
   FontAwesome5,
   FontAwesome,
-  AntDesign
+  AntDesign,
 } from "@expo/vector-icons";
 import {
   Text,
@@ -46,13 +46,14 @@ export default class ModalProfile extends React.Component {
   }
 
   render() {
-      return (
-        <View>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={this.state.modalVisible}
-          ><ScrollView>
+    return (
+      <View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+        >
+          <ScrollView>
             <View
               style={{
                 flex: 1,
@@ -361,10 +362,10 @@ export default class ModalProfile extends React.Component {
                   <Text style={{ color: "red" }}>Cancel</Text>
                 </TouchableOpacity>
               </View>
-            </View> 
-            </ScrollView>
-          </Modal>
-        </View>
-      );
+            </View>
+          </ScrollView>
+        </Modal>
+      </View>
+    );
   }
 }

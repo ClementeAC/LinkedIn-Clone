@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
-  TextInput
+  TextInput,
 } from "react-native";
 import styles from "./toPost.css";
 import Img from "../components/img";
 
-export default class toPost extends React.Component {
+export default class Post extends React.Component {
   constructor(props) {
     super(props);
 
@@ -28,7 +28,7 @@ export default class toPost extends React.Component {
   async componentDidMount() {
     let res = await AsyncStorage.getItem("user");
     this.setState({
-      username: JSON.parse(res).username
+      username: JSON.parse(res).username,
     });
   }
 
@@ -49,37 +49,44 @@ export default class toPost extends React.Component {
       );
     }
     return (
-      <View style={{
-        height: "100%",
-        backgroundColor: "white"
-      }}>
+      <View
+        style={{
+          height: "100%",
+          backgroundColor: "white",
+        }}
+      >
         <ScrollView>
-        <View style={{
-          flexDirection: "row",
-          marginLeft: 5,
-          marginTop: 3
-        }}>
-          <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
-            <Ionicons name="person-circle-outline" size={24} color="black" />
-          </TouchableOpacity>
-          <Text style={{ marginLeft: 10 }}>{this.state.username}</Text>
-        </View>
-        <TextInput
-          multiline={true}
-          style={{
-            minHeight: 40,
-            backgroundColor: "#eee",
-            borderRadius: 4,
-            paddingVertical: 5,
-            paddingHorizontal: 10,
-            borderWidth: 1,
-            borderColor: "#eee",
-          }}
-          placeholderTextColor="#999"
-          placeholder="What do you want to talk about?"
-          onChangeText={(text) => this.setState({ publicationText: text })}
-        />
-        <Img navigate={navigate} publication={this.state.publicationText}/* Subir imagen *//>
+          <View
+            style={{
+              flexDirection: "row",
+              marginLeft: 5,
+              marginTop: 3,
+            }}
+          >
+            <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
+              <Ionicons name="person-circle-outline" size={24} color="black" />
+            </TouchableOpacity>
+            <Text style={{ marginLeft: 10 }}>{this.state.username}</Text>
+          </View>
+          <TextInput
+            multiline={true}
+            style={{
+              minHeight: 40,
+              backgroundColor: "#eee",
+              borderRadius: 4,
+              paddingVertical: 5,
+              paddingHorizontal: 10,
+              borderWidth: 1,
+              borderColor: "#eee",
+            }}
+            placeholderTextColor="#999"
+            placeholder="What do you want to talk about?"
+            onChangeText={(text) => this.setState({ publicationText: text })}
+          />
+          <Img
+            navigate={navigate}
+            publication={this.state.publicationText} /* Subir imagen */
+          />
         </ScrollView>
       </View>
     );
