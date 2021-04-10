@@ -18,6 +18,7 @@ import profile from "./app/profile/profile";
 import edit from "./app/profile/edit";
 import login from "./app/login/login";
 import register from "./app/register/register";
+import myNetwork from "./app/myNetwork/myNetwork";
 import toPost from "./app/toPost/toPost";
 import notifications from "./app/notifications/notifications";
 
@@ -150,6 +151,15 @@ function MenuRouteSession({ navigation }) {
       </Stack.Navigator>
   );
 }
+function MyNetwork({ navigation }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="myNetwork" component={myNetwork} 
+        options={({ navigation }) => optionsNavigator({ navigation }, "My Network")}
+      />
+    </Stack.Navigator>
+  );
+}
 function ToPostScreen({ navigation }) {
   return (
     <Stack.Navigator>
@@ -186,6 +196,9 @@ function TabContent({ navigation }) {
     >
       <Tab.Screen name="HomeTab" component={MenuRouteSession} 
         options={({ navigation }) => optionsTab({ navigation }, "Home", "home-sharp")}
+      />
+      <Tab.Screen name="Network" component={MyNetwork} 
+        options={({ navigation }) => optionsTab({ navigation }, "My Network", "add-circle")}
       />
       <Tab.Screen name="Post" component={ToPostScreen} 
         options={({ navigation }) => optionsTab({ navigation }, "To Post", "add-circle")}
