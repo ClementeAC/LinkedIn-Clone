@@ -1,7 +1,13 @@
 import "react-native-gesture-handler";
 import * as React from "react";
 import { TouchableOpacity, Image, Alert } from "react-native";
-import { Ionicons, AntDesign, Entypo, FontAwesome5 } from "@expo/vector-icons";
+import { 
+  Ionicons, 
+  AntDesign, 
+  Entypo, 
+  FontAwesome5, 
+  MaterialCommunityIcons 
+} from "@expo/vector-icons";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -234,6 +240,9 @@ function TabContent({ navigation }) {
     tabBarLabel: Title,
     tabBarVisible: true,
     tabBarIcon: ({ color, size }) => {
+      if(Title == "My Network"){
+        return <MaterialCommunityIcons name={iconName} size={size} color={color} />
+      }
       return <Ionicons name={iconName} size={size} color={color} />;
     },
   });
@@ -252,10 +261,10 @@ function TabContent({ navigation }) {
         }
       />
       <Tab.Screen name="Network" component={MyNetwork} 
-        options={({ navigation }) => optionsTab({ navigation }, "My Network", "add-circle")}
+        options={({ navigation }) => optionsTab({ navigation }, "My Network", "account-search")}
       />
       <Tab.Screen name="Post" component={ToPostScreen} 
-        options={({ navigation }) => optionsTab({ navigation }, "To Post", "add-circle")}
+        options={({ navigation }) => optionsTab({ navigation }, "New Post", "add-circle")}
       />
       <Tab.Screen
         name="NotificationsScreen"
