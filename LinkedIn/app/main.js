@@ -18,6 +18,13 @@ export default class main extends React.Component {
   constructor(props) {
     super(props);
 
+    this.props.navigation.addListener(
+      'didFocus',
+      payload => {
+        this.setState({is_updated:true});
+      }
+    );
+
     this.state = {
       loading: false,
       loadingImage: [],
@@ -178,7 +185,7 @@ export default class main extends React.Component {
             <View style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              paddingHorizontal: 25,
+              paddingHorizontal: 30,
               marginBottom: 3
             }}> 
               <TouchableOpacity onPress={() => Alert.alert("Recomendar")}>
@@ -189,9 +196,6 @@ export default class main extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity onPress={() => Alert.alert("Enviar")}>
                 <FontAwesome name="send" size={24} color="gray" />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => Alert.alert("Guardar")}>
-                <FontAwesome name="bookmark" size={24} color="gray" />
               </TouchableOpacity>
             </View>
           </View>
