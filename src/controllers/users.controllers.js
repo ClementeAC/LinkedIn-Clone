@@ -1,5 +1,5 @@
 const pool = require('../utils/dbconnection');
-const { mail } = require('../utils/mailer');
+const { mail, invite } = require('../utils/mailer');
 const { sms } = require('../utils/sms');
 const query = require('../utils/queries');
 
@@ -7,7 +7,10 @@ const query = require('../utils/queries');
 const getUsers = async (req, res) => { 
   const client = await pool.connect();
   try{
-    const response = await client.query(query.getUsers);
+    const { user_id } = req.body;
+    const response = await client.query(query.getUsers, [
+      user_id
+    ]);
     res.status(200).json(response.rows);
   }catch{
     res.status(505);
@@ -19,7 +22,7 @@ const getUsers = async (req, res) => {
 const getLogin = async (req, res) => {
   const client = await pool.connect();
   try{
-    const { username, password } = req.body;
+    const { username } = req.body;
     const response = await client.query(query.getLogin, [
       username
     ]);
@@ -66,28 +69,15 @@ const updateUser = async (req, res) => {
   const client = await pool.connect();
   try{
     const id = parseInt(req.params.id);
-    const { username, email, password } = req.body;
+    const { username, password, img } = req.body;
 
     const response = await client.query(query.updateUser, [
         username,
-        email,
         password,
+        img,
         id
     ]);
     res.status(200).json(response.rows);
-  }catch{
-    res.status(505);
-  }finally{
-    client.release(true);
-  }
-};
-
-const deleteUser = async (req, res) => {
-  const client = await pool.connect();
-  try{
-    const id = parseInt(req.params.id);
-    await client.query(query.deleteUser, [ id ]);
-    res.status(200).json(`User ${id} deleted Successfully`);
   }catch{
     res.status(505);
   }finally{
@@ -126,12 +116,22 @@ const deleteCode = async (req, res) => {
   }
 };
 
+const inviteFriend = async (req, res) => {
+  const { email, friendEmail, username } = req.body;
+  //send email of invitation
+  await invite(username, email, friendEmail).catch(res.json(error));
+  res.status(200).json([{
+    status: 200,
+    message: "successful"
+  }]);
+};
+
 module.exports = {
   getUsers,
   getLogin,
   createUser,
   updateUser,
-  deleteUser,
   createCode,
-  deleteCode
+  deleteCode,
+  inviteFriend
 };

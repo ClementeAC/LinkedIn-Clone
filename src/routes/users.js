@@ -6,18 +6,19 @@ const {
     getLogin,
     createUser, 
     updateUser, 
-    deleteUser,
     createCode,
-    deleteCode
+    deleteCode,
+    inviteFriend
 } = require('../controllers/users.controllers');
 
 router.get('/', getUsers);
 router.post('/login', getLogin);
 router.post('/', createUser);
 router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
 
 router.post('/code', createCode);
 router.delete('/code/:id', deleteCode);
+
+router.post('/inviteFriend', inviteFriend);
 
 module.exports = router;

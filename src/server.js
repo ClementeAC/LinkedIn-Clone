@@ -23,7 +23,8 @@ server.use(express.static(path.join(__dirname, 'public')));
 
 //rutas
 server.use('/api/users', require('./routes/users'));
-server.use('/api', require('./routes/lists'));
+server.use('/api/publication', require('./routes/publication'));
+server.use('/api/company', require('./routes/company'));
 server.use('/api/upload', require('./routes/img'));
 
 module.exports = server;
