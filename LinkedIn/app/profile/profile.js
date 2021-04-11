@@ -329,12 +329,12 @@ export default class profile extends React.Component {
             </Text>
           </TouchableOpacity>
         </ScrollView>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={this.state.modalVisible}
-          >
-            <ScrollView>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+        >
+          <ScrollView>
             <View
               style={{
                 flex: 1,
@@ -645,9 +645,8 @@ export default class profile extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-            </ScrollView>
-          </Modal>
-          
+          </ScrollView>
+        </Modal>
       </View>
     );
   }
