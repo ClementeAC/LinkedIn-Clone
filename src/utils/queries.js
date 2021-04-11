@@ -43,11 +43,6 @@ module.exports = {
     deleteWorkExperience: 'DELETE FROM work_experience WHERE work_experience_id = $1',
     deleteEducation: 'DELETE FROM education WHERE education_id = $1',
 
-    //notification
-    getNotifications: 'SELECT * FROM notification WHERE user_id = $1',
-    createUserNotification: 'INSERT INTO notification (user_id, date, title, value, connect, type) VALUES ($1, $2, $3, $4, $5, $6)',
-    deleteNotification: 'DELETE FROM notification WHERE notification_id = $1',
-
     // Publication
     getPublication: 'SELECT * FROM publication WHERE user_id = $1',
     createpublication: 'INSERT INTO publication (user_id, date, descripcion, img, job_offer) VALUES ($1, $2, $3, $4, $5)',
@@ -72,8 +67,13 @@ module.exports = {
     deleteconnect: 'DELETE FROM connect WHERE connect_id = $1 OR connect_id = $2 RETURNING *',
 
     //company
-    getCompany: '',
-    createCompany: '',
-    updateUser: '',
-    deleteCompany: '',
+    getCompany: 'SELECT * FROM company WHERE user_id = $1',
+    createCompany: 'INSERT INTO company (name, location, user_id) VALUES ($1, $2, $3) RETURNING *',
+    updateCompany: 'UPDATE company SET name = $1, location = $2 WHERE company_id = $3 RETURNING *',
+    deleteCompany: 'DELETE FROM company WHERE company_id = $1',
+
+    //notification
+    getNotifications: 'SELECT * FROM notification WHERE user_id = $1',
+    createUserNotification: 'INSERT INTO notification (user_id, date, title, value, connect, type) VALUES ($1, $2, $3, $4, $5, $6)',
+    deleteNotification: 'DELETE FROM notification WHERE notification_id = $1',
 }

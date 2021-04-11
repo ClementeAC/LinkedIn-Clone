@@ -7,10 +7,8 @@ const query = require('../utils/queries');
 const getUsers = async (req, res) => { 
   const client = await pool.connect();
   try{
-    const { user_id } = req.body;
-    const response = await client.query(query.getUsers, [
-      user_id
-    ]);
+    const id = parseInt(req.params.id);
+    const response = await client.query(query.getUsers, [id]);
     res.status(200).json(response.rows);
   }catch{
     res.status(505);

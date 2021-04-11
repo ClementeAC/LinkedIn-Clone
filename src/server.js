@@ -24,7 +24,8 @@ server.use(express.static(path.join(__dirname, 'public')));
 //rutas
 server.use('/api/users', require('./routes/users'));
 server.use('/api/publication', require('./routes/publication'));
-server.use('/api/company', require('./routes/company'));
+server.use('/api/business', require('./routes/business'));
+server.use('/api/profile', require('./routes/profile'));
 server.use('/api/upload', require('./routes/img'));
 
 module.exports = server;
