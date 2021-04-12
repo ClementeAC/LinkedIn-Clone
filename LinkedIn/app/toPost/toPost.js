@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -30,6 +31,20 @@ export default class Post extends React.Component {
     this.setState({
       username: JSON.parse(res).username,
     });
+  }
+
+  async sendPost() {
+    let res = await axios.post(
+      " https://linckedin.herokuapp.com/api/publication/",
+      {
+        user_id,
+        date,
+        descripcion,
+        img,
+        job_offer,
+      }
+    );
+    console.log(res);
   }
 
   render() {
@@ -66,7 +81,9 @@ export default class Post extends React.Component {
             <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
               <Ionicons name="person-circle-outline" size={24} color="black" />
             </TouchableOpacity>
-            <Text style={{ marginLeft: 10 }}>{this.state.username}</Text>
+            <Text style={{ marginLeft: 5, marginTop: 5 }}>
+              {this.state.username}
+            </Text>
           </View>
           <TextInput
             multiline={true}
@@ -78,6 +95,7 @@ export default class Post extends React.Component {
               paddingHorizontal: 10,
               borderWidth: 1,
               borderColor: "#eee",
+              alignItems: "center",
             }}
             placeholderTextColor="#999"
             placeholder="What do you want to talk about?"

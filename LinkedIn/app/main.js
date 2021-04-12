@@ -45,6 +45,7 @@ export default class main extends React.Component {
 
   componentDidMount() {
     this.setState({ loading: true });
+    axios.get("https://linckedin.herokuapp.com/api/users");
     const res = [
       {
         name: "The Linked In Team",
