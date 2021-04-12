@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, Image, View, Platform, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Button, Image, View, Platform, Alert, ActivityIndicator } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import {datetime} from "../utils/datetime";
 
 export default function Img(props, { publication }) {
   const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -32,7 +35,9 @@ export default function Img(props, { publication }) {
     }
   };
 
-  const sendImage = async () => {
+  const sendImage = async ( comment ) => {
+    setLoading( true );
+    if(comment){
     const formData = new FormData();
     formData.append("file", {
       uri: image,
@@ -55,33 +60,53 @@ export default function Img(props, { publication }) {
         }
       })
       .catch((err) => {
-        Alert.alert("Error al subir la imagen");
+        Alert.alert("Image upload error");
+        setLoading( false );
       });
+    } else {
+      console.log('solo comentario');
+      sendPublication(null);
+    }
   };
 
   //aun no probado
   const sendPublication = async (url) => {
-    console.log("lo q sea");
-    this.setState({ loading: true });
-    let name = await AsyncStorage.getItem("user");
+    console.log("se subio la imagen");
+    let id = await AsyncStorage.getItem("user");
     let publication = {
-      url,
-      publicationText: this.props.publication,
-      user: JSON.parse(name).username,
+      user_id: JSON.parse(id).user_id, 
+      date: datetime(), 
+      descripcion: props.publication, 
+      img: url, 
+      job_offer: false
     };
     console.log(publication);
     const res = await axios.post(
       "https://linckedin.herokuapp.com/api/publication",
       publication
     );
-    console.log(res);
-    this.setState({ loading: false });
+    console.log(res.data);
+    setLoading( false);
+    Alert.alert("published!");
   };
 
   const cancel = async () => {
     setImage(null);
   };
 
+  if (loading) {
+    return (
+      <View
+        style={{
+          paddingVertical: 20,
+          borderTopWidth: 1,
+          borderColor: "#CED0CE",
+        }}
+      >
+        <ActivityIndicator animating size="small" color="#999999" />
+      </View>
+    );
+  }
   return (
     <View style={{ flex: 1, justifyContent: "flex-end", marginTop: 10 }}>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
@@ -103,10 +128,16 @@ export default function Img(props, { publication }) {
           marginHorizontal: 25,
         }}
       >
-        <Button title="Cancelar" onPress={() => cancel()} />
         <View>
           {image ? (
-            <Button title="Enviar" onPress={() => sendImage()} />
+            <Button title="Cancelar" onPress={() => cancel()} />
+          ) : (
+            <Button title="Enviar" onPress={() => sendImage(false)} />
+          )}
+        </View>
+        <View>
+          {image ? (
+            <Button title="Enviar" onPress={() => sendImage(true)} />
           ) : (
             <Button title="Add an image" onPress={pickImage} />
           )}

@@ -128,7 +128,7 @@ export default class profile extends React.Component {
   };
 
   render() {
-    const { navigate, route, replace } = this.props.navigation;
+    const { navigate, replace } = this.props.navigation;
     return (
       <View>
         <ScrollView>

@@ -96,6 +96,7 @@ function CustomDrawerContent(props) {
         style={{
           height: 55,
           justifyContent: "center",
+          backgroundColor: "#D7EDFF"
         }}
         onPress={() => props.navigation.navigate("Profile")}
       />
@@ -121,8 +122,8 @@ function CustomDrawerContent(props) {
           );
         }}
         onPress={() => props.navigation.navigate("InviteFriend")}
-      />
-      <DrawerItem label="De aqui pa abajo pruebas:" />
+        /*
+        <DrawerItem label="De aqui pa abajo pruebas:" />
       <DrawerItem
         label="Notificaciones"
         onPress={() => props.navigation.navigate("Not")}
@@ -130,7 +131,10 @@ function CustomDrawerContent(props) {
       <DrawerItem
         label="Imagenes"
         onPress={() => props.navigation.navigate("Img")}
+      /> 
+        */
       />
+      
     </DrawerContentScrollView>
   );
 }

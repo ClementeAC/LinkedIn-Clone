@@ -43,53 +43,49 @@ export default class main extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({ loading: true });
-    axios.get("https://linckedin.herokuapp.com/api/users");
-    const res = [
-      {
-        name: "The Linked In Team",
-        description:
-          "Welcome to Linked In, we are glad to have you here, you can add friends to fill in your home screens with awesome posts.",
-        image: {
-          uri: "",
-        },
-        Reactions: 13523,
-        comment: ["I love this app!", "Profe pongale 20 a estos chicos!"],
-      },
-      {
-        name: "The Linked In Team",
-        description:
-          "Linked In Update version 1.0.0. In this new update we bring a variety of changes: Posts, Friends (Or as we like to call them 'Connections') and a lot more interesting content for you to enjoy!",
-        image: {
-          uri: "",
-        },
-        Reactions: 5925,
-        comment: [
-          "It just keeps getting better",
-          "Profe dios mio pongale 20 a estos chicos!",
-          "Keep it coming!",
-        ],
-      },
-      {
-        name: "Heberto Urribarri",
-        description: "Descontrol",
-        image: {
-          uri:
-            "https://res.cloudinary.com/otrebeh/image/private/s--aAyHPm2D--/v1617561878/b2017b8f-73ca-4677-b122-c064d27d5767_nikapt.jpg",
-        },
-        Reactions: 72,
-        comment: ["hola", "felicidades", "Eres mi crush", "Todo un pro"],
-      },
-      {
-        name: "Clemente Castejon",
-        description:
-          "Estudiante de Ingeniería de Computación, ubicado en Maracaibo, Venezuela. 21 años de Edad.",
-        image: { uri: null },
-        Reactions: 27,
-        comment: ["hola"],
-      },
-    ];
+    let res = [];
+    if(this.state.publications.length == 0){
+      let response = "";
+      try {
+        response = await AsyncStorage.getItem("user");
+      } catch (error) {
+        // Error retrieving data
+      }
+      /*for (let i = 0; i < querie.length; i++) {
+        let user_id = querie[i].user_id;
+        
+      }*/
+      if(true){
+        res = [
+          {
+            name: "The Linked In Team",
+            description: "Welcome to Linked In, we are glad to have you here, you can add friends to fill in your home screens with awesome posts.",
+            image: {
+              uri:
+                "https://res.cloudinary.com/otrebeh/image/private/s--xvoIddkY--/v1618197517/e71a6f83-6145-4d3c-b5b0-815e963536df_vx8uvv.png",
+            },
+            Reactions: 20,
+            comment: ["hola", "felicidades", "Eres mi crush", "Todo un pro"],
+          },
+          {
+            name: "The Linked In Team",
+            description:
+            "Linked In Update version 1.0.0. In this new update we bring a variety of changes: Posts, Friends (Or as we like to call them 'Connections') and a lot more interesting content for you to enjoy!",
+            image: { uri: 
+              "https://res.cloudinary.com/otrebeh/image/private/s--lMEtbjqg--/v1618197623/d1f076ca-89d2-4f30-bf3d-a34bdafd64f1_vghcdj.jpg" },
+            Reactions: 20,
+            comment: [
+              "It just keeps getting better",
+              "Profe dios mio pongale 20 a estos chicos!",
+              "Keep it coming!",
+            ],
+          },
+        ];
+      }
+    } 
+    
     this.setState({
       publications: res,
       loading: false,

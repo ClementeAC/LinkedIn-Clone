@@ -30,33 +30,11 @@ export default class MyNetwork extends React.Component {
     const res = [
       {
         name: "Heberto Urribarri",
-        description: "Descontrol",
-        accion: "Ha publicado"
+        job_title: "Rey Demonio",
       },
       {
         name: "Clemente Castejon",
-        description: "Estudiante de Ingeniería de Computación, ubicado en Maracaibo, Venezuela. 21 años de Edad.",
-        accion: "Ha reaccionado a tu publicacion"
-      },
-      {
-        name: "Heberto Urribarri",
-        description: "Descontrol",
-        accion: "Te ha enviado"
-      },
-      {
-        name: "Clemente Castejon",
-        description: "Estudiante de Ingeniería de Computación, ubicado en Maracaibo, Venezuela. 21 años de Edad.",
-        accion: "Ha visto tu perfil"
-      },
-      {
-        name: "Heberto Urribarri",
-        description: "Descontrol",
-        accion: "Ha publicado"
-      },
-      {
-        name: "Clemente Castejon",
-        description: "Estudiante de Ingeniería de Computación, ubicado en Maracaibo, Venezuela. 21 años de Edad.",
-        accion: "Te ha enviado"
+        job_title: "Presidente de los estados unidos"
       }
     ];
     this.setState({
@@ -149,11 +127,20 @@ export default class MyNetwork extends React.Component {
                 flexDirection: "row",
                 marginLeft: 5,
                 marginTop: 3,
+                justifyContent: "space-between",
               }}>
-                <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
-                  <Ionicons name="person-circle-outline" size={24} color="black" />
-                </TouchableOpacity>
-                <Text style={{ marginLeft: 10 }}>{item.name}</Text>
+                <View 
+                style={{
+                  flexDirection: "row",
+                  marginLeft: 5,
+                  marginTop: 3,
+                }}>
+                  <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
+                    <Ionicons name="person-circle-outline" size={24} color="black" />
+                  </TouchableOpacity>
+                  <Text style={{ marginLeft: 10 }}>{item.name}</Text>
+                </View>
+                <Text style={{color: "blue", fontWeight: 'bold', marginRight: 10 }}>+ Connect</Text>
               </View>
               <View style={{
                 flexDirection: "row",
@@ -165,7 +152,7 @@ export default class MyNetwork extends React.Component {
                   width: "90%",
                   paddingHorizontal: 5
                 }}>
-                  <Text style={{fontWeight: 'bold'}}>{item.accion}</Text>: {item.description}
+                  <Text style={{fontWeight: 'bold'}}>{item.job_title}</Text>
                 </Text>
               </View>
             </View>
