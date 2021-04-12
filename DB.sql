@@ -10,7 +10,7 @@ create table app_user (
 	username VARCHAR (60),
 	email VARCHAR (255),
 	phone VARCHAR (20),
-	img VARCHAR (100),
+	img VARCHAR (1000),
 	password VARCHAR (120)
 );
 
@@ -127,7 +127,7 @@ create table publication (
 	user_id integer,
 	date TIMESTAMP,
 	descripcion VARCHAR (600),
-	img VARCHAR (100),
+	img VARCHAR (1000),
 	job_offer boolean DEFAULT 'false',
 	FOREIGN KEY (user_id)
         REFERENCES profile (profile_id)
