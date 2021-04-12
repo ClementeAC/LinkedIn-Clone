@@ -11,7 +11,7 @@ const {
     inviteFriend
 } = require('../controllers/users.controllers');
 
-router.get('/', getUsers);
+router.get('/:id', getUsers);
 router.post('/login', getLogin);
 router.post('/', createUser);
 router.put('/:id', updateUser);

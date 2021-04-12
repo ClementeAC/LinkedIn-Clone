@@ -18,16 +18,13 @@ const getPublication = async (req, res) => {
 const createpublication = async (req, res) => {
   const client = await pool.connect();
   try{
-    const { user_id, description, website, birthday, country, language, name, last_name } = req.body;
+    const { user_id, date, descripcion, img, job_offer } = req.body;
     const response = await client.query(query.createpublication, [
       user_id, 
-      description, 
-      website, 
-      birthday, 
-      country, 
-      language, 
-      name, 
-      last_name
+      date, 
+      descripcion, 
+      img, 
+      job_offer
     ]);
     res.status(200).json(response.rows);
   }catch{
@@ -41,15 +38,12 @@ const updatepublication = async (req, res) => {
   const client = await pool.connect();
   try{
     const id = parseInt(req.params.id);
-    const { description, website, birthday, country, name, last_name } = req.body;
+    const { date, descripcion, img } = req.body;
 
     const response = await client.query(query.updatepublication, [
-        description,
-        website, 
-        birthday, 
-        country, 
-        name, 
-        last_name,
+        date, 
+        descripcion, 
+        img,
         id
     ]);
     res.status(200).json(response.rows);
