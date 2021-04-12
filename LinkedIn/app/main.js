@@ -51,13 +51,12 @@ export default class main extends React.Component {
       try {
         response = await AsyncStorage.getItem("user");
       } catch (error) {
-        // Error retrieving data
+        // Error retrieving data 
       }
-      /*for (let i = 0; i < querie.length; i++) {
-        let user_id = querie[i].user_id;
-        
-      }*/
-      if(true){
+      let querie = await axios.get("https://linckedin.herokuapp.com/api/users/" 
+      + 6);
+      
+      if(true/*querie.data.length == 0*/){
         res = [
           {
             name: "The Linked In Team",
@@ -83,9 +82,17 @@ export default class main extends React.Component {
             ],
           },
         ];
+      } else{
+        /*console.log(querie.data);
+        for (let i = 0; i < querie.data.length; i++) {
+          let arrayPublications = await axios.get("https://linckedin.herokuapp.com/api/publication/" 
+          + querie.data[i].user_id);
+          res = res.concat( arrayPublications.data );
+          console.log(arrayPublications.data);
+        }*/
       }
     } 
-    
+    //console.log("res: "+res);
     this.setState({
       publications: res,
       loading: false,
