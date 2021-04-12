@@ -39,12 +39,37 @@ export default class main extends React.Component {
       commentsModalVisible: false,
       sendModalVisible: false,
       comment: "",
+      friendSearch: "",
     };
   }
 
   componentDidMount() {
     this.setState({ loading: true });
     const res = [
+      {
+        name: "The Linked In Team",
+        description:
+          "Welcome to Linked In, we are glad to have you here, you can add friends to fill in your home screens with awesome posts.",
+        image: {
+          uri: "",
+        },
+        Reactions: 13523,
+        comment: ["I love this app!", "Profe pongale 20 a estos chicos!"],
+      },
+      {
+        name: "The Linked In Team",
+        description:
+          "Linked In Update version 1.0.0. In this new update we bring a variety of changes: Posts, Friends (Or as we like to call them 'Connections') and a lot more interesting content for you to enjoy!",
+        image: {
+          uri: "",
+        },
+        Reactions: 5925,
+        comment: [
+          "It just keeps getting better",
+          "Profe dios mio pongale 20 a estos chicos!",
+          "Keep it coming!",
+        ],
+      },
       {
         name: "Heberto Urribarri",
         description: "Descontrol",
@@ -120,12 +145,17 @@ export default class main extends React.Component {
                       color="black"
                     />
                   </TouchableOpacity>
-                  <Text style={{ marginLeft: 10 }}>{item.name}</Text>
+                  <Text
+                    style={{ marginLeft: 5, marginTop: 5, fontWeight: "bold" }}
+                  >
+                    {item.name}
+                  </Text>
                 </View>
                 <Text
                   style={{
                     width: "100%",
                     paddingHorizontal: 5,
+                    marginVertical: 5,
                   }}
                 >
                   {item.description}
@@ -145,6 +175,7 @@ export default class main extends React.Component {
                       height: 240,
                       width: "100%",
                       resizeMode: "contain",
+                      marginBottom: 5,
                     }}
                     // posible uso si la imagen no carga. eliminar si no es requerido
                     onLoadStart={() =>
@@ -236,17 +267,23 @@ export default class main extends React.Component {
                       color="#FFD700"
                     />
                   </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.setState({ commentsModalVisible: true })
+                    }
                   >
-                    <Text style={{ marginLeft: 10 }}>
-                      {item.comment.length}
-                    </Text>
-                    <Text> Comments </Text>
-                  </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Text style={{ marginLeft: 10 }}>
+                        {item.comment.length}
+                      </Text>
+                      <Text> Comments </Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
                 <View
                   name="Divider"
@@ -263,7 +300,7 @@ export default class main extends React.Component {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     paddingHorizontal: 30,
-                    marginBottom: 3,
+                    marginBottom: 5,
                   }}
                 >
                   <TouchableOpacity
@@ -280,7 +317,9 @@ export default class main extends React.Component {
                   >
                     <FontAwesome name="commenting" size={24} color="gray" />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => Alert.alert("Enviar")}>
+                  <TouchableOpacity
+                    onPress={() => this.setState({ sendModalVisible: true })}
+                  >
                     <FontAwesome name="send" size={24} color="gray" />
                   </TouchableOpacity>
                 </View>
@@ -475,6 +514,85 @@ export default class main extends React.Component {
                   <TouchableOpacity style={{ right: 10 }}>
                     <Ionicons name="send" size={24} color="blue" />
                   </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </Modal>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.sendModalVisible}
+        >
+          <TouchableOpacity
+            style={{ flex: 1 }}
+            activeOpacity={1}
+            onPress={() => {
+              this.setState({ sendModalVisible: false });
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 22,
+              }}
+            >
+              <View
+                style={{
+                  margin: 20,
+                  backgroundColor: "white",
+                  borderRadius: 20,
+                  paddingHorizontal: 15,
+                  paddingVertical: 10,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    borderWidth: 2,
+                    marginTop: 15,
+                    borderColor: "blue",
+                    borderRadius: 23,
+                    paddingVertical: 2,
+                    width: 300,
+                    marginBottom: 10,
+                  }}
+                >
+                  <TextInput
+                    placeholder="Search for a connection:"
+                    placeholderTextColor="#444"
+                    style={{ paddingHorizontal: 25 }}
+                    onChangeText={(friendSearch) =>
+                      this.setState({ friendSearch: friendSearch })
+                    }
+                  />
+                  <AntDesign
+                    name="search1"
+                    size={24}
+                    color="blue"
+                    style={{ right: 10 }}
+                  />
+                </View>
+                <View
+                  style={{
+                    alignItems: "center",
+                    flexDirection: "column",
+                    marginTop: 5,
+                  }}
+                >
+                  <Text style={{ marginBottom: 5 }}>Aqui van tus amigos </Text>
                 </View>
               </View>
             </View>
