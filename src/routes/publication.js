@@ -3,6 +3,7 @@ const router = Router();
 
 const {
     getPublication,
+    getPublications,
     createpublication,
     updatepublication,
     deletepublication,
@@ -18,6 +19,7 @@ const {
     deleteComment
 } = require('../controllers/publication.controllers');
 
+router.get('/', getPublications);
 router.get('/:id', getPublication);
 router.post('/', createpublication);
 router.put('/:id', updatepublication);

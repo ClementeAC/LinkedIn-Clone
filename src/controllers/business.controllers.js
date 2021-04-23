@@ -1,5 +1,4 @@
 const pool = require('../utils/dbconnection');
-const { mail } = require('../utils/mailer');
 const query = require('../utils/queries');
 
 //connects

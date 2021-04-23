@@ -45,6 +45,7 @@ module.exports = {
 
     // Publication
     getPublication: 'SELECT * FROM publication WHERE user_id = $1',
+    getPublications: "SELECT * FROM publication",
     createpublication: 'INSERT INTO publication (user_id, date, descripcion, img, job_offer) VALUES ($1, $2, $3, $4, $5)',
     updatepublication: 'UPDATE publication SET date = 1$, descripcion = 2$, img = 3$ WHERE publication_id = $4 RETURNING *',
     deletepublication: 'DELETE FROM publication WHERE publication_id = $1',

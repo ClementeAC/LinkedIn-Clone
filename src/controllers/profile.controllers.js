@@ -1,6 +1,4 @@
 const pool = require('../utils/dbconnection');
-const { mail } = require('../utils/mailer');
-const { sms } = require('../utils/sms');
 const query = require('../utils/queries');
 
 const getProfiles = async (req, res) => { 

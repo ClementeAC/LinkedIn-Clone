@@ -18,7 +18,7 @@ server.use(helmet());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
-// Static files
+//Static files
 server.use(express.static(path.join(__dirname, 'public')));
 
 //rutas

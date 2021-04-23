@@ -1,5 +1,4 @@
 const pool = require('../utils/dbconnection');
-const { mail } = require('../utils/mailer');
 const query = require('../utils/queries');
 
 const getPublication = async (req, res) => { 
@@ -7,6 +6,23 @@ const getPublication = async (req, res) => {
   try{
     const id = parseInt(req.params.id);
     const response = await client.query(query.getPublication, [ id ]);
+    /*let res = [];
+    for (let i = 0; i < response.length; i++) {
+      resizeBy = array[i];
+      
+    }*/
+    res.status(200).json(response.rows);
+  }catch{
+    res.status(505);
+  }finally{
+    client.release(true);
+  }
+};
+
+const getPublications = async (req, res) => { 
+  const client = await pool.connect();
+  try{
+    const response = await client.query(query.getPublications);
     res.status(200).json(response.rows);
   }catch{
     res.status(505);
@@ -203,6 +219,7 @@ const deleteComment = async (req, res) => {
 };
 
 module.exports = {
+  getPublications,
   getPublication,
   createpublication,
   updatepublication,
