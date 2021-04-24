@@ -45,7 +45,7 @@ module.exports = {
 
     // Publication
     getPublication: 'SELECT * FROM publication WHERE user_id = $1',
-    getPublications: "SELECT * FROM publication",
+    getPublications: "SELECT publication_id, username, p.date, descripcion, job_offer, p.img, a.reactions, b.comments FROM publication p JOIN app_user USING(user_id) left JOIN (SELECT COUNT(user_reaction_id) AS reactions, publication FROM user_reaction GROUP BY publication) a ON a.publication = p.publication_id left JOIN (SELECT COUNT(user_reaction_id) AS comments, publication FROM user_comment GROUP BY publication) b ON b.publication = p.publication_id",
     createpublication: 'INSERT INTO publication (user_id, date, descripcion, img, job_offer) VALUES ($1, $2, $3, $4, $5)',
     updatepublication: 'UPDATE publication SET date = 1$, descripcion = 2$, img = 3$ WHERE publication_id = $4 RETURNING *',
     deletepublication: 'DELETE FROM publication WHERE publication_id = $1',

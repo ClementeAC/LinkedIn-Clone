@@ -6,11 +6,6 @@ const getPublication = async (req, res) => {
   try{
     const id = parseInt(req.params.id);
     const response = await client.query(query.getPublication, [ id ]);
-    /*let res = [];
-    for (let i = 0; i < response.length; i++) {
-      resizeBy = array[i];
-      
-    }*/
     res.status(200).json(response.rows);
   }catch{
     res.status(505);
