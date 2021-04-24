@@ -17,7 +17,7 @@ const getProfiles = async (req, res) => {
 const createProfile = async (req, res) => {
   const client = await pool.connect();
   try{
-    const { user_id, description, website, birthday, country, language, name, last_name } = req.body;
+    const { user_id, description, website, birthday, country, language, name, last_name, currentJobTitle } = req.body;
     const response = await client.query(query.createProfile, [
       user_id, 
       description, 
@@ -26,7 +26,8 @@ const createProfile = async (req, res) => {
       country, 
       language, 
       name, 
-      last_name
+      last_name,
+      currentJobTitle
     ]);
     res.status(200).json(response.rows);
   }catch{
@@ -40,7 +41,7 @@ const updateProfile = async (req, res) => {
   const client = await pool.connect();
   try{
     const id = parseInt(req.params.id);
-    const { description, website, birthday, country, name, last_name } = req.body;
+    const { description, website, birthday, country, name, last_name, currentJobTitle } = req.body;
 
     const response = await client.query(query.updateProfile, [
         description, 
@@ -49,6 +50,7 @@ const updateProfile = async (req, res) => {
         country, 
         name, 
         last_name,
+        currentJobTitle,
         id
     ]);
     res.status(200).json(response.rows);

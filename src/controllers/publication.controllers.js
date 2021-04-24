@@ -118,7 +118,7 @@ const updateReaction = async (req, res) => {
   const client = await pool.connect();
   try{
     const id = parseInt(req.params.id);
-    const { date, charmed, interesting, recommend, celebrate } = req.body;
+    const { date, charmed, interesting, recommend, celebrate, publication } = req.body;
 
     const response = await client.query(query.updateReaction, [
         date, 
@@ -126,7 +126,8 @@ const updateReaction = async (req, res) => {
         interesting, 
         recommend, 
         celebrate,
-        id
+        publication,
+        id,
     ]);
     res.status(200).json(response.rows);
   }catch{
@@ -139,8 +140,8 @@ const updateReaction = async (req, res) => {
 const deleteRaction = async (req, res) => {
   const client = await pool.connect();
   try{
-    const id = parseInt(req.params.id);
-    const response = await client.query(query.deleteRaction, [ id ]);
+    const { user_id, publication } = req.body;
+    const response = await client.query(query.deleteRaction, [user_id, publication]);
     res.status(200).json(response.rowCount);
   }catch{
     res.status(505);

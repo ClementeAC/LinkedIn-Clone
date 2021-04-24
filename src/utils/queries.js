@@ -11,8 +11,8 @@ module.exports = {
 
     //Profiles
     getProfiles: 'SELECT * FROM profile JOIN app_user ON profile.user_id = app_user.user_id AND profile.user_id = $1',
-    createProfile: 'INSERT INTO profile(user_id, description, website, birthday, country, language, name, last_name) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
-    updateProfile: 'UPDATE profile SET description = $1, website = $2, birthday = $3, country = $4, name = $5, last_name = $6 WHERE profile_id = $7 RETURNING *',
+    createProfile: 'INSERT INTO profile(user_id, description, website, birthday, country, language, name, last_name, currentJobTitle) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+    updateProfile: 'UPDATE profile SET description = $1, website = $2, birthday = $3, country = $4, name = $5, last_name = $6, currentJobTitle = $7 WHERE profile_id = $8 RETURNING *',
     deleteProfile: 'DELETE FROM profile where profile_id = $1',
     
     getSkills: 'SELECT * FROM skills WHERE profile = $1',
@@ -45,7 +45,7 @@ module.exports = {
 
     // Publication
     getPublication: 'SELECT * FROM publication WHERE user_id = $1',
-    getPublications: "SELECT publication_id, username, p.date, descripcion, job_offer, p.img, a.reactions, b.comments FROM publication p JOIN app_user USING(user_id) left JOIN (SELECT COUNT(user_reaction_id) AS reactions, publication FROM user_reaction GROUP BY publication) a ON a.publication = p.publication_id left JOIN (SELECT COUNT(user_reaction_id) AS comments, publication FROM user_comment GROUP BY publication) b ON b.publication = p.publication_id",
+    getPublications: "SELECT au.user_id, publication_id, username, p.date, descripcion, job_offer, p.img, a.reactions, b.comments FROM publication p JOIN app_user au USING(user_id) left JOIN (SELECT COUNT(user_reaction_id) AS reactions, publication FROM user_reaction GROUP BY publication) a ON a.publication = p.publication_id left JOIN (SELECT COUNT(user_reaction_id) AS comments, publication FROM user_comment GROUP BY publication) b ON b.publication = p.publication_id",
     createpublication: 'INSERT INTO publication (user_id, date, descripcion, img, job_offer) VALUES ($1, $2, $3, $4, $5)',
     updatepublication: 'UPDATE publication SET date = 1$, descripcion = 2$, img = 3$ WHERE publication_id = $4 RETURNING *',
     deletepublication: 'DELETE FROM publication WHERE publication_id = $1',
@@ -53,8 +53,8 @@ module.exports = {
     // Reacciones
     getReaction: 'SELECT * FROM user_reaction WHERE publication = $1',
     createReaction: 'INSERT INTO user_reaction (user_id, date, publication, charmed, interesting, recommend, celebrate) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-    updateReaction: 'UPDATE user_reaction SET date = $1, charmed = $2, interesting = $3, recommend = $4, celebrate = $5 WHERE user_reaction_id = $6 RETURNING *',
-    deleteRaction: 'DELETE FROM user_reaction WHERE user_reaction_id = $1',
+    updateReaction: 'UPDATE user_reaction SET date = $1, charmed = $2, interesting = $3, recommend = $4, celebrate = $5 WHERE publication = %6 AND user_id = $7 RETURNING *',
+    deleteRaction: 'DELETE FROM user_reaction WHERE user_id = $1 AND publication = $2',
 
     // Comentarios
     getComment: 'SELECT * FROM user_comment WHERE publication = $1',

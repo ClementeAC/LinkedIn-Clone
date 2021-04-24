@@ -23,12 +23,10 @@ router.post('/', createpublication);
 router.put('/:id', updatepublication);
 router.delete('/:id', deletepublication);
 
-//router.get('/reaction/:id', getReaction);
 router.post('/reaction', createReaction);
 router.put('/reaction/:id', updateReaction);
-router.delete('/reaction/:id', deleteRaction);
+router.delete('/reaction', deleteRaction);
 
-//router.get('/comment/:id', getComment);
 router.post('/comment', createComment);
 router.put('/comment/:id', updateComment);
 router.delete('/comment/:id', deleteComment);
