@@ -49,7 +49,7 @@ export default class main extends React.Component {
     this.setState({ loading: true });
     if(this.state.publications.length == 0){
       let res = await axios.get("https://linckedin.herokuapp.com/api/publication/");
-      console.log(res);
+      console.log(res.data);
       this.setState({
         publications: res.data,
         loading: false,
