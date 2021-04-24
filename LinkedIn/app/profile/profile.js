@@ -174,7 +174,7 @@ export default class profile extends React.Component {
                   borderWidth: 0.5,
                   borderColor: "blue",
                   paddingVertical: 8,
-                  width: 120,
+                  width: 140,
                   borderRadius: 23,
                 }}
               >
@@ -185,14 +185,14 @@ export default class profile extends React.Component {
               </View>
             </TouchableOpacity>
             <Entypo name="dot-single" color="blue" size={15} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigate("posts")}>
               <View
                 style={{
                   alignItems: "center",
                   borderWidth: 0.5,
                   borderColor: "blue",
                   paddingVertical: 8,
-                  width: 120,
+                  width: 140,
                   borderRadius: 23,
                   marginBottom: 10,
                 }}
@@ -211,6 +211,7 @@ export default class profile extends React.Component {
               (this.state.country == null) ? (
                 <View
                   style={{
+                    alignItems: "center",
                     borderColor: "blue",
                     borderWidth: 2,
                     padding: 15,
@@ -218,7 +219,7 @@ export default class profile extends React.Component {
                     marginBottom: 20,
                   }}
                 >
-                  <Text style={{ fontWeight: "bold", fontSize: 14 }}>
+                  <Text style={{ fontWeight: "bold", fontSize: 12, }}>
                     Add some more information to complete your profile
                   </Text>
                   <TouchableOpacity
