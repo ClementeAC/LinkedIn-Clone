@@ -40,6 +40,13 @@ export default class profile extends React.Component {
       education: null,
       skills: null,
       id: null,
+      newname: null,
+      newlastName: null,
+      newtitle: null,
+      newcurrentJobTitle: null,
+      newcountry: null,
+      neweducation: null,
+      newskills: null,
     };
   }
 
@@ -48,29 +55,34 @@ export default class profile extends React.Component {
   }
 
   getUser = async () => {
-    this.setState({loading: true});
+    console.log("cargando");
+    this.setState({ loading: true });
     let res = "";
     let resp = [];
     let respo = [];
     try {
       res = await AsyncStorage.getItem("user");
+      console.log(res);
+      this.setState({ username: res.username });
       resp = await axios.get(
-        "https://linckedin.herokuapp.com/api/profile/" + JSON.parse(res).user_id);
-
+        "https://linckedin.herokuapp.com/api/profile/" + JSON.parse(res).user_id
+      );
       respo = await axios.get(
-        "https://linckedin.herokuapp.com/api/profile/dataProfile/" + resp.data[0].profile_id);
+        "https://linckedin.herokuapp.com/api/profile/dataProfile/" +
+          resp.data[0].profile_id
+      );
     } catch (error) {
-      // Error retrieving data
+      console.log("error");
     }
+
     let response = {};
-    if(this.state.context == "Espanol"){
+    if (this.state.context == "Espanol") {
       response = resp.data[0];
     }
-    if(this.state.context == "English"){
+    if (this.state.context == "English") {
       response = resp.data[1];
     }
 
-    
     this.setState({
       username: JSON.parse(res).username,
       email: JSON.parse(res).email,
@@ -81,9 +93,8 @@ export default class profile extends React.Component {
       title: response.description,
       currentJobTitle: response.currentJobTitle,
       country: null,
-      loading: false
+      loading: false,
     });
-
   };
 
   async saveData() {
@@ -230,7 +241,7 @@ export default class profile extends React.Component {
                     marginBottom: 20,
                   }}
                 >
-                  <Text style={{ fontWeight: "bold", fontSize: 12, }}>
+                  <Text style={{ fontWeight: "bold", fontSize: 12 }}>
                     Add some more information to complete your profile
                   </Text>
                   <TouchableOpacity
@@ -418,7 +429,9 @@ export default class profile extends React.Component {
                         placeholder="Name"
                         placeholderTextColor="#444"
                         style={{ paddingHorizontal: 25 }}
-                        onChangeText={(name) => this.setState({ name: name })}
+                        onChangeText={(name) =>
+                          this.setState({ newname: name })
+                        }
                       />
                     </View>
                   ) : null}
@@ -450,7 +463,7 @@ export default class profile extends React.Component {
                         placeholderTextColor="#444"
                         style={{ paddingHorizontal: 25 }}
                         onChangeText={(lastName) =>
-                          this.setState({ lastName: lastName })
+                          this.setState({ newlastName: lastName })
                         }
                       />
                     </View>
@@ -483,7 +496,7 @@ export default class profile extends React.Component {
                         placeholderTextColor="#444"
                         style={{ paddingHorizontal: 25 }}
                         onChangeText={(title) =>
-                          this.setState({ title: title })
+                          this.setState({ newtitle: title })
                         }
                       />
                     </View>
@@ -516,7 +529,7 @@ export default class profile extends React.Component {
                         placeholderTextColor="#444"
                         style={{ paddingHorizontal: 25 }}
                         onChangeText={(currentJobTitle) =>
-                          this.setState({ currentJobTitle: currentJobTitle })
+                          this.setState({ newcurrentJobTitle: currentJobTitle })
                         }
                       />
                     </View>
@@ -549,7 +562,7 @@ export default class profile extends React.Component {
                         placeholderTextColor="#444"
                         style={{ paddingHorizontal: 25 }}
                         onChangeText={(education) =>
-                          this.setState({ education: education })
+                          this.setState({ neweducation: education })
                         }
                       />
                     </View>
@@ -583,7 +596,7 @@ export default class profile extends React.Component {
                         placeholderTextColor="#444"
                         style={{ paddingHorizontal: 25 }}
                         onChangeText={(skills) =>
-                          this.setState({ skills: skills })
+                          this.setState({ newskills: skills })
                         }
                       />
                     </View>
@@ -617,7 +630,7 @@ export default class profile extends React.Component {
                         placeholderTextColor="#444"
                         style={{ paddingHorizontal: 25 }}
                         onChangeText={(country) =>
-                          this.setState({ country: country })
+                          this.setState({ newcountry: country })
                         }
                       />
                     </View>
@@ -625,7 +638,14 @@ export default class profile extends React.Component {
                 </View>
                 <TouchableOpacity
                   onPress={() => {
-                    this.setState({ modalVisible: false });
+                    this.setState({
+                      modalVisible: false,
+                      name: this.state.newname,
+                      lastName: this.state.newlastName,
+                      title: this.state.newtitle,
+                      currentJobTitle: this.state.newcurrentJobTitle,
+                      country: this.state.newcountry,
+                    });
                   }}
                   style={{
                     alignItems: "center",
