@@ -35,6 +35,8 @@ export default class main extends React.Component {
       loading: false,
       loadingImage: [],
       publications: [],
+      comments: [],
+      reactions: [],
       reactionsModalVisible: false,
       commentsModalVisible: false,
       sendModalVisible: false,
@@ -45,58 +47,14 @@ export default class main extends React.Component {
 
   async componentDidMount() {
     this.setState({ loading: true });
-    let res = [];
     if(this.state.publications.length == 0){
-      let response = "";
-      try {
-        response = await AsyncStorage.getItem("user");
-      } catch (error) {
-        // Error retrieving data 
-      }
-      let querie = await axios.get("https://linckedin.herokuapp.com/api/users/" 
-      + 6);
-      
-      if(true/*querie.data.length == 0*/){
-        res = [
-          {
-            name: "The Linked In Team",
-            description: "Welcome to Linked In, we are glad to have you here, you can add friends to fill in your home screens with awesome posts.",
-            image: {
-              uri:
-                "https://res.cloudinary.com/otrebeh/image/private/s--xvoIddkY--/v1618197517/e71a6f83-6145-4d3c-b5b0-815e963536df_vx8uvv.png",
-            },
-            Reactions: 20,
-            comment: ["hola", "felicidades", "Eres mi crush", "Todo un pro"],
-          },
-          {
-            name: "The Linked In Team",
-            description:
-            "Linked In Update version 1.0.0. In this new update we bring a variety of changes: Posts, Friends (Or as we like to call them 'Connections') and a lot more interesting content for you to enjoy!",
-            image: { uri: 
-              "https://res.cloudinary.com/otrebeh/image/private/s--lMEtbjqg--/v1618197623/d1f076ca-89d2-4f30-bf3d-a34bdafd64f1_vghcdj.jpg" },
-            Reactions: 20,
-            comment: [
-              "It just keeps getting better",
-              "Profe dios mio pongale 20 a estos chicos!",
-              "Keep it coming!",
-            ],
-          },
-        ];
-      } else{
-        /*console.log(querie.data);
-        for (let i = 0; i < querie.data.length; i++) {
-          let arrayPublications = await axios.get("https://linckedin.herokuapp.com/api/publication/" 
-          + querie.data[i].user_id);
-          res = res.concat( arrayPublications.data );
-          console.log(arrayPublications.data);
-        }*/
-      }
+      let res = await axios.get("https://linckedin.herokuapp.com/api/publication/");
+      console.log(res);
+      this.setState({
+        publications: res.data,
+        loading: false,
+      });
     } 
-    //console.log("res: "+res);
-    this.setState({
-      publications: res,
-      loading: false,
-    });
   }
 
   render() {
@@ -152,7 +110,7 @@ export default class main extends React.Component {
                   <Text
                     style={{ marginLeft: 5, marginTop: 5, fontWeight: "bold" }}
                   >
-                    {item.name}
+                    {item.username}
                   </Text>
                 </View>
                 <Text
@@ -162,7 +120,7 @@ export default class main extends React.Component {
                     marginVertical: 5,
                   }}
                 >
-                  {item.description}
+                  {item.descripcion}
                 </Text>
               </View>
               <View
@@ -172,7 +130,7 @@ export default class main extends React.Component {
                   marginBottom: 4,
                 }}
               >
-                {item.image.uri ? (
+                {item.img ? (
                   <Image
                     style={{
                       alignSelf: "center",
@@ -187,7 +145,7 @@ export default class main extends React.Component {
                     }
                     onLoadEnd={() => console.log("imagen cargada en: " + index)}
                     ////////////////////////////////////////////////////////////////
-                    source={item.image}
+                    source={{uri: item.img}}
                   />
                 ) : (
                   <Image style={{ height: 0 }} />
@@ -234,7 +192,7 @@ export default class main extends React.Component {
                       justifyContent: "space-between",
                     }}
                   >
-                    <Text>{item.Reactions}</Text>
+                    <Text>{item.reactions === null ? 0 : item.reactions}</Text>
                     <View style={{ marginLeft: 10 }}></View>
                     <AntDesign
                       style={
@@ -283,7 +241,7 @@ export default class main extends React.Component {
                       }}
                     >
                       <Text style={{ marginLeft: 10 }}>
-                        {item.comment.length}
+                        {item.comments === null ? 0 : item.comments}
                       </Text>
                       <Text> Comments </Text>
                     </View>

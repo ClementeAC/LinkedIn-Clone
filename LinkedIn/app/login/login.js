@@ -28,7 +28,7 @@ export default class login extends React.Component {
   }
 
   login = async () => {
-    this.setState({ loading: true });
+    this.setState({ loading: true }); 
     const res = await axios.post(
       "https://linckedin.herokuapp.com/api/users/login",
       {

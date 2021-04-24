@@ -5,7 +5,7 @@ import { Button, Image, View, Platform, Alert, ActivityIndicator } from "react-n
 import * as ImagePicker from "expo-image-picker";
 import {datetime} from "../utils/datetime";
 
-export default function Img(props, { publication }) {
+export default function Img(props, {publication}) {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -36,6 +36,11 @@ export default function Img(props, { publication }) {
   };
 
   const sendImage = async ( comment ) => {
+    console.log(props.publication);
+    if(props.publication === ""){
+      Alert.alert("Add text");
+      return null;
+    }
     setLoading( true );
     if(comment){
     const formData = new FormData();
@@ -53,9 +58,7 @@ export default function Img(props, { publication }) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data.secure_url);
-        console.log(props.publication);
-        if (props.publication) {
-          // Si un props que le pase de toPost es true se sube una publicacion
+        if (data.secure_url) {
           sendPublication(data.secure_url);
         }
       })
@@ -69,7 +72,6 @@ export default function Img(props, { publication }) {
     }
   };
 
-  //aun no probado
   const sendPublication = async (url) => {
     console.log("se subio la imagen");
     let id = await AsyncStorage.getItem("user");
@@ -87,6 +89,7 @@ export default function Img(props, { publication }) {
     );
     console.log(res.data);
     setLoading( false);
+    setImage(null);
     Alert.alert("published!");
   };
 
