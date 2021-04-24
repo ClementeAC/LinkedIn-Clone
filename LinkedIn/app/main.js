@@ -46,21 +46,23 @@ export default class main extends React.Component {
   async componentDidMount() {
     this.setState({ loading: true });
     let res = [];
-    if(this.state.publications.length == 0){
+    if (this.state.publications.length == 0) {
       let response = "";
       try {
         response = await AsyncStorage.getItem("user");
       } catch (error) {
-        // Error retrieving data 
+        // Error retrieving data
       }
-      let querie = await axios.get("https://linckedin.herokuapp.com/api/users/" 
-      + 6);
-      
-      if(true/*querie.data.length == 0*/){
+      let querie = await axios.get(
+        "https://linckedin.herokuapp.com/api/users/" + 6
+      );
+
+      if (true /*querie.data.length == 0*/) {
         res = [
           {
             name: "The Linked In Team",
-            description: "Welcome to Linked In, we are glad to have you here, you can add friends to fill in your home screens with awesome posts.",
+            description:
+              "Welcome to Linked In, we are glad to have you here, you can add friends to fill in your home screens with awesome posts.",
             image: {
               uri:
                 "https://res.cloudinary.com/otrebeh/image/private/s--xvoIddkY--/v1618197517/e71a6f83-6145-4d3c-b5b0-815e963536df_vx8uvv.png",
@@ -71,9 +73,11 @@ export default class main extends React.Component {
           {
             name: "The Linked In Team",
             description:
-            "Linked In Update version 1.0.0. In this new update we bring a variety of changes: Posts, Friends (Or as we like to call them 'Connections') and a lot more interesting content for you to enjoy!",
-            image: { uri: 
-              "https://res.cloudinary.com/otrebeh/image/private/s--lMEtbjqg--/v1618197623/d1f076ca-89d2-4f30-bf3d-a34bdafd64f1_vghcdj.jpg" },
+              "Linked In Update version 1.0.0. In this new update we bring a variety of changes: Posts, Friends (Or as we like to call them 'Connections') and a lot more interesting content for you to enjoy!",
+            image: {
+              uri:
+                "https://res.cloudinary.com/otrebeh/image/private/s--lMEtbjqg--/v1618197623/d1f076ca-89d2-4f30-bf3d-a34bdafd64f1_vghcdj.jpg",
+            },
             Reactions: 20,
             comment: [
               "It just keeps getting better",
@@ -82,7 +86,7 @@ export default class main extends React.Component {
             ],
           },
         ];
-      } else{
+      } else {
         /*console.log(querie.data);
         for (let i = 0; i < querie.data.length; i++) {
           let arrayPublications = await axios.get("https://linckedin.herokuapp.com/api/publication/" 
@@ -91,7 +95,7 @@ export default class main extends React.Component {
           console.log(arrayPublications.data);
         }*/
       }
-    } 
+    }
     //console.log("res: "+res);
     this.setState({
       publications: res,
@@ -149,11 +153,17 @@ export default class main extends React.Component {
                       color="black"
                     />
                   </TouchableOpacity>
-                  <Text
-                    style={{ marginLeft: 5, marginTop: 5, fontWeight: "bold" }}
-                  >
-                    {item.name}
-                  </Text>
+                  <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
+                    <Text
+                      style={{
+                        marginLeft: 5,
+                        marginTop: 5,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {item.name}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
                 <Text
                   style={{
