@@ -72,11 +72,7 @@ export default class profile extends React.Component {
           resp.data[0].profile_id
       );
     } catch (error) {
-<<<<<<< HEAD
       console.log(error)
-=======
-      console.log("error");
->>>>>>> 3da39ecec77a15c16141008cfeb965d9b6153fe8
     }
 
     let response = {};
