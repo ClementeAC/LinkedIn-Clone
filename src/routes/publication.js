@@ -25,7 +25,7 @@ router.delete('/:id', deletepublication);
 
 router.post('/reaction', createReaction);
 router.put('/reaction/:id', updateReaction);
-router.delete('/reaction', deleteRaction);
+router.delete('/reaction/:id', deleteRaction);
 
 router.post('/comment', createComment);
 router.put('/comment/:id', updateComment);

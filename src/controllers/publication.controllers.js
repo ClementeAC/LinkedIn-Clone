@@ -140,8 +140,9 @@ const updateReaction = async (req, res) => {
 const deleteRaction = async (req, res) => {
   const client = await pool.connect();
   try{
-    const { user_id, publication } = req.body;
-    const response = await client.query(query.deleteRaction, [user_id, publication]);
+    const id = parseInt(req.params.id);
+    const { publication } = req.body;
+    const response = await client.query(query.deleteRaction, [id, publication]);
     res.status(200).json(response.rowCount);
   }catch{
     res.status(505);
