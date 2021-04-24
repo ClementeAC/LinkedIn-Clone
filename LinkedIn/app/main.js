@@ -20,6 +20,8 @@ import {
   Modal,
   TouchableWithoutFeedback,
   TextInput,
+  RefreshControl,
+  ShadowPropTypesIOS,
 } from "react-native";
 import styles from "./main.css";
 
@@ -45,6 +47,7 @@ export default class main extends React.Component {
       sendModalVisible: false,
       comment: "",
       friendSearch: "",
+      refreshing: false,
     };
   }
 
@@ -99,6 +102,19 @@ export default class main extends React.Component {
     });
   }
 
+  async onRefresh() {
+    this.setState({ refreshing: true });
+    let res = await axios.get(
+      "https://linckedin.herokuapp.com/api/publication/"
+    );
+    console.log(res.data);
+    this.setState({
+      publications: res.data,
+    });
+    console.log("listo");
+    this.setState({ refreshing: false });
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     if (this.state.loading) {
@@ -120,7 +136,14 @@ export default class main extends React.Component {
           height: "100%",
         }}
       >
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={() => this.onRefresh()}
+            />
+          }
+        >
           {this.state.publications.map((item, index) => (
             <View
               key={index}
@@ -149,11 +172,17 @@ export default class main extends React.Component {
                       color="black"
                     />
                   </TouchableOpacity>
-                  <Text
-                    style={{ marginLeft: 5, marginTop: 5, fontWeight: "bold" }}
-                  >
-                    {item.username}
-                  </Text>
+                  <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
+                    <Text
+                      style={{
+                        marginLeft: 5,
+                        marginTop: 2,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {item.username}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
                 <Text
                   style={{
