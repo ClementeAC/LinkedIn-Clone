@@ -53,12 +53,14 @@ export default class main extends React.Component {
 
   async componentDidMount() {
     this.setState({ loading: true });
-    let res = await axios.get("https://linckedin.herokuapp.com/api/publication/");    
-    let respo = await AsyncStorage.getItem("user");    
+    let res = await axios.get(
+      "https://linckedin.herokuapp.com/api/publication/"
+    );
+    let respo = await AsyncStorage.getItem("user");
     this.setState({
       publications: res.data,
       loading: false,
-      user_id: JSON.parse(respo).user_id
+      user_id: JSON.parse(respo).user_id,
     });
   }
 
@@ -67,51 +69,56 @@ export default class main extends React.Component {
 
     this.setState({ reactionsModalVisible: false, reaction: 1 });
 
-    let date = new Date(); 
+    let date = new Date();
     let publication = this.state.publication;
     let charmed = false;
     let interesting = false;
     let recommend = false;
     let celebrate = false;
 
-    await axios.delete("https://linckedin.herokuapp.com/api/publication/reaction", {
-      user_id: this.state.user_id, 
-      publication: this.state.publication,
-    });
-    
-    if(value === "1"){
+    await axios.delete(
+      "https://linckedin.herokuapp.com/api/publication/reaction",
+      {
+        user_id: this.state.user_id,
+        publication: this.state.publication,
+      }
+    );
+
+    if (value === "1") {
       charmed = true;
     }
-    if(value === "2"){
+    if (value === "2") {
       interesting = true;
     }
-    if(value === "3"){
+    if (value === "3") {
       recommend = true;
-    }
-    else{
+    } else {
       celebrate = true;
     }
 
     console.log({
-      user_id : this.state.user_id, 
-      date, 
-      publication, 
-      charmed, 
-      interesting, 
-      recommend, 
-      celebrate
-    })
-
-    await axios.post("https://linckedin.herokuapp.com/api/publication/reaction", {
-      user_id : this.state.user_id, 
-      date, 
-      publication, 
-      charmed, 
-      interesting, 
-      recommend, 
-      celebrate
+      user_id: this.state.user_id,
+      date,
+      publication,
+      charmed,
+      interesting,
+      recommend,
+      celebrate,
     });
-  }
+
+    await axios.post(
+      "https://linckedin.herokuapp.com/api/publication/reaction",
+      {
+        user_id: this.state.user_id,
+        date,
+        publication,
+        charmed,
+        interesting,
+        recommend,
+        celebrate,
+      }
+    );
+  };
 
   async onRefresh() {
     this.setState({ refreshing: true });
@@ -130,9 +137,9 @@ export default class main extends React.Component {
     console.log("presionaste el perfil del usuario:");
     console.log(id);
     try {
-      await AsyncStorage.setItem("poster", id);
+      await AsyncStorage.setItem("poster", JSON.stringify(id));
       console.log("Poster guardado");
-      this.props.navigation.replace("profile");
+      this.props.navigation.replace("Profile");
     } catch (e) {
       //error
     }
@@ -286,7 +293,11 @@ export default class main extends React.Component {
                       justifyContent: "space-between",
                     }}
                   >
-                    <Text>{item.reactions === null ? 0 : parseInt(item.reactions)+this.state.reaction}</Text>
+                    <Text>
+                      {item.reactions === null
+                        ? 0
+                        : parseInt(item.reactions) + this.state.reaction}
+                    </Text>
                     <View style={{ marginLeft: 10 }}></View>
                     <AntDesign
                       style={
@@ -361,14 +372,20 @@ export default class main extends React.Component {
                 >
                   <TouchableOpacity
                     onPress={() => {
-                      this.setState({ reactionsModalVisible: true, publication: item.publication_id });
+                      this.setState({
+                        reactionsModalVisible: true,
+                        publication: item.publication_id,
+                      });
                     }}
                   >
                     <AntDesign name="like1" size={24} color="gray" />
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() =>
-                      this.setState({ commentsModalVisible: true, publication: item.publication_id })
+                      this.setState({
+                        commentsModalVisible: true,
+                        publication: item.publication_id,
+                      })
                     }
                   >
                     <FontAwesome name="commenting" size={24} color="gray" />
@@ -423,7 +440,7 @@ export default class main extends React.Component {
               >
                 <TouchableOpacity
                   onPress={() => {
-                    this.reactions("1")
+                    this.reactions("1");
                   }}
                   style={{
                     borderRadius: 23,
@@ -443,7 +460,7 @@ export default class main extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    this.reactions("2")
+                    this.reactions("2");
                   }}
                   style={{
                     borderRadius: 23,
@@ -461,7 +478,7 @@ export default class main extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    this.reactions("3")
+                    this.reactions("3");
                   }}
                   style={{
                     borderRadius: 23,
@@ -479,7 +496,7 @@ export default class main extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    this.reactions("4")
+                    this.reactions("4");
                   }}
                   style={{
                     borderRadius: 23,

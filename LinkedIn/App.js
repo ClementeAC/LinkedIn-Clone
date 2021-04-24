@@ -1,12 +1,12 @@
 import "react-native-gesture-handler";
 import * as React from "react";
 import { TouchableOpacity, Image, Alert } from "react-native";
-import { 
-  Ionicons, 
-  AntDesign, 
-  Entypo, 
-  FontAwesome5, 
-  MaterialCommunityIcons 
+import {
+  Ionicons,
+  AntDesign,
+  Entypo,
+  FontAwesome5,
+  MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -27,8 +27,8 @@ import register from "./app/register/register";
 import myNetwork from "./app/myNetwork/myNetwork";
 import toPost from "./app/toPost/toPost";
 import notifications from "./app/notifications/notifications";
-import friendList from  "./app/profile/friendList";
-import posts from  "./app/profile/posts";
+import friendList from "./app/profile/friendList";
+import posts from "./app/profile/posts";
 
 import Img from "./app/components/img";
 import not from "./app/utils/notifications";
@@ -96,7 +96,7 @@ function CustomDrawerContent(props) {
         style={{
           height: 55,
           justifyContent: "center",
-          backgroundColor: "#D7EDFF"
+          backgroundColor: "#D7EDFF",
         }}
         onPress={() => props.navigation.navigate("Profile")}
       />
@@ -134,7 +134,6 @@ function CustomDrawerContent(props) {
       /> 
         */
       />
-      
     </DrawerContentScrollView>
   );
 }
@@ -167,9 +166,7 @@ function MenuRouteSession({ navigation }) {
       <Stack.Screen
         name="posts"
         component={posts}
-        options={({ navigation }) =>
-          optionsNavigator({ navigation }, "Posts")
-        }
+        options={({ navigation }) => optionsNavigator({ navigation }, "Posts")}
       />
       <Stack.Screen
         name="friendList"
@@ -208,8 +205,12 @@ function MenuRouteSession({ navigation }) {
 function MyNetwork({ navigation }) {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="myNetwork" component={myNetwork} 
-        options={({ navigation }) => optionsNavigator({ navigation }, "My Network")}
+      <Stack.Screen
+        name="myNetwork"
+        component={myNetwork}
+        options={({ navigation }) =>
+          optionsNavigator({ navigation }, "My Network")
+        }
       />
     </Stack.Navigator>
   );
@@ -244,8 +245,10 @@ function TabContent({ navigation }) {
     tabBarLabel: Title,
     tabBarVisible: true,
     tabBarIcon: ({ color, size }) => {
-      if(Title == "My Network"){
-        return <MaterialCommunityIcons name={iconName} size={size} color={color} />
+      if (Title == "My Network") {
+        return (
+          <MaterialCommunityIcons name={iconName} size={size} color={color} />
+        );
       }
       return <Ionicons name={iconName} size={size} color={color} />;
     },
@@ -264,11 +267,19 @@ function TabContent({ navigation }) {
           optionsTab({ navigation }, "Home", "home-sharp")
         }
       />
-      <Tab.Screen name="Network" component={MyNetwork} 
-        options={({ navigation }) => optionsTab({ navigation }, "My Network", "account-search")}
+      <Tab.Screen
+        name="Network"
+        component={MyNetwork}
+        options={({ navigation }) =>
+          optionsTab({ navigation }, "My Network", "account-search")
+        }
       />
-      <Tab.Screen name="Post" component={ToPostScreen} 
-        options={({ navigation }) => optionsTab({ navigation }, "New Post", "add-circle")}
+      <Tab.Screen
+        name="Post"
+        component={ToPostScreen}
+        options={({ navigation }) =>
+          optionsTab({ navigation }, "New Post", "add-circle")
+        }
       />
       <Tab.Screen
         name="NotificationsScreen"
