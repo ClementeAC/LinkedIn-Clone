@@ -126,6 +126,18 @@ export default class main extends React.Component {
     this.setState({ refreshing: false });
   }
 
+  async poster(id) {
+    console.log("presionaste el perfil del usuario:");
+    console.log(id);
+    try {
+      await AsyncStorage.setItem("poster", id);
+      console.log("Poster guardado");
+      this.props.navigation.replace("profile");
+    } catch (e) {
+      //error
+    }
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     if (this.state.loading) {
@@ -176,14 +188,14 @@ export default class main extends React.Component {
                     marginTop: 3,
                   }}
                 >
-                  <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
+                  <TouchableOpacity onPress={() => this.poster(item.user_id)}>
                     <Ionicons
                       name="person-circle-outline"
                       size={24}
                       color="black"
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => Alert.alert("Perfil")}>
+                  <TouchableOpacity onPress={() => this.poster(item.user_id)}>
                     <Text
                       style={{
                         marginLeft: 5,
