@@ -234,9 +234,7 @@ export default class main extends React.Component {
                       justifyContent: "space-between",
                     }}
                   >
-                    <Text>{item.reactions === null ? 0 
-                    : item.reactions === 0 && this.this.state.reaction ===1 ? 1 
-                    : parseInt(item.reactions)+this.state.reaction}</Text>
+                    <Text>{item.reactions === null ? 0 : parseInt(item.reactions)+this.state.reaction}</Text>
                     <View style={{ marginLeft: 10 }}></View>
                     <AntDesign
                       style={
