@@ -25,6 +25,7 @@ export default class profile extends React.Component {
     super(props);
 
     this.state = {
+      profile_id: 0,
       context: "Espanol",
       modalVisible: false,
       loading: false,
@@ -84,6 +85,7 @@ export default class profile extends React.Component {
     }
 
     this.setState({
+      profile_id: resp.data[0].profile_id,
       username: JSON.parse(res).username,
       email: JSON.parse(res).email,
       id: JSON.parse(res).user_id,
@@ -637,7 +639,7 @@ export default class profile extends React.Component {
                   ) : null}
                 </View>
                 <TouchableOpacity
-                  onPress={() => {
+                  onPress={ async () => {
                     this.setState({
                       modalVisible: false,
                       name: this.state.newname,
@@ -645,6 +647,15 @@ export default class profile extends React.Component {
                       title: this.state.newtitle,
                       currentJobTitle: this.state.newcurrentJobTitle,
                       country: this.state.newcountry,
+                    });
+                    await axios.put("https://linckedin.herokuapp.com/api/profile/"+ this.state.profile_id, {
+                      description: this.state.newtitle, 
+                      website: null, 
+                      birthday: null, 
+                      country: this.state.newcountry,
+                      name: this.state.newname, 
+                      last_name: this.state.newlastName, 
+                      currentJobTitle: this.state.newcurrentJobTitle, 
                     });
                   }}
                   style={{
