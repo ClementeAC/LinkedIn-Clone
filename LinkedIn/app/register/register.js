@@ -41,6 +41,18 @@ export default class register extends React.Component {
       password: this.state.password,
       phone: "+58" + this.state.phone,
     });
+
+    await axios.post("https://linckedin.herokuapp.com/api/profile/", {
+      user_id: res.data[0].user_id, 
+      description: null, 
+      website: null, 
+      birthday: null,  
+      country: null,  
+      language: 'espanol', 
+      name: null,  
+      last_name: null,  
+      currentJobTitle: null, 
+    });
     try {
       await AsyncStorage.setItem("user", JSON.stringify(res.data[0]));
       this.props.navigation.replace("LinkedIn");

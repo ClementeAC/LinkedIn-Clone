@@ -60,7 +60,7 @@ export default class profile extends React.Component {
       respo = await axios.get(
         "https://linckedin.herokuapp.com/api/profile/dataProfile/" + resp.data[0].profile_id);
     } catch (error) {
-      // Error retrieving data
+      console.log(error)
     }
     let response = {};
     if(this.state.context == "Espanol"){

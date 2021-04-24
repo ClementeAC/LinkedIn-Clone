@@ -63,7 +63,7 @@ export default class main extends React.Component {
   }
 
   reactions = async (value) => {
-    console.log(this.state.publication);
+    console.log(value, this.state.publication);
 
     this.setState({ reactionsModalVisible: false, reaction: 1 });
 
@@ -91,6 +91,17 @@ export default class main extends React.Component {
     else{
       celebrate = true;
     }
+
+    console.log({
+      user_id : this.state.user_id, 
+      date, 
+      publication, 
+      charmed, 
+      interesting, 
+      recommend, 
+      celebrate
+    })
+
     await axios.post("https://linckedin.herokuapp.com/api/publication/reaction", {
       user_id : this.state.user_id, 
       date, 
