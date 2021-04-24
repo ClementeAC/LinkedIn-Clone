@@ -37,8 +37,11 @@ export default class main extends React.Component {
       loading: false,
       loadingImage: [],
       publications: [],
+      publication: 0,
       comments: [],
       reactions: [],
+      reaction: 0,
+      user_id: 0,
       reactionsModalVisible: false,
       commentsModalVisible: false,
       sendModalVisible: false,
@@ -50,17 +53,53 @@ export default class main extends React.Component {
 
   async componentDidMount() {
     this.setState({ loading: true });
-    console.log("cargado");
-    if (this.state.publications.length == 0) {
-      let res = await axios.get(
-        "https://linckedin.herokuapp.com/api/publication/"
-      );
-      console.log(res.data);
-      this.setState({
-        publications: res.data,
-        loading: false,
-      });
+    let res = await axios.get("https://linckedin.herokuapp.com/api/publication/");    
+    let respo = await AsyncStorage.getItem("user");    
+    this.setState({
+      publications: res.data,
+      loading: false,
+      user_id: JSON.parse(respo).user_id
+    });
+  }
+
+  reactions = async (value) => {
+    console.log(this.state.publication);
+
+    this.setState({ reactionsModalVisible: false, reaction: 1 });
+
+    let date = new Date(); 
+    let publication = this.state.publication;
+    let charmed = false;
+    let interesting = false;
+    let recommend = false;
+    let celebrate = false;
+
+    await axios.delete("https://linckedin.herokuapp.com/api/publication/reaction", {
+      user_id: this.state.user_id, 
+      publication: this.state.publication,
+    });
+    
+    if(value === "1"){
+      charmed = true;
     }
+    if(value === "2"){
+      interesting = true;
+    }
+    if(value === "3"){
+      recommend = true;
+    }
+    else{
+      celebrate = true;
+    }
+    await axios.post("https://linckedin.herokuapp.com/api/publication/reaction", {
+      user_id : this.state.user_id, 
+      date, 
+      publication, 
+      charmed, 
+      interesting, 
+      recommend, 
+      celebrate
+    });
   }
 
   async onRefresh() {
@@ -236,7 +275,7 @@ export default class main extends React.Component {
                       justifyContent: "space-between",
                     }}
                   >
-                    <Text>{item.reactions === null ? 0 : item.reactions}</Text>
+                    <Text>{item.reactions === null ? 0 : parseInt(item.reactions)+this.state.reaction}</Text>
                     <View style={{ marginLeft: 10 }}></View>
                     <AntDesign
                       style={
@@ -311,14 +350,14 @@ export default class main extends React.Component {
                 >
                   <TouchableOpacity
                     onPress={() => {
-                      this.setState({ reactionsModalVisible: true });
+                      this.setState({ reactionsModalVisible: true, publication: item.publication_id });
                     }}
                   >
                     <AntDesign name="like1" size={24} color="gray" />
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() =>
-                      this.setState({ commentsModalVisible: true })
+                      this.setState({ commentsModalVisible: true, publication: item.publication_id })
                     }
                   >
                     <FontAwesome name="commenting" size={24} color="gray" />
@@ -373,7 +412,7 @@ export default class main extends React.Component {
               >
                 <TouchableOpacity
                   onPress={() => {
-                    this.setState({ reactionsModalVisible: false });
+                    this.reactions("1")
                   }}
                   style={{
                     borderRadius: 23,
@@ -393,7 +432,7 @@ export default class main extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    this.setState({ reactionsModalVisible: false });
+                    this.reactions("2")
                   }}
                   style={{
                     borderRadius: 23,
@@ -411,7 +450,7 @@ export default class main extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    this.setState({ reactionsModalVisible: false });
+                    this.reactions("3")
                   }}
                   style={{
                     borderRadius: 23,
@@ -429,7 +468,7 @@ export default class main extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    this.setState({ reactionsModalVisible: false });
+                    this.reactions("4")
                   }}
                   style={{
                     borderRadius: 23,
@@ -493,7 +532,7 @@ export default class main extends React.Component {
                     marginTop: 5,
                   }}
                 >
-                  <Text>Aqui van los comentarios</Text>
+                  <Text>{true ? "Se el primero en comentar" : null}</Text>
                 </View>
                 <View
                   style={{
