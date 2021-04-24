@@ -58,14 +58,19 @@ export default class main extends React.Component {
     );
     let respo = await AsyncStorage.getItem("user");
     this.setState({
-      publications: res.data,
+      publications: res.data.reverse(),
       loading: false,
       user_id: JSON.parse(respo).user_id,
     });
   }
 
+  comment = async () => {
+    console.log(this.state.comment);
+    this.setState({ commentsModalVisible: true });
+  }
+
   reactions = async (value) => {
-    console.log(value, this.state.publication);
+    console.log(value, this.state.publication, this.state.user_id);
 
     this.setState({ reactionsModalVisible: false, reaction: 1 });
 
@@ -76,20 +81,18 @@ export default class main extends React.Component {
     let recommend = false;
     let celebrate = false;
 
-    await axios.delete(
-      "https://linckedin.herokuapp.com/api/publication/reaction",
+    await axios.delete("https://linckedin.herokuapp.com/api/publication/reaction/"+ this.state.user_id,
       {
-        user_id: this.state.user_id,
-        publication: this.state.publication,
+        publication
       }
     );
 
     if (value === "1") {
       charmed = true;
-    }
+    } else
     if (value === "2") {
       interesting = true;
-    }
+    } else
     if (value === "3") {
       recommend = true;
     } else {
@@ -118,6 +121,8 @@ export default class main extends React.Component {
         celebrate,
       }
     );
+
+    this.onRefresh();
   };
 
   async onRefresh() {
@@ -296,7 +301,7 @@ export default class main extends React.Component {
                     <Text>
                       {item.reactions === null
                         ? 0
-                        : parseInt(item.reactions) + this.state.reaction}
+                        : item.reactions}
                     </Text>
                     <View style={{ marginLeft: 10 }}></View>
                     <AntDesign
@@ -335,8 +340,10 @@ export default class main extends React.Component {
                     />
                   </View>
                   <TouchableOpacity
-                    onPress={() =>
-                      this.setState({ commentsModalVisible: true })
+                    onPress={() => {
+                      this.setState({ commentsModalVisible: true });
+
+                    }
                     }
                   >
                     <View
@@ -525,7 +532,7 @@ export default class main extends React.Component {
             style={{ flex: 1 }}
             activeOpacity={1}
             onPress={() => {
-              this.setState({ commentsModalVisible: false });
+              this.setState({ commentsModalVisible: false, publication: item.publication_id});
             }}
           >
             <View
@@ -559,8 +566,9 @@ export default class main extends React.Component {
                     flexDirection: "column",
                     marginTop: 5,
                   }}
-                >
-                  <Text>{true ? "Se el primero en comentar" : null}</Text>
+                >{this.state.comments.map((item, index) => (
+                  <Text>{item.comment ? item.comment : "Se el primero en comentar"}</Text>
+                ))}
                 </View>
                 <View
                   style={{
@@ -584,7 +592,7 @@ export default class main extends React.Component {
                       this.setState({ comment: comment })
                     }
                   />
-                  <TouchableOpacity style={{ right: 10 }}>
+                  <TouchableOpacity style={{ right: 10 }} onPress={() => this.comment()}>
                     <Ionicons name="send" size={24} color="blue" />
                   </TouchableOpacity>
                 </View>
