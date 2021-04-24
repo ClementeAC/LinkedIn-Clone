@@ -25,6 +25,7 @@ export default class profile extends React.Component {
     super(props);
 
     this.state = {
+      profile_id: 0,
       context: "Espanol",
       modalVisible: false,
       loading: false,
@@ -113,6 +114,7 @@ export default class profile extends React.Component {
     }
 
     this.setState({
+      profile_id: resp.data[0].profile_id,
       username: response.username,
       email: response.email,
       id: response.user_id,
