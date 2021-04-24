@@ -30,6 +30,7 @@ export default class Post extends React.Component {
     let res = await AsyncStorage.getItem("user");
     this.setState({
       username: JSON.parse(res).username,
+      publicationText: "",
     });
   }
 

@@ -25,6 +25,7 @@ export default class profile extends React.Component {
     super(props);
 
     this.state = {
+      context: "Espanol",
       modalVisible: false,
       loading: false,
       username: null,
@@ -44,35 +45,45 @@ export default class profile extends React.Component {
 
   componentDidMount() {
     this.getUser();
-    this.setState({
-      name: "Clemente",
-      lastName: null,
-      title: "Student at Universidad Rafael Urdaneta",
-      currentJobTitle: null,
-      education: ["Colegio Alemán de Maracaibo", "Universidad Rafael Urdaneta"],
-      skills: [
-        "English",
-        "Spanish",
-        "Web development",
-        "Networking experience",
-      ],
-      country: null,
-    });
   }
 
   getUser = async () => {
+    this.setState({loading: true});
     let res = "";
+    let resp = [];
+    let respo = [];
     try {
       res = await AsyncStorage.getItem("user");
+      resp = await axios.get(
+        "https://linckedin.herokuapp.com/api/profile/" + JSON.parse(res).user_id);
+
+      respo = await axios.get(
+        "https://linckedin.herokuapp.com/api/profile/dataProfile/" + resp.data[0].profile_id);
     } catch (error) {
       // Error retrieving data
     }
+    let response = {};
+    if(this.state.context == "Espanol"){
+      response = resp.data[0];
+    }
+    if(this.state.context == "English"){
+      response = resp.data[1];
+    }
+
+    
     this.setState({
       username: JSON.parse(res).username,
       email: JSON.parse(res).email,
       id: JSON.parse(res).user_id,
       phone: JSON.parse(res).phone,
+      name: response.name,
+      lastName: response.last_name,
+      title: response.description,
+      currentJobTitle: response.currentJobTitle,
+      country: null,
+      loading: false
     });
+
   };
 
   async saveData() {
