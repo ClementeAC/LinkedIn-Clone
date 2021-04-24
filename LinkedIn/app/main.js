@@ -187,7 +187,7 @@ export default class main extends React.Component {
                     }
                     onLoadEnd={() => console.log("imagen cargada en: " + index)}
                     ////////////////////////////////////////////////////////////////
-                    source={{uri: item.img}}
+                    source={{ uri: item.img }}
                   />
                 ) : (
                   <Image style={{ height: 0 }} />
