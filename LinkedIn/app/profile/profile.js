@@ -122,8 +122,8 @@ export default class profile extends React.Component {
       name: response.name,
       lastName: response.last_name,
       title: response.description,
-      currentJobTitle: response.currentJobTitle,
-      country: null,
+      currentJobTitle: response.currentjobtitle,
+      country: response.country,
       loading: false,
     });
   };
@@ -1161,7 +1161,7 @@ export default class profile extends React.Component {
                     ) : null}
                   </View>
                   <TouchableOpacity
-                    onPress={() => {
+                    onPress={ async () => {
                       this.setState({
                         modalVisible: false,
                         name: this.state.newname,
@@ -1170,7 +1170,15 @@ export default class profile extends React.Component {
                         currentJobTitle: this.state.newcurrentJobTitle,
                         country: this.state.newcountry,
                       });
-                      //Aqui
+                      await axios.put("https://linckedin.herokuapp.com/api/profile/"+ this.state.profile_id, {
+                        description: this.state.newtitle, 
+                        website: null, 
+                        birthday: null, 
+                        country: this.state.newcountry,
+                        name: this.state.newname, 
+                        last_name: this.state.newlastName, 
+                        currentJobTitle: this.state.newcurrentJobTitle, 
+                    });
                     }}
                     style={{
                       alignItems: "center",
