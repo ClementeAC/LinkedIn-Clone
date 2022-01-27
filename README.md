@@ -1,5 +1,5 @@
 # LinkedIn-Clone 📌
-Ultimo proyecto de moviles.
+Clon de LinkedIn desarrollado en React Native.
 
 # Server 🚀
 * https://github.com/ClementeAC/LinkedInClone-CC-HU/tree/backend
